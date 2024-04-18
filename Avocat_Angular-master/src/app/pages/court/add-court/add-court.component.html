@@ -1,0 +1,77 @@
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center">
+    <!-- Mask -->
+    <span class="mask bg-gradient-primary opacity-10"></span>
+    <!-- Header container -->
+</div>
+<div class="container-fluid mt--7">
+    <div class="row">
+        <div class="col-xl-12 order-xl-1">
+            <div class="card bg-secondary shadow">
+                <div class="card-header bg-white border-0">
+                    <div class="row align-items-center">
+                        <div class="col-12">
+                            <a href="javascript:history.back()"><i class="fa fa-arrow-left"></i> Revenir vers la Liste des tribunaux</a>
+                            <hr>
+                            <h3 class="mb-0">Ajouter Tribunal</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form (ngSubmit)="submitForm()">
+                        <div class="pl-lg-4">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="type" class="form-control-label">Gouvernorat</label>
+                                        <select name="type" class="form-control form-control-alternative" [(ngModel)]="selectedGovernorate" required>
+                                            <option *ngFor="let governorate of governorates" [value]="governorate">{{ governorate }}</option>
+                                        </select>
+                                    </div>
+                             
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="municipality" class="form-control-label">Municipalité</label>
+                                        <input type="text" name="municipality" id="municipality" class="form-control form-control-alternative" placeholder="Municipalité" [(ngModel)]="court.municipality" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="adress" class="form-control-label">Adresse</label>
+                                        <input type="text" name="adress" id="adress" class="form-control form-control-alternative" placeholder="Adresse" [(ngModel)]="court.adress" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="phone" class="form-control-label">phone</label>
+                                        <input type="number" name="phone" id="phone" class="form-control form-control-alternative" placeholder="phone" [(ngModel)]="court.phone" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                            
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="type" class="form-control-label">Type de Tribunal</label>
+                                        <select name="type" class="form-control form-control-alternative" [(ngModel)]="selectedCourtType" required>
+                                            <option *ngFor="let type of courtTypes" [value]="type">{{ type }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 text-right">
+                                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

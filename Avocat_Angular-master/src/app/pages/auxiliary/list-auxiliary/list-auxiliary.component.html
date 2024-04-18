@@ -1,0 +1,120 @@
+<div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+    <div class="container-fluid">
+      <div class="header-body">
+      </div>
+    </div>
+  </div>
+  <!-- Page content -->
+  <div class="container-fluid mt--7">
+    <div class="input-group input-group-alternative">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-search"></i></span>
+      </div>
+      <input class="form-control" placeholder="Rechercher ..." type="text" [(ngModel)]="searchTerm" (keyup)="onSearch()">
+    </div>
+    <br>
+    <!-- Table -->
+    <div class="row">
+      <div class="col">
+        <div class="card shadow">
+          <div class="card-header border-0">
+            <h2 class="mb-0">Liste Auxiliaires</h2>
+          </div>
+          <div class="col-12 text-right">
+          <button type="submit"  class="btn btn-primary" (click)="onAddAuxiliary()"><i class="fa fa-plus"></i> |  Ajouter Auxiliaire </button>
+    
+          <br>
+          <br>
+        </div>
+          <div class="table-responsive">
+            <table class="table align-items-center table-flush">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">Nom Prénom</th>
+                  <th scope="col">Cin</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Ville</th>
+                  <th scope="col">Télephone</th>
+                  <th scope="col">Date de naissaince</th>
+                  <th scope="col">Métier</th>
+                  
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let auxiliary of searchedAuxiliary| slice:(currentPage-1)*itemsPerPage:currentPage*itemsPerPage">
+                    <th scope="row">
+                        <div class="media align-items-center">
+                          <div class="media-body">
+                            <span class="mb-0 text-sm">{{auxiliary.lastName}} {{auxiliary.firstName}}</span>
+                          </div>
+                        </div>
+                      </th>
+                      <td>{{ auxiliary.cin }}</td>
+                      <td>{{ auxiliary.email }}</td>
+                      <td>{{ auxiliary.city }}</td>
+                      <td>{{ auxiliary.phone }}</td>
+                      <td>{{ auxiliary.birthDate }}</td>
+                      <td>{{ auxiliary.job}}</td>
+                      <td>
+                    <button type="button" class="btn btn-sm btn-primary mr-4" [routerLink]="['/update-auxiliary', auxiliary.idAuxiliary]" [state]="{ auxiliary: auxiliary }"><i class="fa fa-edit"></i></button>
+                    <button type="button" class="btn btn-sm btn-danger mr-4" (click)="openDeletePopup(auxiliary.idAuxiliary)"><i class="fa fa-trash"></i></button> 
+                   
+                 
+                 
+                 
+   <!--
+     Supprimer Auxiliary Modal Popup 
+    -->
+ <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display': displayDeleteStyle}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+     
+      <div class="modal-body">
+        <div class="card-body">
+          <form  (ngSubmit)="onDeleteAuxiliary(auxiliary)">
+            <div class="form-group">
+              <p>Êtes-vous sûr de vouloir supprimer cet auxiliaire ?</p>
+            </div>
+         
+            <!-- Ajoutez d'autres champs pour la mise à jour de l'essai si nécessaire -->
+            <button type="submit" class="btn btn-primary">Supprimer Auxiliaire</button>
+            <button type="button" class="btn btn-danger" (click)="closeDeletePopup()">Fermer</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+                  </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <!--Pagination-->
+          <div class="card-footer py-4">
+            <nav aria-label="...">
+              <ul class="pagination justify-content-end mb-0">
+                <li class="page-item" [class.disabled]="currentPage == 1">
+                  <a class="page-link"  (click)="currentPage = 1">&laquo;</a>
+                </li>
+                <li class="page-item" [class.disabled]="currentPage == 1">
+                  <a class="page-link" (click)="currentPage = currentPage - 1">&lt;</a>
+                </li>
+                <li class="page-item" *ngFor="let page of getPages()" [class.active]="currentPage == page">
+                  <a class="page-link"  (click)="currentPage = page">{{ page }}</a>
+                </li>
+                <li class="page-item" [class.disabled]="currentPage == getTotalPages()">
+                  <a class="page-link"  (click)="currentPage = currentPage + 1">&gt;</a>
+                </li>
+                <li class="page-item" [class.disabled]="currentPage == getTotalPages()">
+                  <a class="page-link"  (click)="currentPage = getTotalPages()">&raquo;</a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

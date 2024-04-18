@@ -1,0 +1,69 @@
+<div class="header bg-gradient-primary py-7 py-lg-8">
+  <div class="container">
+    <div class="header-body text-center mb-7">
+      <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-6">
+          <h1 class="text-white">Bienvenue!</h1>
+          <p class="text-lead text-light">Connectez-vous ou inscrivez-vous pour accéder a votre dashboard</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="separator separator-bottom separator-skew zindex-100">
+    <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
+      <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
+    </svg>
+  </div>
+</div>
+<!-- Page content -->
+<div class="container mt--8 pb-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-5 col-md-7">
+      <div class="card bg-secondary shadow border-0">
+        <div class="card-header bg-transparent pb-5">
+          <div class="text-center">
+            <br>
+            <h2>Se connecter</h2>
+          </div>
+        </div>
+        <div class="card-body px-lg-5 py-lg-5">
+          <div class="text-center text-muted mb-4">
+            <h4>Connectez-vous avec vos identifiants</h4>
+          </div>
+          <form role="form" #loginForm="ngForm" (ngSubmit)="onLogin(loginForm.value)">
+            <div class="form-group mb-3">
+              <div class="input-group input-group-alternative">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="ni ni-circle-08"></i></span>
+                </div>
+                <input type="text" name="email" class="form-control" placeholder="Email" ngModel #emailInput="ngModel" required>
+              </div>
+              <span class="help-block" style="color:red;" *ngIf="emailInput.invalid && emailInput.touched">Veuillez entrer votre pseudo</span>
+            </div>
+            <div class="form-group">
+              <div class="input-group input-group-alternative">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                </div>
+                <input type="password" name="password" class="form-control" placeholder="Mot de passe" ngModel #passwordInput="ngModel" required>
+              </div>
+              <span class="help-block" style="color:red;" *ngIf="passwordInput.invalid && passwordInput.touched">Veuillez entrer votre mot de passe</span>
+            </div>
+
+            <div class="text-center">
+              <button type="submit" name="button" [disabled]="loginForm.invalid" class="btn btn-primary my-4">Se connecter</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-6">
+          <a href="javascript:void(0)" class="text-light"><small>Mot de passe oublié?</small></a>
+        </div>
+        <div class="col-6 text-right">
+          <a routerLink="/register" class="text-light"><small>Créer un nouveau compte</small></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

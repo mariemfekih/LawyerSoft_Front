@@ -1,0 +1,90 @@
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center">
+  <!-- Mask -->
+  <span class="mask bg-gradient-primary opacity-10"></span>
+  <!-- Header container -->
+</div>
+<div class="container-fluid mt--7">
+  <div class="row">
+    <div class="col-xl-12 order-xl-1">
+      <div class="card bg-secondary shadow">
+        <div class="card-header bg-white border-0">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h3 class="mb-0">Modifier Utilisateur</h3>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <form   [formGroup]="updateUserForm" (ngSubmit)="updateUser()" >
+            <div class="pl-lg-4">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="firstName" class="form-control-label" >Nom</label>
+                    <input type="text" name="firstName" class="form-control form-control-alternative" required formControlName="firstName">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="lastName" class="form-control-label" >Prénom</label>
+                    <input type="text" name="lastName" class="form-control form-control-alternative" required formControlName="lastName">
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="email" class="form-control-label" >Email</label>
+                    <input type="text" name="email" class="form-control form-control-alternative" required formControlName="email">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="authority" class="form-control-label" >Role</label>
+                    <select name="role" class="form-control form-control-alternative" required formControlName="role">
+                      <option value="MANAGER">MANAGER</option>
+                      <option value="ADMIN">ADMIN</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="username" class="form-control-label" >username</label>
+                    <input type="text" name="username" class="form-control form-control-alternative" required formControlName="username">
+                  </div>
+                </div>
+
+              </div>
+
+            <div class="row">
+
+            <div class="col-lg-12">
+                <fieldset class="form-group">
+                  <div class="form-check">
+                    <label class="form-check-label" >
+                    <input type="checkbox" name="active" ngModel class="form-check-input" required formControlName="active"> Active </label>
+                  </div>
+
+                  <div class="form-check">
+                    <label class="form-check-label" >
+                    <input type="checkbox" name="notLocked" ngModel class="form-check-input" required formControlName="notLocked"> Déverrouillé </label>
+                    </div>
+              </fieldset>
+            </div>
+          </div>
+          <div class="col-12 text-right">
+            <button type="submit" class="btn btn-primary">Modifier</button>
+          </div>
+          </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

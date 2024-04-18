@@ -1,0 +1,94 @@
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center">
+    <!-- Mask -->
+    <span class="mask bg-gradient-primary opacity-10"></span>
+    <!-- Header container -->
+  </div>
+  <div class="container-fluid mt--7">
+    <div class="row">
+        <div class="col-xl-12 order-xl-1">
+            <div class="card bg-secondary shadow">
+                <div class="card-header bg-white border-0">
+                    <div class="row align-items-center">
+                        <div class="col-12">
+                            <a href="javascript:history.back()"><i class="fa fa-arrow-left"></i> Revenir vers la Liste des Auxiliaires</a>
+                            <hr>
+                            <h3 class="mb-0">Modifier Auxiliaire</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="updateAuxiliaryForm" (ngSubmit)="updateAuxiliary()">
+                        <div class="pl-lg-4">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="lastName" class="form-control-label">Nom</label>
+                                        <input type="text" name="lastName" id="lastName" class="form-control form-control-alternative" placeholder="Nom" required formControlName="lastName">
+                                    </div>
+                                    
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="firstName" class="form-control-label">Prénom</label>
+                                        <input type="text" name="firstName" id="firstName" class="form-control form-control-alternative" placeholder="Prénom" required formControlName="firstName">
+                                    </div>
+                                </div>
+                            </div>
+                    
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="cin" class="form-control-label">Cin</label>
+                                        <input type="number" name="cin" id="cin" class="form-control form-control-alternative" placeholder="Cin" required formControlName="cin">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="email" class="form-control-label">Email</label>
+                                        <input type="text" name="email" id="email" class="form-control form-control-alternative" placeholder="Email" required formControlName="email">
+                                    </div>
+                                </div>
+                            </div>
+                    
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="phone" class="form-control-label">Télephone</label>
+                                        <input type="number" name="phone" id="phone" class="form-control form-control-alternative" placeholder="Télephone" required formControlName="phone">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="city" class="form-control-label">Ville</label>
+                                        <input type="text" name="city" id="city" class="form-control form-control-alternative" placeholder="Ville" required formControlName="city">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="birthDate" class="form-control-label">Date de naissance</label>
+                                        <input type="date" name="birthDate" id="birthDate" class="form-control form-control-alternative" placeholder="Date de naissance" required formControlName="birthDate">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="job" class="form-control-label">Métier</label>
+                                        <input type="text" name="job" id="job" class="form-control form-control-alternative" placeholder="Métier" required formControlName="job">
+                                    </div>
+                                </div>
+                            </div>
+                    
+                            <div class="col-12 text-right">
+                                <button type="submit" class="btn btn-primary">Modifier</button>
+                            </div>
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  

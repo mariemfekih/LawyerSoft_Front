@@ -1,0 +1,78 @@
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center">
+    <!-- Mask -->
+    <span class="mask bg-gradient-primary opacity-10"></span>
+    <!-- Header container -->
+  </div>
+  <div class="container-fluid mt--7">
+    <div class="row">
+      <div class="col-xl-12 order-xl-1">
+        <div class="card bg-secondary shadow">
+          <div class="card-header bg-white border-0">
+            <div class="row align-items-center">
+              <div class="col-12">
+                <a href="javascript:history.back()"><i class="fa fa-arrow-left"></i> Revenir vers la Liste des Honoraires</a>
+                <hr>
+                <h3 class="mb-0">Modifier Honoraire</h3>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <form (ngSubmit)="modifierHonoraire()" #honoraireForm="ngForm">
+              <div class="pl-lg-4">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="titre" class="form-control-label" >Titre</label>
+                      <input type="text" name="titre" id="titre" class="form-control form-control-alternative" placeholder="Titre" [(ngModel)]="honoraire.titre" >
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="type" class="form-control-label" >Type</label>
+                      <input type="text" name="type" id="type" class="form-control form-control-alternative" placeholder="Type" [(ngModel)]="honoraire.type">
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="dateCreation" class="form-control-label" >Date</label>
+                      <input type="date" name="date" id="date" class="form-control form-control-alternative" placeholder="Date" [(ngModel)]="honoraire.date">
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="montant" class="form-control-label" >Montant</label>
+                      <input type="number" name="montant" id="montant" class="form-control form-control-alternative" placeholder="Montant" [(ngModel)]="honoraire.montant">
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                          <label for="reste" class="form-control-label" >Reste</label>
+                          <input type="text" name="reste" id="reste" class="form-control form-control-alternative" placeholder="Reste" [(ngModel)]="honoraire.reste">
+                        </div>
+                      </div>
+        
+                </div>
+  
+        
+
+            <div class="col-12 text-right">
+              <button type="submit" class="btn btn-primary">Modifier</button>
+            </div>  
+            </div>
+  
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+
+
