@@ -8,5 +8,5 @@ export class Contributor {
   type: ContributorType; 
   case: Case; //esmha cases and its not many cases
   auxiliary: Auxiliary;
-  selectedAuxiliaryId?: number; 
+ selectedAuxiliaryId?: number; 
 }

@@ -44,7 +44,7 @@ export class UserService {
   }
 
   updateUser(idUser: number, updatedUser: User): Observable<User> {
-    const url = `${this.host}/user/updateUser/${idUser}`; // Include idUser in the URL
+    const url = `${this.host}/user/updateUser/${idUser}`; 
     return this.http.put<User>(url, updatedUser);
   }
 

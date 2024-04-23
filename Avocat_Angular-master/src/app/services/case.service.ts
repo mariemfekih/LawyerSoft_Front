@@ -15,27 +15,27 @@ export class CaseService {
   constructor(private http:HttpClient) {}
 
   getCases(): Observable<Case[]> {
-    return this.http.get<Case[]>(`${this.host}/Case/getCases`);
+    return this.http.get<Case[]>(`${this.host}/Case`);
   }
 
   addCase(newCase: Case): Observable<Case> {
-    const url = `${this.host}/Case/addCase`;
+    const url = `${this.host}/Case`;
     return this.http.post<Case>(url, newCase);
   }
   
 
   deleteCase(idCase: number): Observable<void> {
-    const url = `${this.host}/Case/deleteCase/${idCase}`;
+    const url = `${this.host}/Case/${idCase}`;
     return this.http.delete<void>(url);
   }
 
   getCaseById(idCase: number): Observable<Case> {
-    const url = `${this.host}/Case/getCaseById/${idCase}`;
+    const url = `${this.host}/Case/${idCase}`;
     return this.http.get<Case>(url);
   }
 
   updateCase(idCase: number, updatedCase: Case): Observable<Case> {
-    const url = `${this.host}/Case/updateCase/${idCase}`; // Include idCase in the URL
+    const url = `${this.host}/Case/${idCase}`; 
     return this.http.put<Case>(url, updatedCase);
   }
   

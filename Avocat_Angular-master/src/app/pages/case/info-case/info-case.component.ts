@@ -209,14 +209,33 @@ openDeleteContributorPopup(idContributor: number) {
 closeDeleteContributorPopup() {
   this.displayDeleteContributorStyle = 'none'; 
 }
+// info-case.component.ts
+onAddContributor() {
+  const newContributor: Contributor = {
+      type: this.selectedContributorType, // Use the selected contributor type instead of ContributorType
+      case: this.case, // Assign the current case object
+      auxiliary: this.auxiliaries.find(auxiliary => auxiliary.idAuxiliary === this.selectedAuxiliaryId),
+      selectedAuxiliaryId: undefined // Reset selectedAuxiliaryId after adding
+  };
+  this.contributorService.addContributorToCase(this.case.idCase, newContributor)
+      .subscribe(
+          (addedContributor: Contributor) => {
+              console.log('Contributor added successfully:', addedContributor);
+              this.contributors.push(addedContributor); // Update the contributors list locally
+              this.closeAddContributorPopup(); // Close the popup
+          },
+          (error) => {
+              console.error('Error adding contributor:', error);
+          }
+      );
+}
 
+/*
 onAddContributor() {
   const newContributor: Contributor = {
     type: this.selectedContributorType, // Use the selected contributor type instead of ContributorType
     case: this.case, // Assign the current case object
-    auxiliary: this.auxiliaries.find(auxiliary => auxiliary.idAuxiliary === this.selectedAuxiliaryId),
-    selectedAuxiliaryId: undefined // Reset selectedAuxiliaryId after adding
-  };
+    auxiliary: this.auxiliaries.find(auxiliary => auxiliary.idAuxiliary === this.selectedAuxiliaryId)  };
 
   this.contributorService.addContributorToCase(this.case.idCase, newContributor)
     .subscribe(
@@ -229,9 +248,7 @@ onAddContributor() {
         console.error('Error adding contributor:', error);
       }
     );
-}
-
-
+}*/
 
 
 

@@ -34,18 +34,7 @@ export class ListCaseComponent implements OnInit {
       );
     }
   
-    //Supprimer un courrier DE donné par son id
-   /* public deleteCourrier(numeroCourrier: any) {
-      this.courrierService.deleteCourrier(numeroCourrier).subscribe(
-        () => {
-          this.listCourriersDi();
-          console.log("supp");
-        }); (error) => {
-          console.log("erreur");
-        }
-    }*/
-  
-  
+    
     /*Recherche dynamique*/
     public onSearch(): void {
       const searchTermLowerCase = this.searchTerm.toLowerCase();
@@ -73,7 +62,7 @@ export class ListCaseComponent implements OnInit {
       const caseId: number = Number(idCase); // Convert idCase to number
       if (isNaN(caseId)) {
           console.error('Invalid idCase:', idCase);
-          return; // Stop execution if idCase is not a valid number
+          return; 
       }
   
       this.caseService.deleteCase(caseId).subscribe(
