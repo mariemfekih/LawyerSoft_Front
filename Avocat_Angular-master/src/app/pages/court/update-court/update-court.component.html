@@ -47,7 +47,7 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="phone" class="form-control-label">phone</label>
-                                        <input type="number" name="phone" id="phone" class="form-control form-control-alternative" placeholder="phone" required formControlName="phone">
+                                        <input type="text" name="phone" id="phone" class="form-control form-control-alternative" placeholder="phone" required formControlName="phone">
                                     </div>
                                 </div>
                             </div>
@@ -57,7 +57,7 @@
                                     <div class="form-group">
                                         <label for="type" class="form-control-label">Type Tribunal</label>
                                         <select name="type" class="form-control form-control-alternative" [(ngModel)]="selectedCourtType" formControlName="type">
-                                            <option *ngFor="let type of courtTypes" [value]="type">{{ type }}</option>
+                                            <option *ngFor="let type of courtTypes" [value]="type">{{ translateCourtType(type) }}</option>
                                         </select>
                                     </div>
                                 </div>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Case } from 'src/app/models/case';
+import { CaseTypeTranslator } from 'src/app/models/type/TranslatorFr/caseTypeTranslator';
 import { CaseType } from 'src/app/models/type/caseType';
 import { CaseService } from 'src/app/services/case.service';
 
@@ -16,7 +17,9 @@ export class AddCaseComponent implements OnInit {
   selectedCaseType: CaseType = CaseType.CIVIL; // Valeur initiale
   // Obtenir toutes les valeurs de l'énumération CaseType
   caseTypes = Object.values(CaseType);
-
+  translateCaseType(type: CaseType): string {
+    return CaseTypeTranslator.translateFrType(type);
+  }
 
   constructor(private caseService: CaseService,
            //   private tribunalService: TribunalService,

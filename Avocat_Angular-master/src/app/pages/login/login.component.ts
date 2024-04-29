@@ -34,22 +34,31 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.showLoading = true;
     this.subscriptions.push(
       this.authenticationService.login(user).subscribe(
-        (response: HttpResponse<User>) => {
-          console.log('res',response)
-          const token = response.headers.get(HeaderType.JWT_TOKEN);// Handle potential missing token
-          this.authenticationService.saveToken(token);// Secure token storage
+        (response: HttpResponse<any>) => {
+          console.log('res',response);
+          // const token = response.headers.get(HeaderType.JWT_TOKEN); // Handle potential missing token
+          const token = response.body!.token;
+          this.authenticationService.saveToken(token); // Secure token storage
           localStorage.setItem('token', token); // Additional storage for convenience
-          this.authenticationService.addUserToLocalCache(response.body);// Save user details
-          this.router.navigateByUrl('dashboard');
-          this.showLoading= false ;
+          this.authenticationService.addUserToLocalCache(response.body); // Save user details
+  
+          // Check if email and password match admin credentials
+          if (user.email === 'admin@lawyersoft.com' && user.password === '1234') {
+            this.router.navigateByUrl('/dashboard-admin');
+          } else {
+            this.router.navigateByUrl('/dashboard');
+          }
+  
+          this.showLoading = false;
         },
         (errorResponse: HttpErrorResponse) => {
           this.sendErrorNotification(NotificationType.ERROR, errorResponse.error.message);
-          this.showLoading= false ;
+          this.showLoading = false;
         }
       )
-      );
+    );
   }
+  
 
   private sendErrorNotification(notificationType: NotificationType, message: string): void{
     if (message) {

@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 import { Auxiliary } from 'src/app/models/auxiliary';
 import { Case } from 'src/app/models/case';
 import { Contributor } from 'src/app/models/contributor';
+import { NewContributor } from 'src/app/models/dto/newContributor';
 import { Trial } from 'src/app/models/trial';
+import { ContributorTypeTranslator } from 'src/app/models/type/TranslatorFr/contributorTypeTranslator';
 import { ContributorType } from 'src/app/models/type/contributorType';
 import { AuxiliaryService } from 'src/app/services/auxiliary.service';
 import { CaseService } from 'src/app/services/case.service';
@@ -49,7 +52,9 @@ selectedAuxiliaryId: number;
 auxiliaries: Auxiliary[] = [];
 selectedContributorType:ContributorType;
 contributorTypes = Object.values(ContributorType);
-
+translateContributorType(type: ContributorType): string {
+  return ContributorTypeTranslator.translateFrType(type);
+}
 
   constructor(
     private route: ActivatedRoute,
@@ -65,6 +70,7 @@ contributorTypes = Object.values(ContributorType);
 
     this.loadCaseDetails(this.idCase);
     this.getTrialsByCaseId();
+    this.getContributorsByCaseId(this.idCase); 
 
     this.auxiliaryService.getAuxiliaries().subscribe(
       (data: Auxiliary[]) => {
@@ -75,15 +81,30 @@ contributorTypes = Object.values(ContributorType);
         console.error('Error fetching auxiliaries:', error);
       }
     );
+
   }
 
   getTrialsByCaseId() {
     this.trialService.getTrialsByCaseId(this.idCase).subscribe(
       (data: Trial[]) => {
         this.trials = data;
+        console.log('Trials:', this.trials); // Add this line for debugging
       },
       error => {
         console.error('Error fetching trials:', error);
+        // Handle error: display an error message or log it
+      }
+    );
+  }
+  getContributorsByCaseId(caseId: number) {
+    this.contributorService.getContributorsByCaseId(caseId).subscribe(
+      (data: Contributor[]) => {
+        this.contributors = data;
+        console.log('Contributors:', this.contributors); // Log the fetched contributors for debugging
+      },
+      error => {
+        console.error('Error fetching contributors:', error);
+        // Handle error: display an error message or log it
       }
     );
   }
@@ -99,6 +120,10 @@ contributorTypes = Object.values(ContributorType);
     );
   }
 
+
+/**
+ * Trial
+ */
   openAddTrialPopup() {
     this.displayAddTrialStyle = 'block'; // pour afficher la boîte de dialogue modale
   }
@@ -153,18 +178,7 @@ contributorTypes = Object.values(ContributorType);
         }
     );
   }
-  /*onDeleteTrial(caseId: number, idTrial: number) {
-    this.trialService.deleteTrial(caseId, idTrial).subscribe(
-        () => {
-            console.log('Trial deleted successfully');
-            this.trials = this.trials.filter(trial => trial.idTrial !== idTrial);
-        },
-        (error) => {
-            console.error('Error deleting trial:', error);
-        }
-    );
-  }*/
-  
+
 
   updateTrial(): void {
     this.trialService.updateTrial(this.idCase, this.idTrial, this.updatedTrial)
@@ -209,51 +223,47 @@ openDeleteContributorPopup(idContributor: number) {
 closeDeleteContributorPopup() {
   this.displayDeleteContributorStyle = 'none'; 
 }
-// info-case.component.ts
-onAddContributor() {
+
+/*onAddContributor() {
   const newContributor: Contributor = {
-      type: this.selectedContributorType, // Use the selected contributor type instead of ContributorType
-      case: this.case, // Assign the current case object
+      type: this.selectedContributorType, 
+      cases: this.case, 
       auxiliary: this.auxiliaries.find(auxiliary => auxiliary.idAuxiliary === this.selectedAuxiliaryId),
-      selectedAuxiliaryId: undefined // Reset selectedAuxiliaryId after adding
+      selectedAuxiliaryId: undefined 
   };
   this.contributorService.addContributorToCase(this.case.idCase, newContributor)
       .subscribe(
           (addedContributor: Contributor) => {
+            console.log('Selected Auxiliary ID:', this.selectedAuxiliaryId);
               console.log('Contributor added successfully:', addedContributor);
               this.contributors.push(addedContributor); // Update the contributors list locally
-              this.closeAddContributorPopup(); // Close the popup
+              this.closeAddContributorPopup(); 
           },
           (error) => {
               console.error('Error adding contributor:', error);
           }
-      );
-}
-
-/*
-onAddContributor() {
-  const newContributor: Contributor = {
-    type: this.selectedContributorType, // Use the selected contributor type instead of ContributorType
-    case: this.case, // Assign the current case object
-    auxiliary: this.auxiliaries.find(auxiliary => auxiliary.idAuxiliary === this.selectedAuxiliaryId)  };
-
-  this.contributorService.addContributorToCase(this.case.idCase, newContributor)
-    .subscribe(
-      (addedContributor: Contributor) => {
-        console.log('Contributor added successfully:', addedContributor);
-        this.contributors.push(addedContributor); // Update the contributors list locally
-        this.closeAddContributorPopup(); // Close the popup
-      },
-      (error) => {
-        console.error('Error adding contributor:', error);
-      }
-    );
+  );
 }*/
+onAddContributor(): void {
+  const newContributor: NewContributor = {
 
-
-
-
-
+    type: this.selectedContributorType,
+    idAuxiliary: this.selectedAuxiliaryId
+  };
+  this.contributorService.addContributorToCase(this.case.idCase, newContributor)
+  .subscribe(
+    (addedContributor: Contributor) => {
+      console.log('Selected Auxiliary ID:', this.selectedAuxiliaryId);
+      console.log('Contributor added successfully:',addedContributor);
+      this.contributors.push(addedContributor); // Update the contributors list locally
+      this.closeAddContributorPopup(); 
+    },
+    (error) => {
+      console.error('Error adding contributor:', error);
+    }
+  );
+  
+}
 
 
 /*Pagination*/
@@ -301,35 +311,6 @@ getPages(): number[] {
     }
 
 
-    translateFrType(type: ContributorType): string {
-      switch (type) {
-        case ContributorType.CUSTOMER:
-          return 'Client';
-        case ContributorType.JUDGE:
-          return 'Juge';
-        case ContributorType.JUDICIAL_OFFICER:
-          return 'Officier judiciaire';
-        case ContributorType.LEGAL_EXPERT:
-          return 'Expert juridique';
-        case ContributorType.DEFENDANT:
-          return 'Défendeur';
-        case ContributorType.PLAIGNANT:
-          return 'Plaignant';
-        case ContributorType.WITNESS:
-          return 'Témoin';
-        case ContributorType.REPORTER:
-          return 'Rapporteur';
-        case ContributorType.LEGAL_COUNSEL:
-          return 'Conseiller juridique';
-        case ContributorType.INVESTIGATING_JUDGE:
-          return 'Juge d\'instruction';
-        case ContributorType.LAWYER:
-          return 'Avocat';
-        default:
-          return 'Type inconnu'; 
-      }
-    }
-    
     
 
 }

@@ -3,6 +3,7 @@ import { Contributor } from '../models/contributor';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
+import { NewContributor } from '../models/dto/newContributor';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +19,12 @@ export class ContributorService {
     return this.http.post<Contributor>(url, contributor, { headers });
   }*/
 
-  addContributorToCase(caseId: number, contributor: Contributor): Observable<any> {
+  addContributorToCase(caseId: number, contributor: NewContributor): Observable<any> {
     return this.http.post<any>(`${this.host}/Case/${caseId}/addContributor`, contributor);
+  }
+  getContributorsByCaseId(caseId: number): Observable<any[]> {
+    const url = `${this.host}/Case/${caseId}/contributors`; 
+    return this.http.get<any[]>(url);
   }
 
 }

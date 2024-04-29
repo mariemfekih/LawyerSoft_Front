@@ -41,6 +41,7 @@ import { UpdateCourtComponent } from 'src/app/pages/court/update-court/update-co
 import { AddAuxiliaryComponent } from 'src/app/pages/auxiliary/add-auxiliary/add-auxiliary.component';
 import { ListAuxiliaryComponent } from 'src/app/pages/auxiliary/list-auxiliary/list-auxiliary.component';
 import { UpdateAuxiliaryComponent } from 'src/app/pages/auxiliary/update-auxiliary/update-auxiliary.component';
+import { DashboardAdminComponent } from 'src/app/pages/dashboard-admin/dashboard-admin.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
@@ -88,7 +89,10 @@ export const AdminLayoutRoutes: Routes = [
   { path: 'add-auxiliary',           component: AddAuxiliaryComponent },
   { path: 'update-auxiliary/:idAuxiliary',           component: UpdateAuxiliaryComponent },
   
-
+/**
+ * Admin
+ */
+{ path: 'dashboard-admin',      component: DashboardAdminComponent },
   
     { path: 'update-honoraire/:idHonoraire',           component: UpdateHonoraireComponent },
     { path: 'list-honoraire',           component: ListHonoraireComponent },

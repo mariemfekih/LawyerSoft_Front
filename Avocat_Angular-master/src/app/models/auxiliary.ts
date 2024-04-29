@@ -4,10 +4,10 @@ export class Auxiliary {
     idAuxiliary: number;
     firstName: string;
     lastName: string;
-    cin: number;
+    cin: string;
     email: string;
     city: string;
-    phone: number;
+    phone: string;
     birthDate: Date;
     job: string;
 

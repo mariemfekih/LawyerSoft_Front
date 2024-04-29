@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Court } from 'src/app/models/court';
+import { CourtTypeTranslator } from 'src/app/models/type/TranslatorFr/courtTypeTranslator';
+import { CourtType } from 'src/app/models/type/courtType';
 import { Governorate } from 'src/app/models/type/governorate';
 import { CourtService } from 'src/app/services/court.service';
 
@@ -18,13 +20,16 @@ export class ListCourtComponent implements OnInit {
   searchedCourt: Court[];
 
 
+
   constructor(private courtService: CourtService,
               private router: Router) { }
 
   ngOnInit(): void {
     this.getCourts();
   }
-
+  translateCourtType(type: CourtType): string {
+    return CourtTypeTranslator.translateFrType(type);
+  }
   //Afficher la liste des Court
   public getCourts() {
     this.courtService.getCourts().subscribe(
@@ -61,7 +66,7 @@ export class ListCourtComponent implements OnInit {
     this.router.navigateByUrl('/add-court');
   }
 
-  public deleteCourt(idCourt: any) {
+  public deleteCourt(idCourt: number) {
     const courtId: number = Number(idCourt); // Convert idCourt to number
     if (isNaN(courtId)) {
         console.error('Invalid idCourt:', idCourt);

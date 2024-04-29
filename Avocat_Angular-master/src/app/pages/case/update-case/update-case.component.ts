@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Case } from 'src/app/models/case';
+import { CaseTypeTranslator } from 'src/app/models/type/TranslatorFr/caseTypeTranslator';
 import { CaseType } from 'src/app/models/type/caseType';
 import { CaseService } from 'src/app/services/case.service';
 
@@ -15,7 +16,9 @@ export class UpdateCaseComponent implements OnInit {
   caseTypes = Object.values(CaseType);
   case: Case; // Make sure to import Case from the correct path
   selectedCaseType: CaseType = CaseType.CIVIL; // Valeur initiale
-
+  translateCaseType(type: CaseType): string {
+    return CaseTypeTranslator.translateFrType(type);
+  }
   updateCaseForm: FormGroup;
 
   constructor(

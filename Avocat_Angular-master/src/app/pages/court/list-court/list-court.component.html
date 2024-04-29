@@ -49,7 +49,7 @@
                   <td>{{ court.municipality }}</td>
                   <td>{{ court.adress }}</td>
                   <td>{{ court.phone }}</td>
-                  <td>{{ court.type }}</td>
+                  <td>{{ translateCourtType(court.type) }}</td>
                   <td>
                     <button type="button" class="btn btn-sm btn-primary mr-4" [routerLink]="['/update-court', court.idCourt]" [state]="{ court: court }"><i class="fa fa-edit"></i></button>
                     <button type="button" class="btn btn-sm btn-danger mr-4" (click)="deleteCourt(court.idCourt)"><i class="fa fa-trash"></i></button> 

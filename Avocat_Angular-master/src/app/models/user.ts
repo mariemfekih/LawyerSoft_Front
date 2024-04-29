@@ -2,7 +2,7 @@ import { Role } from '../models/type/role';
 
 export class User {
   id: number;
-  cin: number;
+  cin: string;
   firstName: string;
   lastName: string;
   username: string;

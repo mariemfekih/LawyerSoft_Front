@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Court } from 'src/app/models/court';
+import { CourtTypeTranslator } from 'src/app/models/type/TranslatorFr/courtTypeTranslator';
 import { CourtType } from 'src/app/models/type/courtType';
 import { Governorate } from 'src/app/models/type/governorate';
 import { CourtService } from 'src/app/services/court.service';
@@ -19,7 +20,9 @@ export class UpdateCourtComponent implements OnInit {
   courtTypes = Object.values(CourtType);
   court: Court; 
   selectedCourtType: CourtType = CourtType.FIRST_INSTANCE; // Valeur initiale
-
+  translateCourtType(type: CourtType): string {
+    return CourtTypeTranslator.translateFrType(type);
+  }
   updateCourtForm: FormGroup;
 
   constructor(
@@ -38,6 +41,7 @@ export class UpdateCourtComponent implements OnInit {
     });
   
     const idCourt = this.route.snapshot.params['idCourt'];
+    console.log('idCourt:', idCourt);
     this.courtService.getCourtById(idCourt).subscribe(data => {
       this.court = data as Court;
   

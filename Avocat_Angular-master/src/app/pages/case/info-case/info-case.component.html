@@ -26,51 +26,78 @@
             <p class="card-text"><strong>Type:</strong> {{ case?.type }}</p>
           </div>
   
-          <!-- Ajouter Trial button with MODAL POPUP -->
+          <!-- TRIAL -->
           <div class="card-footer col-12">
             <h4>Audience:</h4>
-            <div class=" text-right">
+            <div class="text-right">
               <button type="button" class="btn btn-primary" (click)="openAddTrialPopup()"> <i class="fa fa-plus"></i> Ajouter Audience </button>
-              <br> <br> <br>
-              <!--TABLE-->
-              <div class="table-responsive">
-                <table class="table align-items-center table-flush">
-                  <thead class="thead-light">
-                    <tr>
-                      <th scope="col">Titre</th>
-                      <th scope="col">Description</th>
-                      <th scope="col">Jugement</th>
-                      <th scope="col">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let trial of trials.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)">
-                      <td>{{ trial.title }}</td>
-                      <td>{{ trial.description }}</td>
-                      <td>{{ trial.judgement }}</td>
-                      <td>
-                        <button type="button" class="btn btn-sm btn-primary mr-4" (click)="openUpdateTrialPopup(trial.idTrial)"><i class="fa fa-edit"></i></button>
-                        <button type="button" class="btn btn-sm btn-danger mr-4" (click)="openDeleteTrialPopup( trial.idTrial)"><i class="fa fa-trash"></i></button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+            </div>
+          
+            <div class="table-responsive">
+              <table class="table align-items-center table-flush">
+                <thead>
+                  <tr>
+                    <th scope="col">Titre</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Jugement</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let trial of trials">
+                    <td>{{ trial.title }}</td>
+                    <td>{{ trial.description }}</td>
+                    <td>{{ trial.judgement }}</td>
+                    <td>
+                      <button type="button" class="btn btn-sm btn-primary mr-4" (click)="openUpdateTrialPopup(trial.idTrial)">
+                        <i class="fa fa-edit"></i>
+                      </button>
+                      <button type="button" class="btn btn-sm btn-danger mr-4" (click)="openDeleteTrialPopup(trial.idTrial)">
+                        <i class="fa fa-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <!--
+            Ajouter TRIAL MODAL
+          -->
+          
+          <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display': displayAddTrialStyle}">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title">Ajouter une Audience</h4>
+                </div>
+                <div class="modal-body">
+                  <div class="card-body">
+                    <form (ngSubmit)="onAddTrial()">
+                      <div class="form-group">
+                        <label for="title">Titre</label>
+                        <input type="text" class="form-control" id="title" name="title" placeholder="titre" [(ngModel)]="trial1.title" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" id="description" name="description" placeholder="description" [(ngModel)]="trial1.description" required></textarea>
+                      </div>
+                      <div class="form-group">
+                        <label for="judgement">Jugement</label>
+                        <input type="text" class="form-control" id="judgement" name="judgement" placeholder="jugement" [(ngModel)]="trial1.judgement" required>
+                      </div>
+                      <button type="submit" class="btn btn-primary">Ajouter Trial</button>
+                      <button type="button" class="btn btn-danger" (click)="closeAddTrialPopup()">Fermer</button>
+                    </form>
+                  </div>
+                </div>
               </div>
+            </div>
+          </div>
+          
 
 
-              <tbody>
-                <tr *ngFor="let contributor of contributors.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)">
-                  <td>{{ contributor.auxiliary?.name }}</td> <td>
-                    <button type="button" class="btn btn-sm btn-primary mr-4" (click)="openUpdateContributorPopup(contributor)">
-                      <i class="fa fa-edit"></i>
-                    </button>
-                    <button type="button" class="btn btn-sm btn-danger mr-4" (click)="openDeleteContributorPopup(contributor.idContributor)">
-                      <i class="fa fa-trash"></i>
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-              
+     
 
                <!-- 
                 Ajouter Contributor button with MODAL POPUP 
@@ -99,27 +126,32 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let contributor of contributors| slice:(currentPage-1)*itemsPerPage:currentPage*itemsPerPage">
+                    <tr *ngFor="let contributor of contributors | slice:(currentPage-1)*itemsPerPage:currentPage*itemsPerPage">
                       <th scope="row">
-                          <div class="media align-items-center">
-                            <div class="media-body"> 
-                              <span class="mb-0 text-sm">{{contributor.lastName}} {{contributor.firstName}}</span>
-                            </div>
+                        <div class="media align-items-center">
+                          <div class="media-body"> 
+                            <span class="mb-0 text-sm">{{contributor?.auxiliary?.lastName}} {{contributor?.auxiliary?.firstName}}</span>
                           </div>
-                        </th>
-                        <td>{{ contributor.cin }}</td>
-                        <td>{{ contributor.email }}</td>
-                        <td>{{ contributor.city }}</td>
-                        <td>{{ contributor.phone }}</td>
-                        <td>{{ contributor.birthDate }}</td>
-                        <td>{{ contributor.job}}</td>
-                        <td>{{ contributor.typeContributor}}</td>
+                        </div>
+                      </th>
+                      <td>{{ contributor?.auxiliary?.cin }}</td>
+                      <td>{{ contributor?.auxiliary?.email }}</td>
+                      <td>{{ contributor?.auxiliary?.city }}</td>
+                      <td>{{ contributor?.auxiliary?.phone }}</td>
+                      <td>{{ contributor?.auxiliary?.birthDate }}</td>
+                      <td>{{ contributor?.auxiliary?.job}}</td>
+                      <td>{{ contributor?.type}}</td>
                       <td>
-                        <button type="button" class="btn btn-sm btn-primary mr-4" (click)="openUpdateContributorPopup(contributor.idContributor)"><i class="fa fa-edit"></i></button>
-                        <button type="button" class="btn btn-sm btn-danger mr-4" (click)="openDeleteContributorPopup( contributor.idContributor)"><i class="fa fa-trash"></i></button>
+                        <button type="button" class="btn btn-sm btn-primary mr-4" (click)="openUpdateContributorPopup(contributor.idContributor)">
+                          <i class="fa fa-edit"></i>
+                        </button>
+                        <button type="button" class="btn btn-sm btn-danger mr-4" (click)="openDeleteContributorPopup( contributor.idContributor)">
+                          <i class="fa fa-trash"></i>
+                        </button>
                       </td>
                     </tr>
                   </tbody>
+                  
                 </table>
               </div>
 
@@ -153,37 +185,7 @@
       </div>
     </div>
   </div>
-  
-  <!-- Ajouter Trial Modal Popup -->
-  <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display': displayAddTrialStyle}">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Ajouter un trial</h4>
-        </div>
-        <div class="modal-body">
-          <div class="card-body">
-            <form (ngSubmit)="onAddTrial()">
-              <div class="form-group">
-                <label for="title">Title</label>
-                <input type="text" class="form-control" id="title" name="title" [(ngModel)]="trial1.title" required>
-              </div>
-              <div class="form-group">
-                <label for="description">Description</label>
-                <textarea class="form-control" id="description" name="description" [(ngModel)]="trial1.description" required></textarea>
-              </div>
-              <div class="form-group">
-                <label for="judgement">Jugement</label>
-                <input type="text" class="form-control" id="judgement" name="judgement" [(ngModel)]="trial1.judgement" required>
-              </div>
-              <button type="submit" class="btn btn-primary">Ajouter Trial</button>
-              <button type="button" class="btn btn-danger" (click)="closeAddTrialPopup()">Fermer </button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+
   
   <!-- Modifier Trial Modal Popup -->
   <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display': displayUpdateTrialStyle}">
@@ -253,16 +255,18 @@
         <div class="card-body">
           <form (ngSubmit)="onAddContributor()">
             <div class="form-group">
-              <label for="auxiliary">Auxiliaire</label>
               <select class="form-control" id="auxiliary" name="auxiliary" [(ngModel)]="selectedAuxiliaryId" required>
-                <option *ngFor="let auxiliary of auxiliaries" [value]="auxiliary.idAuxiliary">{{ auxiliary.lastName }}  {{ auxiliary.firstName}}</option>
-              </select>
+                <option *ngFor="let auxiliary of auxiliaries" [ngValue]="auxiliary.idAuxiliary">{{ auxiliary.lastName }} {{ auxiliary.firstName }}</option>
+            </select>
+            
+
+              
             </div>
             
             <div class="form-group">
               <label for="contributorType">Type d'intervenant</label>
               <select name="type" class="form-control form-control-alternative" [(ngModel)]="selectedContributorType">
-                <option *ngFor="let type of contributorTypes" [value]="type">{{ translateFrType(type) }}</option>
+                <option *ngFor="let type of contributorTypes" [value]="type">{{ type }}</option>
               </select>
               
             </div>

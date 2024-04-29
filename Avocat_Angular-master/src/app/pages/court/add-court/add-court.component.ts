@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Court } from 'src/app/models/court';
+import { CourtTypeTranslator } from 'src/app/models/type/TranslatorFr/courtTypeTranslator';
 import { CourtType } from 'src/app/models/type/courtType';
 import { Governorate } from 'src/app/models/type/governorate';
 import { CourtService } from 'src/app/services/court.service';
@@ -14,19 +15,24 @@ export class AddCourtComponent implements OnInit {
   public court: Court = new Court();
   selectedCourtId: number;
 
-  selectedCourtType: CourtType = CourtType.FIRST_INSTANCE; // Valeur initiale
+  selectedCourtType: CourtType = CourtType.FIRST_INSTANCE;
   courtTypes = Object.values(CourtType);
-
+  translateCourtType(type: CourtType): string {
+    return CourtTypeTranslator.translateFrType(type);
+  }
   governorates = Object.values(Governorate);
-  selectedGovernorate: Governorate = Governorate.Ariana;
-  
+  selectedGovernorate: Governorate; // Removed the default value
+
   constructor(private courtService: CourtService,
               private router: Router) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.selectedGovernorate = Governorate.Ariana; // Initialize the selected governorate
+  }
 
   submitForm() {
     this.court.type = this.selectedCourtType;
+    this.court.governorate = this.selectedGovernorate; // Assign the selected governorate
 
     this.courtService.addCourt(this.court).subscribe(
       newcourt => {
@@ -38,5 +44,4 @@ export class AddCourtComponent implements OnInit {
       }
     );
   }
-
 }

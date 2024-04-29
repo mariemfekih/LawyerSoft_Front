@@ -6,7 +6,7 @@ export class Court {
     governorate: string;
     municipality: string;
     adress: string;
-    phone: number;
+    phone: string;
     type: CourtType;
     trials: Trial[];
   }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Case } from 'src/app/models/case';
+import { CaseTypeTranslator } from 'src/app/models/type/TranslatorFr/caseTypeTranslator';
+import { CaseType } from 'src/app/models/type/caseType';
 import { CaseService } from 'src/app/services/case.service';
 
 @Component({
@@ -33,7 +35,9 @@ export class ListCaseComponent implements OnInit {
         }
       );
     }
-  
+    translateCaseType(type: CaseType): string {
+      return CaseTypeTranslator.translateFrType(type);
+    }
     
     /*Recherche dynamique*/
     public onSearch(): void {

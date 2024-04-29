@@ -34,7 +34,7 @@
               <thead class="thead-light">
                 <tr>
                   <th scope="col">Titre</th>
-                  <th scope="col">Description</th>
+                <!--  <th scope="col">Description</th>-->
                   <th scope="col">Date Création</th>
                   <th scope="col">Date Cloture</th>
                   <th scope="col">type</th>
@@ -49,10 +49,10 @@
                           <span class="mb-0 text-sm">{{ aff.title }}</span>
                       </div>
                   </th>
-                  <td>{{ aff.description }}</td>
+             <!--     <td>{{ aff.description }}</td>-->
                   <td>{{ aff.creationDate }}</td>
                   <td>{{ aff.closingDate }}</td>
-                  <td>{{ aff.type }}</td>
+                  <td>{{ translateCaseType(aff.type) }}</td>
                   <td>
                     <button type="button" class="btn btn-sm btn-secondary mr-4" [routerLink]="['/info-case', aff.idCase]" [state]="{ affaire: aff }"><i class="fa fa-eye"></i></button>
                     <button type="button" class="btn btn-sm btn-primary mr-4" [routerLink]="['/update-case', aff.idCase]" [state]="{ affaire: aff }"><i class="fa fa-edit"></i></button>

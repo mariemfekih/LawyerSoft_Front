@@ -48,6 +48,7 @@ import { UpdateCourtComponent } from 'src/app/pages/court/update-court/update-co
 import { ListAuxiliaryComponent } from 'src/app/pages/auxiliary/list-auxiliary/list-auxiliary.component';
 import { AddAuxiliaryComponent } from 'src/app/pages/auxiliary/add-auxiliary/add-auxiliary.component';
 import { UpdateAuxiliaryComponent } from 'src/app/pages/auxiliary/update-auxiliary/update-auxiliary.component';
+import { DashboardAdminComponent } from 'src/app/pages/dashboard-admin/dashboard-admin.component';
 // import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
@@ -100,7 +101,8 @@ import { UpdateAuxiliaryComponent } from 'src/app/pages/auxiliary/update-auxilia
     UpdateCourtComponent,
     ListAuxiliaryComponent,
     AddAuxiliaryComponent,
-    UpdateAuxiliaryComponent
+    UpdateAuxiliaryComponent,
+    DashboardAdminComponent
 
   ]
 })
