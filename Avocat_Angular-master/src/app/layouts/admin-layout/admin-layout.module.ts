@@ -50,6 +50,8 @@ import { AddAuxiliaryComponent } from 'src/app/pages/auxiliary/add-auxiliary/add
 import { UpdateAuxiliaryComponent } from 'src/app/pages/auxiliary/update-auxiliary/update-auxiliary.component';
 import { DashboardAdminComponent } from 'src/app/pages/dashboard-admin/dashboard-admin.component';
 // import { ToastrModule } from 'ngx-toastr';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { AppointmentComponent } from 'src/app/pages/appointment/appointment.component';
 
 @NgModule({
   imports: [
@@ -59,7 +61,8 @@ import { DashboardAdminComponent } from 'src/app/pages/dashboard-admin/dashboard
     HttpClientModule,
     NgbModule,
     ClipboardModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FullCalendarModule
   ],
   declarations: [
     DashboardComponent,
@@ -102,7 +105,8 @@ import { DashboardAdminComponent } from 'src/app/pages/dashboard-admin/dashboard
     ListAuxiliaryComponent,
     AddAuxiliaryComponent,
     UpdateAuxiliaryComponent,
-    DashboardAdminComponent
+    DashboardAdminComponent,
+    AppointmentComponent
 
   ]
 })

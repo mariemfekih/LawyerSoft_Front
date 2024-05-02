@@ -155,23 +155,37 @@ translateContributorType(type: ContributorType): string {
   }
 
 
-  onAddTrial() {
+  onAddTrial(): void {
     this.trialService.addTrialToCase(this.idCase, this.trial1).subscribe(
       (newTrial: Trial) => {
         console.log('Trial added successfully');
-        this.trials.push(newTrial); 
-        this.closeAddTrialPopup(); 
+        this.closeAddTrialPopup();
+        this.fetchTrials(); 
       },
       (error) => {
         console.error('Error adding trial:', error);
       }
     );
   }
+  
+  fetchTrials(): void {
+    this.trialService.getTrialsByCaseId(this.idCase)
+      .subscribe(
+        (trials: Trial[]) => {
+          this.trials = trials; // Update the trials list locally
+        },
+        (error) => {
+          console.error('Error fetching trials:', error);
+        }
+      );
+  }
+  
   onDeleteTrial() {
     this.trialService.deleteTrial(this.idCase, this.idTrial).subscribe(
         () => {
             console.log('Trial deleted successfully');
             this.trials = this.trials.filter(trial => trial.idTrial !== this.idTrial);
+            this.closeDeleteTrialPopup();
         },
         (error) => {
             console.error('Error deleting trial:', error);
@@ -224,45 +238,50 @@ closeDeleteContributorPopup() {
   this.displayDeleteContributorStyle = 'none'; 
 }
 
-/*onAddContributor() {
-  const newContributor: Contributor = {
-      type: this.selectedContributorType, 
-      cases: this.case, 
-      auxiliary: this.auxiliaries.find(auxiliary => auxiliary.idAuxiliary === this.selectedAuxiliaryId),
-      selectedAuxiliaryId: undefined 
-  };
-  this.contributorService.addContributorToCase(this.case.idCase, newContributor)
-      .subscribe(
-          (addedContributor: Contributor) => {
-            console.log('Selected Auxiliary ID:', this.selectedAuxiliaryId);
-              console.log('Contributor added successfully:', addedContributor);
-              this.contributors.push(addedContributor); // Update the contributors list locally
-              this.closeAddContributorPopup(); 
-          },
-          (error) => {
-              console.error('Error adding contributor:', error);
-          }
-  );
-}*/
+
 onAddContributor(): void {
   const newContributor: NewContributor = {
-
     type: this.selectedContributorType,
     idAuxiliary: this.selectedAuxiliaryId
   };
   this.contributorService.addContributorToCase(this.case.idCase, newContributor)
-  .subscribe(
-    (addedContributor: Contributor) => {
-      console.log('Selected Auxiliary ID:', this.selectedAuxiliaryId);
-      console.log('Contributor added successfully:',addedContributor);
-      this.contributors.push(addedContributor); // Update the contributors list locally
-      this.closeAddContributorPopup(); 
-    },
-    (error) => {
-      console.error('Error adding contributor:', error);
-    }
+    .subscribe(
+      (addedContributor: Contributor) => {
+        console.log('Selected Auxiliary ID:', this.selectedAuxiliaryId);
+        console.log('Contributor added successfully:', addedContributor);
+        this.closeAddContributorPopup(); 
+        // Refetch the contributors list after adding a new contributor
+        this.fetchContributors(); // Implement this method to fetch contributors from the server
+      },
+      (error) => {
+        console.error('Error adding contributor:', error);
+      }
+    );
+}
+
+fetchContributors(): void {
+  // Call your service method to fetch the updated list of contributors
+  this.contributorService.getContributorsByCaseId(this.case.idCase)
+    .subscribe(
+      (contributors: Contributor[]) => {
+        this.contributors = contributors; // Update the contributors list locally
+      },
+      (error) => {
+        console.error('Error fetching contributors:', error);
+      }
+    );
+}
+onDeleteContributor() {
+  this.contributorService.deleteContributor(this.idCase, this.idContributor).subscribe(
+      () => {
+          console.log('Contributor deleted successfully');
+          this.contributors = this.contributors.filter(contributor => contributor.idContributor !== this.idContributor);
+          this.closeDeleteContributorPopup();
+      },
+      (error) => {
+          console.error('Error deleting contributor:', error);
+      }
   );
-  
 }
 
 
@@ -310,7 +329,18 @@ getPages(): number[] {
       return pages;
     }
 
-
+    getCurrentPageTrials(): any[] {
+      const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+      const endIndex = startIndex + this.itemsPerPage;
+      return this.trials.slice(startIndex, endIndex);
+    }
+  
+    // Function to change current page
+    changePage(pageNumber: number): void {
+      if (pageNumber >= 1 && pageNumber <= this.getTotalPages()) {
+        this.currentPage = pageNumber;
+      }
+    }
     
 
 }

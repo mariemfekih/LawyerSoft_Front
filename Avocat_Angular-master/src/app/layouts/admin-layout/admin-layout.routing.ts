@@ -42,6 +42,7 @@ import { AddAuxiliaryComponent } from 'src/app/pages/auxiliary/add-auxiliary/add
 import { ListAuxiliaryComponent } from 'src/app/pages/auxiliary/list-auxiliary/list-auxiliary.component';
 import { UpdateAuxiliaryComponent } from 'src/app/pages/auxiliary/update-auxiliary/update-auxiliary.component';
 import { DashboardAdminComponent } from 'src/app/pages/dashboard-admin/dashboard-admin.component';
+import { AppointmentComponent } from 'src/app/pages/appointment/appointment.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
@@ -88,6 +89,9 @@ export const AdminLayoutRoutes: Routes = [
   { path: 'list-auxiliary',           component: ListAuxiliaryComponent },
   { path: 'add-auxiliary',           component: AddAuxiliaryComponent },
   { path: 'update-auxiliary/:idAuxiliary',           component: UpdateAuxiliaryComponent },
+
+  /**Appointlment */
+  { path: 'appointment',      component: AppointmentComponent },
   
 /**
  * Admin

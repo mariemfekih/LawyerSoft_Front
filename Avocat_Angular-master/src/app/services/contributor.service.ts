@@ -26,5 +26,8 @@ export class ContributorService {
     const url = `${this.host}/Case/${caseId}/contributors`; 
     return this.http.get<any[]>(url);
   }
-
+  deleteContributor(caseId: number, contributorId: number): Observable<void> {
+    const url = `${this.host}/Case/${caseId}/deleteContributor/${contributorId}`;
+    return this.http.delete<void>(url);
+  }
 }

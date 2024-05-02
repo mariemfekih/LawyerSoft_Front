@@ -15,6 +15,7 @@ import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { AuthenticationGuard } from './guard/authentication.guard';
 import { NotificationModule } from './notification.module';
 import { NotificationService } from './services/notification.service';
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 
 
@@ -29,8 +30,8 @@ import { NotificationService } from './services/notification.service';
     RouterModule,
     AppRoutingModule,
     NotificationModule,
-    ReactiveFormsModule
-
+    ReactiveFormsModule,
+    FullCalendarModule
   ],
   declarations: [
     AppComponent,

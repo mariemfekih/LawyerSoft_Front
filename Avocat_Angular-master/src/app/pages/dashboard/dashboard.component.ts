@@ -17,6 +17,7 @@ export const DASHBOARD_ROUTES: RouteInfo[] = [
   { path: '/list-auxiliary', title: 'Auxiliaires',  icon:'ni-briefcase-24 text-primary', class: '' },
 
 
+  { path: '/appointment', title: 'Calendrier',  icon:'ni-building text-blue', class: '' },
   { path: '/list-honoraire', title: 'Honoraire',  icon:'ni-building text-primary', class: '' },
   { path: '/list-dossiers', title: 'Dossiers',  icon:'ni-folder-17 text-primary', class: '' },
   /*{ path: '/dashboard', title: 'Dashboard',  icon: 'ni-tv-2 text-primary', class: '' },*/
