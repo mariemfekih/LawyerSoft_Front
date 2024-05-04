@@ -1,0 +1,41 @@
+<div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+    <div class="container-fluid">
+        <div class="header-body">
+            <!-- Votre contenu d'en-tête ici -->
+        </div>
+    </div>
+</div>
+
+<br> <br>
+
+<!-- template.html -->
+<div class="container">
+    <div class="row">
+        <!-- Form Section -->
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="firstPartyName">First Party Name:</label>
+                <input type="text" id="firstPartyName" class="form-control" [(ngModel)]="firstPartyName">
+            </div>
+            <div class="form-group">
+                <label for="firstPartyID">First Party ID:</label>
+                <input type="text" id="firstPartyID" class="form-control" [(ngModel)]="firstPartyID">
+            </div>
+            <div class="form-group">
+                <label for="secondPartyName">Second Party Name:</label>
+                <input type="text" id="secondPartyName" class="form-control" [(ngModel)]="secondPartyName">
+            </div>
+            <div class="form-group">
+                <label for="secondPartyID">Second Party ID:</label>
+                <input type="text" id="secondPartyID" class="form-control" [(ngModel)]="secondPartyID">
+            </div>
+            <button class="btn btn-primary" (click)="generatePdf()">Générer PDF</button>
+        </div>
+        
+        <!-- JRXML Template Preview Section -->
+        <div class="col-md-6">
+            <textarea class="form-control" rows="10" [value]="jrxmlContent" readonly></textarea>
+        </div>
+    </div>
+</div>
+

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Auxiliary } from 'src/app/models/auxiliary';
+import { StringResult } from 'src/app/models/dto/stringResult';
 import { AuxiliaryService } from 'src/app/services/auxiliary.service';
-
+import {Report } from 'src/app/models/dto/report'
 @Component({
   selector: 'app-list-auxiliary',
   templateUrl: './list-auxiliary.component.html',
@@ -19,6 +20,9 @@ export class ListAuxiliaryComponent implements OnInit {
   displayDeleteStyle: string = 'none'; 
     idAuxiliary:number;
 
+  report:Report={name:''};
+  reportName: StringResult = new StringResult();
+
   constructor(private route: ActivatedRoute,
     private auxiliaryService: AuxiliaryService,
               private router: Router) { }
@@ -27,8 +31,23 @@ export class ListAuxiliaryComponent implements OnInit {
     this.idAuxiliary = this.route.snapshot.params['idAuxiliary'];
     this.getAuxiliaries();
   }
+  printAuxiliary() {
+    this.report.name = 'auxiliary';
+    this.auxiliaryService.printAuxiliary(this.report).subscribe(
+      res => {
+        this.reportName = res;
+        const pdfPath = `assets/reports/${this.reportName.name}`; // Using string interpolation
+        
+        window.open(pdfPath, '_blank');
+        console.log('PDF generated');
+      },
+      error => {
+        console.error('Error generating PDF:', error);
+      }
+    );
+  }
+  
 
-  //Afficher la liste des Auxiliary
   public getAuxiliaries() {
     this.auxiliaryService.getAuxiliaries().subscribe(
       (data) => {
@@ -68,10 +87,10 @@ export class ListAuxiliaryComponent implements OnInit {
   }
 
   public onDeleteAuxiliary(auxiliary: Auxiliary) {
-    const auxiliaryId: number = Number(auxiliary.idAuxiliary); // Convert auxiliary.idAuxiliary to number
+    const auxiliaryId: number = Number(auxiliary.idAuxiliary); 
     if (isNaN(auxiliaryId)) {
         console.error('Invalid idAuxiliary:', auxiliary.idAuxiliary);
-        return; // Stop execution if auxiliary.idAuxiliary is not a valid number
+        return;  
     }
 
     this.auxiliaryService.deleteAuxiliary(auxiliaryId).subscribe(

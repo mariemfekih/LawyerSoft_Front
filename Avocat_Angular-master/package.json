@@ -43,6 +43,7 @@
     "date-fns": "^3.6.0",
     "fullcalendar": "^6.1.11",
     "jspdf": "^2.5.1",
+    "ng2-pdf-viewer": "^10.0.0",
     "ngx-clipboard": "15.0.1",
     "ngx-toastr": "14.2.2",
     "nouislider": "15.5.1",

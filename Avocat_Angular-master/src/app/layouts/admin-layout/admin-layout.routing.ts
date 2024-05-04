@@ -43,6 +43,8 @@ import { ListAuxiliaryComponent } from 'src/app/pages/auxiliary/list-auxiliary/l
 import { UpdateAuxiliaryComponent } from 'src/app/pages/auxiliary/update-auxiliary/update-auxiliary.component';
 import { DashboardAdminComponent } from 'src/app/pages/dashboard-admin/dashboard-admin.component';
 import { AppointmentComponent } from 'src/app/pages/appointment/appointment.component';
+import { ListContractComponent } from 'src/app/pages/contract/list-contract/list-contract.component';
+import { InfoContractComponent } from 'src/app/pages/contract/info-contract/info-contract.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
@@ -92,6 +94,9 @@ export const AdminLayoutRoutes: Routes = [
 
   /**Appointlment */
   { path: 'appointment',      component: AppointmentComponent },
+  /**Contract */
+  { path: 'list-contract',      component: ListContractComponent},
+  { path: 'info-contract',      component: InfoContractComponent},
   
 /**
  * Admin

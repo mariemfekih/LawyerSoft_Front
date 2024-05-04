@@ -52,6 +52,8 @@ import { DashboardAdminComponent } from 'src/app/pages/dashboard-admin/dashboard
 // import { ToastrModule } from 'ngx-toastr';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { AppointmentComponent } from 'src/app/pages/appointment/appointment.component';
+import { ListContractComponent } from 'src/app/pages/contract/list-contract/list-contract.component';
+import { InfoContractComponent } from 'src/app/pages/contract/info-contract/info-contract.component';
 
 @NgModule({
   imports: [
@@ -106,7 +108,9 @@ import { AppointmentComponent } from 'src/app/pages/appointment/appointment.comp
     AddAuxiliaryComponent,
     UpdateAuxiliaryComponent,
     DashboardAdminComponent,
-    AppointmentComponent
+    AppointmentComponent,
+    ListContractComponent,
+    InfoContractComponent
 
   ]
 })
