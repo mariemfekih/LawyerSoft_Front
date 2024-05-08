@@ -10,19 +10,20 @@ import {
   chartExample1,
   chartExample2
 } from "../../variables/charts";
+import { Router } from '@angular/router';
 export const DASHBOARD_ROUTES: RouteInfo[] = [
  // { path: '/list-user', title: 'Utilisateurs',  icon:'ni-single-02 text-primary', class: '' },
-  { path: '/list-case', title: 'Affaires',  icon:'ni-briefcase-24 text-primary', class: '' },
-  { path: '/list-court', title: 'Tribunaux',  icon:'ni-vector text-primary', class: '' },
-  { path: '/list-auxiliary', title: 'Auxiliaires',  icon:'ni-single-02 text-primary', class: '' },
+  { path: '/list-case', title: 'Affaires',  icon:'ni-briefcase-24 text-primary', class: '' , dashboardType: 'other' },
+  { path: '/list-court', title: 'Tribunaux',  icon:'ni-vector text-primary', class: '' , dashboardType: 'other' },
+  { path: '/list-auxiliary', title: 'Auxiliaires',  icon:'ni-single-02 text-primary', class: '' , dashboardType: 'other' },
 
 
-  { path: '/appointment', title: 'Calendrier',  icon:'ni-calendar-grid-58 text-blue', class: '' },
-  { path: '/list-honoraire', title: 'Honoraire',  icon:'ni-diamond text-primary', class: '' },
-  { path: '/list-dossiers', title: 'Dossiers',  icon:'ni-folder-17 text-primary', class: '' },
-  /*{ path: '/dashboard', title: 'Dashboard',  icon: 'ni-tv-2 text-primary', class: '' },*/
-  { path: '/list-contract', title: 'Contrat',  icon:'ni-collection text-blue', class: '' },
-  { path: '/icons', title: 'Icons',  icon:'ni-building text-blue', class: '' },
+  { path: '/appointment', title: 'Calendrier',  icon:'ni-calendar-grid-58 text-blue', class: '' , dashboardType: 'other' },
+  { path: '/list-honoraire', title: 'Honoraire',  icon:'ni-diamond text-primary', class: '' , dashboardType: 'other' },
+  { path: '/list-dossiers', title: 'Dossiers',  icon:'ni-folder-17 text-primary', class: '' , dashboardType: 'other' },
+  /*{ path: '/dashboard', title: 'Dashboard',  icon: 'ni-tv-2 text-primary', class: '' , dashboardType: 'other' },*/
+  { path: '/list-contract', title: 'Contrat',  icon:'ni-collection text-blue', class: '' , dashboardType: 'other' },
+  { path: '/icons', title: 'Icons',  icon:'ni-building text-blue', class: '' , dashboardType: 'other' },
 
  /* { path: '/maps', title: 'Maps',  icon:'ni-pin-3 text-orange', class: '' },
   { path: '/user-profile', title: 'User profile',  icon:'ni-circle-08 text-red', class: '' },
@@ -43,6 +44,7 @@ export class DashboardComponent implements OnInit {
   public clicked: boolean = true;
   public clicked1: boolean = false;
 
+  constructor(private router: Router){}
   ngOnInit() {
 
     this.datasets = [

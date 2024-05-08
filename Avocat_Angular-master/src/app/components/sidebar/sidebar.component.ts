@@ -9,6 +9,7 @@ export interface RouteInfo {
   title: string;
   icon: string;
   class: string;
+  dashboardType?: string;
 }
 
 @Component({

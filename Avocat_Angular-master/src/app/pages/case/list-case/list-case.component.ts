@@ -4,6 +4,8 @@ import { Case } from 'src/app/models/case';
 import { CaseTypeTranslator } from 'src/app/models/type/TranslatorFr/caseTypeTranslator';
 import { CaseType } from 'src/app/models/type/caseType';
 import { CaseService } from 'src/app/services/case.service';
+import { jsPDF } from 'jspdf';
+import 'jspdf-autotable';
 
 @Component({
   selector: 'app-list-case',
@@ -152,4 +154,29 @@ export class ListCaseComponent implements OnInit {
     const rows = data.map(item => Object.values(item).join(','));
     return `${header}\n${rows.join('\n')}`;
   }
+  ////////////////////export pdf
+  exportToPDF() {
+    const doc = new jsPDF();
+    const data = this.case.map(aff => {
+      return {
+        Titre: aff.title,
+        'Date Création': aff.creationDate,
+        'Date Cloture': aff.closingDate,
+        Type: this.translateCaseType(aff.type)
+      };
+    });
+  
+    const header = [['Titre', 'Date Création', 'Date Cloture', 'Type']];
+    const rows = data.map(obj => Object.keys(obj).map(key => obj[key]));
+  
+    (doc as any).autoTable({
+      head: header,
+      body: rows,
+      theme:'plain',
+      didDrawCell:(data:{column:{index:any;};}) =>{console.log(data.column.index)}
+    })
+    doc.output('dataurlnewwindow');
+    doc.save('affaire.pdf');
+  }
+  
   }

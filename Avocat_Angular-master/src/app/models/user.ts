@@ -13,13 +13,14 @@ export class User {
   //country: string;
   city: string;
   gender: boolean;
+  isActive: boolean;
+  isNotLocked: boolean;
+
   profileImage?: string;
   lastLoginDate?: Date;
   lastLoginDateDisplay?: Date;
   joinDate?: Date;
   authorities?: string[];
-  active?: boolean;
-  notLocked?: boolean;
  /* fees: Fee[];
   privileges: Privilege[];
   appointments: Appointment[];

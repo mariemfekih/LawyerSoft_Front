@@ -97,6 +97,7 @@ export const AdminLayoutRoutes: Routes = [
   /**Contract */
   { path: 'list-contract',      component: ListContractComponent},
   { path: 'info-contract',      component: InfoContractComponent},
+
   
 /**
  * Admin

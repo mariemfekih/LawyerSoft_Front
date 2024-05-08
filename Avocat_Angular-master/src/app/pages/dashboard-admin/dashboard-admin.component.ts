@@ -12,7 +12,7 @@ import {
 
 
 export const DASHBOARD_ADMIN_ROUTES: RouteInfo[] = [
-  { path: '/list-user', title: 'Utilisateurs', icon: 'ni-single-02 text-primary', class: '' },
+  { path: '/list-user', title: 'Utilisateurs', icon: 'ni-single-02 text-primary', class: '' , dashboardType: 'admin' }
 ];
 
 @Component({

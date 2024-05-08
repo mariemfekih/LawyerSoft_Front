@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute, Router, ParamMap } from '@angular/router';
+import { roleTranslator } from 'src/app/models/type/TranslatorFr/roleTranslator';
+import { Role } from 'src/app/models/type/role';
 import { User } from 'src/app/models/user';
-import { NotificationService } from 'src/app/services/notification.service';
 import { UserService } from 'src/app/services/user.service';
+
 
 @Component({
   selector: 'app-update-user',
@@ -11,50 +13,77 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./update-user.component.scss']
 })
 export class UpdateUserComponent implements OnInit {
-  updateUserForm: FormGroup;
-  user:User;
-  constructor(private userService: UserService, private route: ActivatedRoute, private router: Router ,private formBuilder: FormBuilder) { }
 
+  roles = Object.values(Role);
+  selectedRole: Role = Role.LAWYER; // Valeur initiale
+  translateRole(role: Role): string {
+    return roleTranslator.translateFrRole(role);
+  }
+  user: User;
+  updateUserForm: FormGroup;
+  idUser: number;
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private userService: UserService,
+    private router: Router
+  ) {}
   ngOnInit() {
     this.updateUserForm = this.formBuilder.group({
-      username: ['', Validators.required],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
+      username: ['', Validators.required],
       email: ['', Validators.required],
-      role: ['', Validators.required],      
-      birthDate: ['', Validators.required],
+      password: ['', Validators.required],
+      confirmPassword: ['', Validators.required],
+      role: ['', Validators.required],
       city: ['', Validators.required],
+      birthDate: ['', Validators.required],
       gender: ['', Validators.required],
+      isActive: ['', Validators.required],
+      isNotLocked: ['', Validators.required]
     });
   
-    const id = this.route.snapshot.params['id'];
-    this.userService.getUserById(id).subscribe(data => {
+    const idUser = this.route.snapshot.params['id'];
+    this.userService.getUserById(idUser).subscribe(data => {
       this.user = data as User;
-  
-      this.updateUserForm.patchValue({
-        username: this.user.username,
-        firstName: this.user.firstName,
-        lastName: this.user.lastName,
-        email: this.user.email,
-        role: this.user.role ,
-        birthDate: this.user.birthDate,
-        city: this.user.city,
-        gender: this.user.gender
-      });
-    });
-  }
-  
 
+        this.updateUserForm.patchValue({
+          firstName: this.user.firstName,
+          lastName: this.user.lastName,
+          username: this.user.username,
+          email: this.user.email,
+          password: this.user.password,
+          confirmPassword: this.user.password,
+          role: this.user.role,
+          city: this.user.city,
+          birthDate: this.user.birthDate,
+          gender: this.user.gender,
+          isActive: this.user.isActive,
+          isNotLocked: this.user.isNotLocked
+        });
+      });
+    }
+  
   updateUser() {
-    const id = this.route.snapshot.params['id'];
+    const idUser = this.route.snapshot.params['idUser'];
     const formData = this.updateUserForm.value;
     console.log(formData);
-    this.userService.updateUser(id, formData).subscribe(data => {
+    this.userService.updateUser(idUser, formData).subscribe(data => {
       console.log(data);
-      this.router.navigate(['list-case']);
+      this.router.navigate(['list-user']);
 
     });
-  }
-
   
+  }
+  
+ /* updateUser() {
+    const formData = this.updateUserForm.value;
+    console.log(formData);
+    this.userService.updateUser(this.idUser, formData).subscribe(data => {
+      console.log(data);
+      this.router.navigate(['list-user']);
+    });
+  }*/
 }

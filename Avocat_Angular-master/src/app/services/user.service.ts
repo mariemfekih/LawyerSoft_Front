@@ -20,11 +20,11 @@ export class UserService {
   }*/
 
   getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(`${this.host}/user/getUsers`);
+    return this.http.get<User[]>(`${this.host}/user`);
   }
 
   addUser(newUser: User): Observable<User> {
-    const url = `${this.host}/user/addUser`;
+    const url = `${this.host}/user`;
     return this.http.post<User>(url, newUser);
   }
   
@@ -34,17 +34,17 @@ export class UserService {
     return this.http.delete<void>(url);
   }
   deleteUser(id: number): Observable<void> {
-    const url = `${this.host}/user/deleteUser/${id}`;
+    const url = `${this.host}/user/${id}`;
     return this.http.delete<void>(url);
   }
 
   getUserById(idUser: number): Observable<User> {
-    const url = `${this.host}/user/getUserById/${idUser}`;
+    const url = `${this.host}/user/${idUser}`;
     return this.http.get<User>(url);
   }
 
   updateUser(idUser: number, updatedUser: User): Observable<User> {
-    const url = `${this.host}/user/updateUser/${idUser}`; 
+    const url = `${this.host}/user/${idUser}`; 
     return this.http.put<User>(url, updatedUser);
   }
 
@@ -71,7 +71,7 @@ export class UserService {
   }
 
   findUserById(id: any):Observable<User> {
-    return this.http.get<User>(`${this.host}/user/getUserById/${id}`)
+    return this.http.get<User>(`${this.host}/user/${id}`)
   }
 
   public createUserFormData(loggedInUsername: string, user: User, profileImage: File): FormData  {
@@ -84,8 +84,8 @@ export class UserService {
     formData.append('email', user.email);
     formData.append('role', user.role);
     formData.append('profileImage', profileImage);
-    formData.append('isActive', JSON.stringify(user.active));
-    formData.append('isNonLocked', JSON.stringify(user.notLocked));
+    formData.append('isActive', JSON.stringify(user.isActive));
+    formData.append('isNotLocked', JSON.stringify(user.isNotLocked));
     return formData;
 
   }

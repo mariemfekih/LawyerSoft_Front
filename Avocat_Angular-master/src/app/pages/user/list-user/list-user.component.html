@@ -52,13 +52,15 @@
                 <td>
                   {{u.email}}
                 </td>
+             
+                
                 <td>
-                  <span [hidden]="!u.active" class="badge badge-success">Active</span>
-                  <span [hidden]="u.active" class="badge badge-danger">Inactive</span>
-                  <span [hidden]="!u.notLocked" class="badge badge-success">Déverrouillé</span>
-                  <span [hidden]="u.notLocked" class="badge badge-danger">Verrouillé</span>
+                  <span *ngIf="u.isActive" class="badge badge-success">Active</span>
+                  <span *ngIf="!u.isActive" class="badge badge-danger">Inactive</span>
+                  <span *ngIf="u.isNotLocked" class="badge badge-success">Déverrouillé</span>
+                  <span *ngIf="!u.isNotLocked" class="badge badge-danger">Verrouillé</span>
                 </td>
-
+                
                 <td>
                   <button type="button" class="btn btn-sm btn-secondary mr-4" [routerLink]="['/info-user', u.id]"><i class="fa fa-eye"></i></button>
                   <button type="button" class="btn btn-sm btn-primary mr-4" [routerLink]="['/update-user', u.id]"><i class="fa fa-edit"></i></button>

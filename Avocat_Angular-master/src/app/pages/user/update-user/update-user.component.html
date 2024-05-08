@@ -5,86 +5,122 @@
 </div>
 <div class="container-fluid mt--7">
   <div class="row">
-    <div class="col-xl-12 order-xl-1">
-      <div class="card bg-secondary shadow">
-        <div class="card-header bg-white border-0">
-          <div class="row align-items-center">
-            <div class="col-8">
-              <h3 class="mb-0">Modifier Utilisateur</h3>
-            </div>
-          </div>
-        </div>
-        <div class="card-body">
-          <form   [formGroup]="updateUserForm" (ngSubmit)="updateUser()" >
-            <div class="pl-lg-4">
-              <div class="row">
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label for="firstName" class="form-control-label" >Nom</label>
-                    <input type="text" name="firstName" class="form-control form-control-alternative" required formControlName="firstName">
+      <div class="col-xl-12 order-xl-1">
+          <div class="card bg-secondary shadow">
+              <div class="card-header bg-white border-0">
+                  <div class="row align-items-center">
+                      <div class="col-12">
+                          <a href="javascript:history.back()"><i class="fa fa-arrow-left"></i> Retourner à la liste des utilisateurs</a>
+                          <hr>
+                          <h3 class="mb-0">Modifier Utilisateur</h3>
+                      </div>
                   </div>
-                </div>
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label for="lastName" class="form-control-label" >Prénom</label>
-                    <input type="text" name="lastName" class="form-control form-control-alternative" required formControlName="lastName">
-                  </div>
-                </div>
               </div>
-
-              <div class="row">
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label for="email" class="form-control-label" >Email</label>
-                    <input type="text" name="email" class="form-control form-control-alternative" required formControlName="email">
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label for="authority" class="form-control-label" >Role</label>
-                    <select name="role" class="form-control form-control-alternative" required formControlName="role">
-                      <option value="MANAGER">MANAGER</option>
-                      <option value="ADMIN">ADMIN</option>
-                    </select>
-                  </div>
-                </div>
+              <div class="card-body">
+                  <form [formGroup]="updateUserForm" (ngSubmit)="updateUser()">
+                      <div class="pl-lg-4">
+                          <div class="row">
+                              <div class="col-lg-6">
+                                  <div class="form-group">
+                                      <label for="firstName" class="form-control-label">Prénom</label>
+                                      <input type="text" name="firstName" id="firstName" class="form-control form-control-alternative" placeholder="Prénom" required formControlName="firstName">
+                                  </div>
+                              </div>
+                              <div class="col-lg-6">
+                                  <div class="form-group">
+                                      <label for="lastName" class="form-control-label">Nom</label>
+                                      <input type="text" name="lastName" id="lastName" class="form-control form-control-alternative" placeholder="Nom" required formControlName="lastName">
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-lg-6">
+                                  <div class="form-group">
+                                      <label for="username" class="form-control-label">Nom d'utilisateur</label>
+                                      <input type="text" name="username" id="username" class="form-control form-control-alternative" placeholder="Nom d'utilisateur" required formControlName="username">
+                                  </div>
+                              </div>
+                              <div class="col-lg-6">
+                                  <div class="form-group">
+                                      <label for="email" class="form-control-label">Email</label>
+                                      <input type="email" name="email" id="email" class="form-control form-control-alternative" placeholder="Email" required formControlName="email">
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-lg-6">
+                                  <div class="form-group">
+                                      <label for="password" class="form-control-label">Mot de passe</label>
+                                      <input type="password" name="password" id="password" class="form-control form-control-alternative" placeholder="Mot de passe" required formControlName="password">
+                                  </div>
+                              </div>
+                              <div class="col-lg-6">
+                                  <div class="form-group">
+                                      <label for="confirmPassword" class="form-control-label">Confirmer le mot de passe</label>
+                                      <input type="password" name="confirmPassword" id="confirmPassword" class="form-control form-control-alternative" placeholder="Confirmer le mot de passe" required formControlName="confirmPassword">
+                                  </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-lg-6">
+                                  <div class="form-group">
+                                      <label for="role" class="form-control-label">Rôle</label>
+                                      <select name="role" class="form-control form-control-alternative" [(ngModel)]="selectedRole" formControlName="role">
+                                          <option *ngFor="let role of roles" [value]="role">{{ translateRole(role) }}</option>
+                                      </select>
+                                  </div>
+                              </div>
+                              <div class="col-lg-6">
+                                  <div class="form-group">
+                                      <label for="city" class="form-control-label">Ville</label>
+                                      <input type="text" name="city" id="city" class="form-control form-control-alternative" placeholder="Ville" required formControlName="city">
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-lg-6">
+                                  <div class="form-group">
+                                      <label for="birthDate" class="form-control-label">Date de naissance</label>
+                                      <input type="date" name="birthDate" id="birthDate" class="form-control form-control-alternative" placeholder="Date de naissance" required formControlName="birthDate">
+                                  </div>
+                              </div>
+                              <div class="col-lg-6">
+                                  <div class="form-group">
+                                      <label for="gender" class="form-control-label">Genre</label>
+                                      <select name="gender" class="form-control form-control-alternative" formControlName="gender">
+                                          <option value="true">Masculin</option>
+                                          <option value="false">Féminin</option>
+                                      </select>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-lg-6">
+                                  <div class="form-group">
+                                      <label for="isActive" class="form-control-label">Actif</label>
+                                      <select name="isActive" class="form-control form-control-alternative" formControlName="isActive">
+                                          <option value="true">Oui</option>
+                                          <option value="false">Non</option>
+                                      </select>
+                                  </div>
+                              </div>
+                              <div class="col-lg-6">
+                                  <div class="form-group">
+                                      <label for="isNotLocked" class="form-control-label">Déverrouillé</label>
+                                      <select name="isNotLocked" class="form-control form-control-alternative" formControlName="isNotLocked">
+                                          <option value="true">Oui</option>
+                                          <option value="false">Non</option>
+                                      </select>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-12 text-right">
+                              <button type="submit" class="btn btn-primary">Modifier</button>
+                          </div>
+                      </div>
+                  </form>
               </div>
-
-              <div class="row">
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label for="username" class="form-control-label" >username</label>
-                    <input type="text" name="username" class="form-control form-control-alternative" required formControlName="username">
-                  </div>
-                </div>
-
-              </div>
-
-            <div class="row">
-
-            <div class="col-lg-12">
-                <fieldset class="form-group">
-                  <div class="form-check">
-                    <label class="form-check-label" >
-                    <input type="checkbox" name="active" ngModel class="form-check-input" required formControlName="active"> Active </label>
-                  </div>
-
-                  <div class="form-check">
-                    <label class="form-check-label" >
-                    <input type="checkbox" name="notLocked" ngModel class="form-check-input" required formControlName="notLocked"> Déverrouillé </label>
-                    </div>
-              </fieldset>
-            </div>
           </div>
-          <div class="col-12 text-right">
-            <button type="submit" class="btn btn-primary">Modifier</button>
-          </div>
-          </div>
-
-          </form>
-        </div>
       </div>
-    </div>
   </div>
 </div>
-
