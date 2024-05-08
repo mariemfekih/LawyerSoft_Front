@@ -1,36 +1,90 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import Chart from 'chart.js';
-import { RouteInfo } from '../../components/sidebar/sidebar.component';
+import {RouteInfo} from '../../components/sidebar/sidebar.component';
 
 
 // core components
-import {
-  chartOptions,
-  parseOptions,
-  chartExample1,
-  chartExample2
-} from "../../variables/charts";
-import { Router } from '@angular/router';
+import {chartExample1, chartExample2, chartOptions, parseOptions} from "../../variables/charts";
+import {Router} from '@angular/router';
+import {Role} from "../../models/type/role";
+
 export const DASHBOARD_ROUTES: RouteInfo[] = [
- // { path: '/list-user', title: 'Utilisateurs',  icon:'ni-single-02 text-primary', class: '' },
-  { path: '/list-case', title: 'Affaires',  icon:'ni-briefcase-24 text-primary', class: '' , dashboardType: 'other' },
-  { path: '/list-court', title: 'Tribunaux',  icon:'ni-vector text-primary', class: '' , dashboardType: 'other' },
-  { path: '/list-auxiliary', title: 'Auxiliaires',  icon:'ni-single-02 text-primary', class: '' , dashboardType: 'other' },
+  // { path: '/list-user', title: 'Utilisateurs',  icon:'ni-single-02 text-primary', class: '' },
+  {
+    path: '/list-case',
+    title: 'Affaires',
+    icon: 'ni-briefcase-24 text-primary',
+    class: '',
+    dashboardType: 'other',
+    roles: [Role.ADMIN]
+  },
+  {
+    path: '/list-court',
+    title: 'Tribunaux',
+    icon: 'ni-vector text-primary',
+    class: '',
+    dashboardType: 'other',
+    roles: [Role.ADMIN]
+  },
+  {
+    path: '/list-auxiliary',
+    title: 'Auxiliaires',
+    icon: 'ni-single-02 text-primary',
+    class: '',
+    dashboardType: 'other',
+    roles: [Role.ADMIN]
+  },
 
 
-  { path: '/appointment', title: 'Calendrier',  icon:'ni-calendar-grid-58 text-blue', class: '' , dashboardType: 'other' },
-  { path: '/list-honoraire', title: 'Honoraire',  icon:'ni-diamond text-primary', class: '' , dashboardType: 'other' },
-  { path: '/list-dossiers', title: 'Dossiers',  icon:'ni-folder-17 text-primary', class: '' , dashboardType: 'other' },
+  {
+    path: '/appointment',
+    title: 'Calendrier',
+    icon: 'ni-calendar-grid-58 text-blue',
+    class: '',
+    dashboardType: 'other',
+    roles: [Role.ADMIN]
+  },
+  {
+    path: '/list-honoraire',
+    title: 'Honoraire',
+    icon: 'ni-diamond text-primary',
+    class: '',
+    dashboardType: 'other',
+    roles: [Role.ADMIN]
+  },
+  {
+    path: '/list-dossiers',
+    title: 'Dossiers',
+    icon: 'ni-folder-17 text-primary',
+    class: '',
+    dashboardType: 'other',
+    roles: [Role.ADMIN]
+  },
   /*{ path: '/dashboard', title: 'Dashboard',  icon: 'ni-tv-2 text-primary', class: '' , dashboardType: 'other' },*/
-  { path: '/list-contract', title: 'Contrat',  icon:'ni-collection text-blue', class: '' , dashboardType: 'other' },
-  { path: '/icons', title: 'Icons',  icon:'ni-building text-blue', class: '' , dashboardType: 'other' },
+  {
+    path: '/list-contract',
+    title: 'Contrat',
+    icon: 'ni-collection text-blue',
+    class: '',
+    dashboardType: 'other',
+    roles: [Role.ADMIN]
+  },
+  {
+    path: '/icons',
+    title: 'Icons',
+    icon: 'ni-building text-blue',
+    class: '',
+    dashboardType: 'other',
+    roles: [Role.ADMIN]
+  },
 
- /* { path: '/maps', title: 'Maps',  icon:'ni-pin-3 text-orange', class: '' },
-  { path: '/user-profile', title: 'User profile',  icon:'ni-circle-08 text-red', class: '' },
-  { path: '/tables', title: 'Tables',  icon:'ni-bullet-list-67 text-red', class: '' },
-  { path: '/login', title: 'Login',  icon:'ni-key-25 text-info', class: '' },
-  { path: '/register', title: 'Register',  icon:'ni-circle-08 text-pink', class: '' }*/
+  /* { path: '/maps', title: 'Maps',  icon:'ni-pin-3 text-orange', class: '' },
+   { path: '/user-profile', title: 'User profile',  icon:'ni-circle-08 text-red', class: '' },
+   { path: '/tables', title: 'Tables',  icon:'ni-bullet-list-67 text-red', class: '' },
+   { path: '/login', title: 'Login',  icon:'ni-key-25 text-info', class: '' },
+   { path: '/register', title: 'Register',  icon:'ni-circle-08 text-pink', class: '' }*/
 ];
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -44,7 +98,9 @@ export class DashboardComponent implements OnInit {
   public clicked: boolean = true;
   public clicked1: boolean = false;
 
-  constructor(private router: Router){}
+  constructor(private router: Router) {
+  }
+
   ngOnInit() {
 
     this.datasets = [
@@ -68,10 +124,10 @@ export class DashboardComponent implements OnInit {
     var chartSales = document.getElementById('chart-sales');
 
     this.salesChart = new Chart(chartSales, {
-			type: 'line',
-			options: chartExample1.options,
-			data: chartExample1.data
-		});
+      type: 'line',
+      options: chartExample1.options,
+      data: chartExample1.data
+    });
   }
 
 

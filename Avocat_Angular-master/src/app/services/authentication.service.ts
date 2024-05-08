@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import { JwtHelperService } from '@auth0/angular-jwt';
-import { HttpClient, HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { environment } from '../../environments/environment';
-import { Observable, tap } from 'rxjs';
-import { User } from '../models/user';
+import {Injectable} from '@angular/core';
+import {JwtHelperService} from '@auth0/angular-jwt';
+import {HttpClient, HttpErrorResponse, HttpResponse} from '@angular/common/http';
+import {environment} from '../../environments/environment';
+import {Observable, tap} from 'rxjs';
+import {User} from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -12,17 +12,26 @@ import { User } from '../models/user';
 export class AuthenticationService {
 
   private currentUser: User;
+  private useSubject = new BehaviorSubject<User | undefined>(undefined);
+
   public host: string = environment.apiUrl;
   private token: string;
   private loggedInUsername: string;
   private jwtHelper = new JwtHelperService();
 
   constructor(private http: HttpClient) {}
+
+  public getCurrentUser(): Observable<User | undefined> {
+    return this.useSubject.asObservable();
+  }
+
+
   public login(user: User): Observable<HttpResponse<any>> {
     return this.http.post<any>(`${this.host}/user/login`, user, { observe: 'response' }).pipe(
       tap((response: HttpResponse<User>) => {
         if (response.body) {
           this.currentUser = response.body;
+          this.useSubject.emit(this.currentUser);
           localStorage.setItem('email', this.currentUser.email);
         }
       })

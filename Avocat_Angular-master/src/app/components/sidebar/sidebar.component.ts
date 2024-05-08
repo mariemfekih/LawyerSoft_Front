@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthenticationService } from 'src/app/services/authentication.service';
-import { DASHBOARD_ROUTES } from 'src/app/pages/dashboard/dashboard.component';
-import { DASHBOARD_ADMIN_ROUTES } from 'src/app/pages/dashboard-admin/dashboard-admin.component';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {AuthenticationService} from 'src/app/services/authentication.service';
+import {DASHBOARD_ROUTES} from 'src/app/pages/dashboard/dashboard.component';
+import {User} from "../../models/user";
+import {Role} from "../../models/type/role";
 
 export interface RouteInfo {
   path: string;
@@ -10,6 +11,7 @@ export interface RouteInfo {
   icon: string;
   class: string;
   dashboardType?: string;
+  roles: Role[];
 }
 
 @Component({
@@ -22,6 +24,8 @@ export class SidebarComponent implements OnInit {
   public menuItems: RouteInfo[];
   public isCollapsed = true;
 
+  currentUser: User;
+
   constructor(private router: Router,
               private authenticationService: AuthenticationService) { }
 
@@ -29,12 +33,17 @@ export class SidebarComponent implements OnInit {
     // Check if the current component is DashboardAdminComponent
     const isAdminDashboard = this.router.url.includes('dashboard-admin');
 
-    // Assign the appropriate routes based on the component
-    this.menuItems = isAdminDashboard ? DASHBOARD_ADMIN_ROUTES : DASHBOARD_ROUTES;
-
     this.router.events.subscribe((event) => {
       this.isCollapsed = true;
     });
+
+    this.authenticationService.getCurrentUser().subscribe(user => {
+      this.currentUser = user;
+
+      // Assign the appropriate routes based on the component
+      this.menuItems = DASHBOARD_ROUTES.filter(item => item.roles.includes(user.role));
+    });
+
   }
 
   public onLogout(): void {
