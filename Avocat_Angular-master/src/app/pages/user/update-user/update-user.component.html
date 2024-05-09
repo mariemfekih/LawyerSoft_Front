@@ -36,8 +36,8 @@
                           <div class="row">
                               <div class="col-lg-6">
                                   <div class="form-group">
-                                      <label for="username" class="form-control-label">Nom d'utilisateur</label>
-                                      <input type="text" name="username" id="username" class="form-control form-control-alternative" placeholder="Nom d'utilisateur" required formControlName="username">
+                                      <label for="cin" class="form-control-label">Cin</label>
+                                      <input type="text" name="cin" id="cin" class="form-control form-control-alternative" placeholder="Cin" required formControlName="cin">
                                   </div>
                               </div>
                               <div class="col-lg-6">
@@ -47,20 +47,7 @@
                                   </div>
                               </div>
                           </div>
-                          <div class="row">
-                              <div class="col-lg-6">
-                                  <div class="form-group">
-                                      <label for="password" class="form-control-label">Mot de passe</label>
-                                      <input type="password" name="password" id="password" class="form-control form-control-alternative" placeholder="Mot de passe" required formControlName="password">
-                                  </div>
-                              </div>
-                              <div class="col-lg-6">
-                                  <div class="form-group">
-                                      <label for="confirmPassword" class="form-control-label">Confirmer le mot de passe</label>
-                                      <input type="password" name="confirmPassword" id="confirmPassword" class="form-control form-control-alternative" placeholder="Confirmer le mot de passe" required formControlName="confirmPassword">
-                                  </div>
-                            </div>
-                          </div>
+                         
                           <div class="row">
                               <div class="col-lg-6">
                                   <div class="form-group">
@@ -97,17 +84,18 @@
                           <div class="row">
                               <div class="col-lg-6">
                                   <div class="form-group">
-                                      <label for="isActive" class="form-control-label">Actif</label>
-                                      <select name="isActive" class="form-control form-control-alternative" formControlName="isActive">
+                                      <label for="active" class="form-control-label">Actif</label>
+                                      <select name="active" class="form-control form-control-alternative" formControlName="active">
                                           <option value="true">Oui</option>
                                           <option value="false">Non</option>
                                       </select>
                                   </div>
+                                  
                               </div>
                               <div class="col-lg-6">
                                   <div class="form-group">
-                                      <label for="isNotLocked" class="form-control-label">Déverrouillé</label>
-                                      <select name="isNotLocked" class="form-control form-control-alternative" formControlName="isNotLocked">
+                                      <label for="notLocked" class="form-control-label">Déverrouillé</label>
+                                      <select name="notLocked" class="form-control form-control-alternative" formControlName="notLocked">
                                           <option value="true">Oui</option>
                                           <option value="false">Non</option>
                                       </select>

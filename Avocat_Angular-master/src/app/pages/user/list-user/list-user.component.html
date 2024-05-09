@@ -55,16 +55,23 @@
              
                 
                 <td>
-                  <span *ngIf="u.isActive" class="badge badge-success">Active</span>
-                  <span *ngIf="!u.isActive" class="badge badge-danger">Inactive</span>
-                  <span *ngIf="u.isNotLocked" class="badge badge-success">Déverrouillé</span>
-                  <span *ngIf="!u.isNotLocked" class="badge badge-danger">Verrouillé</span>
+                  <button type="button" class="btn btn-link p-0" (click)="openSendMailPopup(u.id,u.active)" >
+                    <span *ngIf="u.active" class="badge badge-success">Active</span>
+                    <span *ngIf="!u.active" class="badge badge-danger">Inactive</span>
+                  </button>
+                  <span *ngIf="u.notLocked" class="badge badge-success">Déverrouillé</span>
+                  <span *ngIf="!u.notLocked" class="badge badge-danger">Verrouillé</span>
+                  
+               <!--   <span *ngIf="u.active" class="badge badge-success">Active</span>
+                  <span *ngIf="!u.active" class="badge badge-danger">Inactive</span>
+                  <span *ngIf="u.notLocked" class="badge badge-success">Déverrouillé</span>
+                  <span *ngIf="!u.notLocked" class="badge badge-danger">Verrouillé</span>-->
                 </td>
                 
                 <td>
                   <button type="button" class="btn btn-sm btn-secondary mr-4" [routerLink]="['/info-user', u.id]"><i class="fa fa-eye"></i></button>
                   <button type="button" class="btn btn-sm btn-primary mr-4" [routerLink]="['/update-user', u.id]"><i class="fa fa-edit"></i></button>
-                  <button type="button" class="btn btn-sm btn-danger mr-4" (click)="onDeleteUser(u?.username)"><i class="fa fa-trash"></i></button>
+                  <button type="button" class="btn btn-sm btn-danger mr-4" (click)="onDeleteUser(u?.id)"><i class="fa fa-trash"></i></button>
                 </td>
               </tr>
 
@@ -97,3 +104,27 @@
     </div>
   </div>
 </div>
+
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display': displayChange}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Confirmation de changement de statut</h4>
+      </div>
+      <div class="modal-body">
+        <p>
+          L'utilisateur est actuellement <span class="{{ currentActivationStatus ? 'actif' : 'inactif' }}">{{ currentActivationStatus ? 'Actif' : 'Inactif' }}</span>. <br>
+          Êtes-vous sûr de vouloir changer son statut d'activation ?       </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="toggleUserActivation(idUser, currentActivationStatus)">
+          Confirmer
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="closeSendMailPopup()">
+          Annuler
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+

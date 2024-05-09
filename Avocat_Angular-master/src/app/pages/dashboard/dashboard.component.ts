@@ -9,14 +9,14 @@ import {Router} from '@angular/router';
 import {Role} from "../../models/type/role";
 
 export const DASHBOARD_ROUTES: RouteInfo[] = [
-  // { path: '/list-user', title: 'Utilisateurs',  icon:'ni-single-02 text-primary', class: '' },
+   { path: '/list-user', title: 'Utilisateurs',  icon:'ni-single-02 text-primary', class: '',roles: [Role.ADMIN] },
   {
     path: '/list-case',
     title: 'Affaires',
     icon: 'ni-briefcase-24 text-primary',
     class: '',
     dashboardType: 'other',
-    roles: [Role.ADMIN]
+    roles: [Role.LAWYER]
   },
   {
     path: '/list-court',
@@ -24,7 +24,7 @@ export const DASHBOARD_ROUTES: RouteInfo[] = [
     icon: 'ni-vector text-primary',
     class: '',
     dashboardType: 'other',
-    roles: [Role.ADMIN]
+    roles: [Role.LAWYER]
   },
   {
     path: '/list-auxiliary',
@@ -32,7 +32,7 @@ export const DASHBOARD_ROUTES: RouteInfo[] = [
     icon: 'ni-single-02 text-primary',
     class: '',
     dashboardType: 'other',
-    roles: [Role.ADMIN]
+    roles: [Role.LAWYER]
   },
 
 
@@ -42,7 +42,7 @@ export const DASHBOARD_ROUTES: RouteInfo[] = [
     icon: 'ni-calendar-grid-58 text-blue',
     class: '',
     dashboardType: 'other',
-    roles: [Role.ADMIN]
+    roles: [Role.LAWYER]
   },
   {
     path: '/list-honoraire',
@@ -50,7 +50,7 @@ export const DASHBOARD_ROUTES: RouteInfo[] = [
     icon: 'ni-diamond text-primary',
     class: '',
     dashboardType: 'other',
-    roles: [Role.ADMIN]
+    roles: [Role.LAWYER]
   },
   {
     path: '/list-dossiers',
@@ -58,7 +58,7 @@ export const DASHBOARD_ROUTES: RouteInfo[] = [
     icon: 'ni-folder-17 text-primary',
     class: '',
     dashboardType: 'other',
-    roles: [Role.ADMIN]
+    roles: [Role.LAWYER]
   },
   /*{ path: '/dashboard', title: 'Dashboard',  icon: 'ni-tv-2 text-primary', class: '' , dashboardType: 'other' },*/
   {
@@ -67,7 +67,7 @@ export const DASHBOARD_ROUTES: RouteInfo[] = [
     icon: 'ni-collection text-blue',
     class: '',
     dashboardType: 'other',
-    roles: [Role.ADMIN]
+    roles: [Role.LAWYER]
   },
   {
     path: '/icons',
@@ -75,7 +75,7 @@ export const DASHBOARD_ROUTES: RouteInfo[] = [
     icon: 'ni-building text-blue',
     class: '',
     dashboardType: 'other',
-    roles: [Role.ADMIN]
+    roles: [Role.LAWYER]
   },
 
   /* { path: '/maps', title: 'Maps',  icon:'ni-pin-3 text-orange', class: '' },

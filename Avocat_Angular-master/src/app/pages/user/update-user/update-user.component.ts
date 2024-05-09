@@ -33,7 +33,7 @@ export class UpdateUserComponent implements OnInit {
     this.updateUserForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      username: ['', Validators.required],
+      cin: ['', Validators.required],
       email: ['', Validators.required],
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required],
@@ -41,18 +41,19 @@ export class UpdateUserComponent implements OnInit {
       city: ['', Validators.required],
       birthDate: ['', Validators.required],
       gender: ['', Validators.required],
-      isActive: ['', Validators.required],
-      isNotLocked: ['', Validators.required]
+      active: ['', Validators.required],
+      notLocked: ['', Validators.required]
     });
   
     const idUser = this.route.snapshot.params['id'];
+    console.log('idUser:', idUser); 
     this.userService.getUserById(idUser).subscribe(data => {
       this.user = data as User;
 
         this.updateUserForm.patchValue({
           firstName: this.user.firstName,
           lastName: this.user.lastName,
-          username: this.user.username,
+          cin: this.user.cin,
           email: this.user.email,
           password: this.user.password,
           confirmPassword: this.user.password,
@@ -60,30 +61,22 @@ export class UpdateUserComponent implements OnInit {
           city: this.user.city,
           birthDate: this.user.birthDate,
           gender: this.user.gender,
-          isActive: this.user.isActive,
-          isNotLocked: this.user.isNotLocked
+          active: this.user.active,
+          notLocked: this.user.notLocked
         });
       });
     }
   
-  updateUser() {
-    const idUser = this.route.snapshot.params['idUser'];
-    const formData = this.updateUserForm.value;
-    console.log(formData);
-    this.userService.updateUser(idUser, formData).subscribe(data => {
-      console.log(data);
-      this.router.navigate(['list-user']);
-
-    });
+    updateUser() {
+      const idUser = this.route.snapshot.params['id']; // Use 'id' instead of 'idUser'
+      const formData = this.updateUserForm.value;
+      console.log(formData);
+      this.userService.updateUser(idUser, formData).subscribe(data => {
+        console.log(data);
+        this.router.navigate(['list-user']);
+      });
+    }
+    
   
   }
-  
- /* updateUser() {
-    const formData = this.updateUserForm.value;
-    console.log(formData);
-    this.userService.updateUser(this.idUser, formData).subscribe(data => {
-      console.log(data);
-      this.router.navigate(['list-user']);
-    });
-  }*/
-}
+

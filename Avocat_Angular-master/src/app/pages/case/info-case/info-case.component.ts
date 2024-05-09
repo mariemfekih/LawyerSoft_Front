@@ -222,6 +222,7 @@ closeAddContributorPopup() {
   this.displayAddContributorStyle = 'none'; 
 }
 
+
 openUpdateContributorPopup(idContributor: number) {
   this.idContributor = idContributor;
   this.displayUpdateContributorStyle = 'block';

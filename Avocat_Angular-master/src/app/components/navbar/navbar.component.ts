@@ -4,8 +4,6 @@ import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { User } from 'src/app/models/user';
-import { DASHBOARD_ROUTES } from 'src/app/pages/dashboard/dashboard.component'; // Import DASHBOARD_ROUTES
-import { DASHBOARD_ADMIN_ROUTES } from 'src/app/pages/dashboard-admin/dashboard-admin.component'; // Import DASHBOARD_ADMIN_ROUTES
 
 @Component({
   selector: 'app-navbar',
@@ -25,8 +23,6 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
-    const isAdminDashboard = this.router.url.includes('dashboard-admin');
-    this.listTitles = isAdminDashboard ? DASHBOARD_ADMIN_ROUTES : DASHBOARD_ROUTES; 
     this.username = localStorage.getItem('username');
   }
 
@@ -35,17 +31,28 @@ export class NavbarComponent implements OnInit {
     if (titlee.charAt(0) === '#') {
       titlee = titlee.slice(1);
     }
-
-    for (let item = 0; item < this.listTitles.length; item++) {
-      if (this.listTitles[item].path === titlee) {
-        return this.listTitles[item].title;
+  
+    // Ensure listTitles is defined and not null before accessing its properties
+    if (this.listTitles && Array.isArray(this.listTitles)) {
+      for (let item = 0; item < this.listTitles.length; item++) {
+        if (this.listTitles[item].path === titlee) {
+          return this.listTitles[item].title;
+        }
       }
     }
+  
     return 'Dashboard';
   }
+  
 
   public onLogout(): void {
     this.authenticationService.logout();
     this.router.navigate(['login']);
   }
+  isLoggedIn(): boolean {
+    // Implement your logic to check if the user is authenticated
+    // For example, check if the user is stored in local storage or has a valid token
+    return true; // Return true if authenticated, false otherwise
+  }
+  
 }

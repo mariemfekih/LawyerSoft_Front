@@ -47,7 +47,10 @@ export class UserService {
     const url = `${this.host}/user/${idUser}`; 
     return this.http.put<User>(url, updatedUser);
   }
-
+  updateUserActiveState(userId: number, newActiveState: boolean): Observable<User> {
+    const url = `${this.host}/user/${userId}/active`;
+    return this.http.put<User>(url, newActiveState); 
+  }
   public resetPassword(email: string): Observable<any | HttpErrorResponse> {
     return this.http.get(`${this.host}/user/resetPassword/${email}`);
   }
@@ -84,8 +87,8 @@ export class UserService {
     formData.append('email', user.email);
     formData.append('role', user.role);
     formData.append('profileImage', profileImage);
-    formData.append('isActive', JSON.stringify(user.isActive));
-    formData.append('isNotLocked', JSON.stringify(user.isNotLocked));
+    formData.append('active', JSON.stringify(user.active));
+    formData.append('notLocked', JSON.stringify(user.notLocked));
     return formData;
 
   }

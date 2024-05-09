@@ -16,7 +16,7 @@
         <div class="card-header bg-white border-0">
           <div class="row align-items-center">
             <div class="col-8">
-              <h3 class="mb-0">Détails Utilisateur</h3>
+              <a href="javascript:history.back()"><i class="fa fa-arrow-left"></i>  <h3 class="mb-0">Détails Utilisateur</h3></a>
             </div>
           </div>
         </div>
@@ -48,11 +48,42 @@
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label class="form-control-label">Pseudo</label>
-                    <input type="text" name="pseudo" class="form-control form-control-alternative" [(ngModel)]="user.username" disabled>
+                    <label class="form-control-label">username</label>
+                    <input type="text" name="username" class="form-control form-control-alternative" [(ngModel)]="user.username" disabled>
                   </div>
                 </div>
               </div>
+
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" >cin</label>
+                    <input type="text" name="cin" class="form-control form-control-alternative" [(ngModel)]="user.cin" disabled>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label">Ville</label>
+                    <input type="text" name="city" class="form-control form-control-alternative" [(ngModel)]="user.city" disabled>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" >Date de naissance</label>
+                    <input type="Date" name="birthDate" class="form-control form-control-alternative" [(ngModel)]="user.birthDate" disabled>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="form-control-label">Genre</label>
+                  <input type="text" name="gender" class="form-control form-control-alternative" [value]="user.gender ? 'Masculin' : 'Féminin'" disabled>
+                </div>
+              </div>
+              </div>
+
               <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
@@ -70,13 +101,13 @@
               <fieldset>
                 <div class="form-check">
                   <label class="form-check-label">
-                    <input type="checkbox" name="isActive" [(ngModel)]="user.isActive" class="form-check-input" disabled> Active
+                    <input type="checkbox" name="active" [(ngModel)]="user.active" class="form-check-input" disabled> Active
                   </label>
                 </div>
 
                 <div class="form-check">
                   <label class="form-check-label">
-                    <input type="checkbox" name="isNotLocked" [(ngModel)]="user.isNotLocked" class="form-check-input" disabled> Déverrouillé
+                    <input type="checkbox" name="notLocked" [(ngModel)]="user.notLocked" class="form-check-input" disabled> Déverrouillé
                   </label>
                 </div>
               </fieldset>

@@ -42,12 +42,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           localStorage.setItem('token', token); // Additional storage for convenience
           this.authenticationService.addUserToLocalCache(response.body); // Save user details
   
-          // Check if email and password match admin credentials
-          if (user.email === 'admin@lawyersoft.com' && user.password === '1234') {
-            this.router.navigateByUrl('/dashboard-admin');
-          } else {
-            this.router.navigateByUrl('/dashboard');
-          }
+         
   
           this.showLoading = false;
         },

@@ -13,8 +13,9 @@ export class User {
   //country: string;
   city: string;
   gender: boolean;
-  isActive: boolean;
-  isNotLocked: boolean;
+
+  active: boolean;
+  notLocked: boolean;
 
   profileImage?: string;
   lastLoginDate?: Date;

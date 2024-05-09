@@ -22,9 +22,10 @@ export class InfoUserComponent implements OnInit {
     ngOnInit(): void {
       //Récupérer les données
       this.id=this.activatedRoute.snapshot.params['id'];
-      this.userService.findUserById(this.id).subscribe(
+      this.userService.getUserById(this.id).subscribe(
         (d)=>{
           this.user=d;
+          
         },
         (error)=>{
           switch (error.status){
@@ -35,7 +36,7 @@ export class InfoUserComponent implements OnInit {
         }
         ,
           ()=>{
-            console.log('comp')
+            console.log(this.user)
           }
       )
     }

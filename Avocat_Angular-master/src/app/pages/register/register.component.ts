@@ -40,11 +40,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
     }
   }
   getUserStatus(user: User): string {
-    if (user.isActive && user.isNotLocked) {
+    if (user.active && user.notLocked) {
       return 'Active';
-    } else if (!user.isActive && user.isNotLocked) {
+    } else if (!user.active && user.notLocked) {
       return 'Inactive';
-    } else if (!user.isActive && !user.isNotLocked) {
+    } else if (!user.active && !user.notLocked) {
       return 'Verrouillé';
     } else {
       return 'Unknown';

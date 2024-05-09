@@ -48,7 +48,6 @@ import { UpdateCourtComponent } from 'src/app/pages/court/update-court/update-co
 import { ListAuxiliaryComponent } from 'src/app/pages/auxiliary/list-auxiliary/list-auxiliary.component';
 import { AddAuxiliaryComponent } from 'src/app/pages/auxiliary/add-auxiliary/add-auxiliary.component';
 import { UpdateAuxiliaryComponent } from 'src/app/pages/auxiliary/update-auxiliary/update-auxiliary.component';
-import { DashboardAdminComponent } from 'src/app/pages/dashboard-admin/dashboard-admin.component';
 // import { ToastrModule } from 'ngx-toastr';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { AppointmentComponent } from 'src/app/pages/appointment/appointment.component';
@@ -107,7 +106,6 @@ import { InfoContractComponent } from 'src/app/pages/contract/info-contract/info
     ListAuxiliaryComponent,
     AddAuxiliaryComponent,
     UpdateAuxiliaryComponent,
-    DashboardAdminComponent,
     AppointmentComponent,
     ListContractComponent,
     InfoContractComponent
