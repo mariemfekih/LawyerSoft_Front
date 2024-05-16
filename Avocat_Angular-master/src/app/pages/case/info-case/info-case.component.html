@@ -24,6 +24,7 @@
             <p class="card-text"><strong>Date Création:</strong> {{ case?.creationDate }}</p>
             <p class="card-text"><strong>Date Cloture:</strong> {{ case?.closingDate }}</p>
             <p class="card-text"><strong>Type:</strong> {{ case?.type }}</p>
+            <p class="card-text"><strong>Reference:</strong> {{ case?.reference }}</p>
           </div>
   
           <!-- TRIAL -->
@@ -106,6 +107,11 @@
                       <div class="form-group">
                         <label for="judgement">Jugement</label>
                         <input type="text" class="form-control" id="judgement" name="judgement" placeholder="jugement" [(ngModel)]="trial1.judgement" required>
+                      </div>
+                      <div class="form-group">
+                        <select class="form-control" id="court" name="court" [(ngModel)]="selectedCourtId" required>
+                          <option *ngFor="let court of courts" [ngValue]="court.idCourt">{{ court.type }} {{ court.governorate }}</option>
+                        </select>
                       </div>
                       <button type="submit" class="btn btn-primary">Ajouter Trial</button>
                       <button type="button" class="btn btn-danger" (click)="closeAddTrialPopup()">Fermer</button>
@@ -281,7 +287,7 @@
         <div class="card-body">
           <form (ngSubmit)="onAddContributor()">
             <div class="form-group">
-              <select class="form-control" id="auxiliary" name="auxiliary" [(ngModel)]="selectedAuxiliaryId" required>
+              <select class="form-control" id="auxiliary" name="auxiliary" [(ngModel)]="selectedAuxiliaryId" required> 
                 <option *ngFor="let auxiliary of auxiliaries" [ngValue]="auxiliary.idAuxiliary">{{ auxiliary.lastName }} {{ auxiliary.firstName }}</option>
             </select>
             </div>

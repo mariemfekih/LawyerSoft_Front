@@ -43,6 +43,7 @@
     "date-fns": "^3.6.0",
     "faker": "^6.6.6",
     "fullcalendar": "^6.1.11",
+    "js-joda": "^1.11.0",
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.8.2",
     "ng2-pdf-viewer": "^10.0.0",

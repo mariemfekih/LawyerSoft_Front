@@ -13,6 +13,7 @@ import { CaseService } from 'src/app/services/case.service';
 export class AddCaseComponent implements OnInit {
   public case: Case = new Case();
   selectedCaseId: number;
+  userId:number;
 
   selectedCaseType: CaseType = CaseType.CIVIL; // Valeur initiale
   // Obtenir toutes les valeurs de l'énumération CaseType
@@ -26,14 +27,19 @@ export class AddCaseComponent implements OnInit {
               private router: Router) {}
 
   ngOnInit(): void {
-
+    this.userId = JSON.parse(localStorage.getItem('id')!);
     
   }
 
   submitForm() {
     this.case.type = this.selectedCaseType;
 
-    this.caseService.addCase(this.case).subscribe(
+  // Check if closing date is after creation date
+  if (this.case.closingDate && this.case.creationDate && this.case.closingDate < this.case.creationDate) {
+    alert('La date de clôture doit être postérieure à la date de création');
+    return;
+  }
+    this.caseService.addCase(this.case,this.userId).subscribe(
       newcase => {
         console.log('affaire ajoutée avec succès:', newcase);
         this.router.navigate(['list-case']);
@@ -43,9 +49,5 @@ export class AddCaseComponent implements OnInit {
       }
     );
   }
-
-
-  
-  
 
 }

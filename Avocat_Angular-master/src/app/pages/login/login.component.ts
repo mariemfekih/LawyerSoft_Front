@@ -40,11 +40,10 @@ export class LoginComponent implements OnInit, OnDestroy {
           const token = response.body!.token;
           this.authenticationService.saveToken(token); // Secure token storage
           localStorage.setItem('token', token); // Additional storage for convenience
-          this.authenticationService.addUserToLocalCache(response.body); // Save user details
-  
-         
-  
+          this.authenticationService.addUserToLocalCache(response.body); // Save user detail
           this.showLoading = false;
+          this.router.navigateByUrl('/dashboard');
+
         },
         (errorResponse: HttpErrorResponse) => {
           this.sendErrorNotification(NotificationType.ERROR, errorResponse.error.message);

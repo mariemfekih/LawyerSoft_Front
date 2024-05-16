@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { User } from 'src/app/models/user';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -11,19 +12,23 @@ import { User } from 'src/app/models/user';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
+  idUser: number;
   public user: User;
   public focus: boolean;
   public listTitles: RouteInfo[]; // Define listTitles as an array of RouteInfo
   public location: Location;
-  public username: string;
 
-  constructor(location: Location, private element: ElementRef, private router: Router,
+  constructor(location: Location, private element: ElementRef, private router: Router,    private userService: UserService,
               private authenticationService: AuthenticationService) {
     this.location = location;
+    this.user = new User(); // Initialize user object
   }
 
   ngOnInit() {
-    this.username = localStorage.getItem('username');
+   // this.username = localStorage.getItem('username');
+    this.idUser = JSON.parse(localStorage.getItem('id')!);
+    this.loadUserDetails(this.idUser);
+
   }
 
   getTitle(): string {
@@ -54,5 +59,14 @@ export class NavbarComponent implements OnInit {
     // For example, check if the user is stored in local storage or has a valid token
     return true; // Return true if authenticated, false otherwise
   }
-  
+  loadUserDetails(idUser: number) {
+    this.userService.getUserById(idUser).subscribe(
+      (data) => {
+        this.user = data;
+       // console.log(this.user)
+      } ,(error) => {
+          console.error('Error fetching user details:', error);
+        }
+      );
+}
 }

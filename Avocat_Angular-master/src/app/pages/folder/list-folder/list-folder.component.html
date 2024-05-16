@@ -1,0 +1,80 @@
+<div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+    <div class="container-fluid">
+      <div class="header-body">
+      </div>
+    </div>
+  </div>
+
+<!-- Page content -->
+<div class="container-fluid mt--7">
+
+    <div class="input-group input-group-alternative">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-search"></i></span>
+      </div>
+      <input class="form-control" placeholder="Rechercher ..." type="text" [(ngModel)]="searchTerm" (keyup)="onSearch()">
+    </div>
+<br>
+  
+<div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header bg-transparent">
+          <h3 class="mb-0">Dossiers</h3>
+        </div>
+        <br>
+  
+        <div class="col-12 text-left">
+          <h3 class="mb-0">Nouveau Dossier</h3>
+          <br>
+        </div>
+  
+        <div class="container">
+          <form #addFolder="ngForm" (ngSubmit)="onSubmit()">
+            <div class="pl-lg-4">
+              <div class="row">
+                
+                <div class="col-lg-10">
+                  <select class="form-control"  id="case" name="case" [(ngModel)]="selectedCaseId" >
+                      <option value="" disabled="true">Sélectionnez une affaire</option>
+                      <option *ngFor="let case of casesWithoutFolders" [ngValue]="case.idCase">{{ case.title }}</option>
+                    </select>
+                </div>
+                  <br>
+                  <br>
+                <div class="col-lg-10">
+                  <div class="form-group">
+                    <input type="text" name="name" id="name" placeholder="Nom Dossier" class="form-control form-control-alternative" [(ngModel)]="folderName" required>
+                  </div>
+                </div>
+  
+                <div class="col-lg-2">
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-primary" [disabled]="!addFolder?.form?.valid"><i class="fa fa-plus"></i> |Ajouter </button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </form>
+  
+         <div class="card-body">
+          <div class="row">
+            <ng-container *ngFor="let ds of searchedFolder">
+              <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-4">
+                 <div class="folder-icon-container">
+                    <i class="fas fa-folder fa-3x folder-icon"></i>
+                    <div class="folder-name">
+                        {{ ds.name }}
+                    </div>
+                 </div>
+             </div>
+            </ng-container>
+          </div>
+         </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </div>

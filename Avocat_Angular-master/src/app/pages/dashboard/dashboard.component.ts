@@ -7,10 +7,10 @@ import {RouteInfo} from '../../components/sidebar/sidebar.component';
 import {chartExample1, chartExample2, chartOptions, parseOptions} from "../../variables/charts";
 import {Router} from '@angular/router';
 import {Role} from "../../models/type/role";
-
+import { CaseService } from 'src/app/services/case.service';
 export const DASHBOARD_ROUTES: RouteInfo[] = [
    { path: '/list-user', title: 'Utilisateurs',  icon:'ni-single-02 text-primary', class: '',roles: [Role.ADMIN] },
-  {
+   {
     path: '/list-case',
     title: 'Affaires',
     icon: 'ni-briefcase-24 text-primary',
@@ -52,8 +52,9 @@ export const DASHBOARD_ROUTES: RouteInfo[] = [
     dashboardType: 'other',
     roles: [Role.LAWYER]
   },
+
   {
-    path: '/list-dossiers',
+    path: '/list-folder',
     title: 'Dossiers',
     icon: 'ni-folder-17 text-primary',
     class: '',
@@ -76,7 +77,14 @@ export const DASHBOARD_ROUTES: RouteInfo[] = [
     class: '',
     dashboardType: 'other',
     roles: [Role.LAWYER]
-  },
+  },{
+    path: '/profile',
+    title: 'Profile',
+    icon: 'ni-building text-blue',
+    class: '',
+    dashboardType: 'other',
+    roles: [Role.LAWYER]
+  }
 
   /* { path: '/maps', title: 'Maps',  icon:'ni-pin-3 text-orange', class: '' },
    { path: '/user-profile', title: 'User profile',  icon:'ni-circle-08 text-red', class: '' },
@@ -97,12 +105,20 @@ export class DashboardComponent implements OnInit {
   public salesChart;
   public clicked: boolean = true;
   public clicked1: boolean = false;
+idUser:number;
+totalCases:number;
+percentageChangeCases: number;
 
-  constructor(private router: Router) {
+
+constructor(private router: Router,private caseService: CaseService) {
   }
 
   ngOnInit() {
+   this.idUser = JSON.parse(localStorage.getItem('id')!);
+    this.getCurrentMonthTotalCases();
+    this.getPercentageChangeInTotalCases();
 
+    
     this.datasets = [
       [0, 20, 10, 30, 15, 40, 20, 60, 60],
       [0, 20, 5, 25, 10, 30, 15, 40, 40]
@@ -136,4 +152,21 @@ export class DashboardComponent implements OnInit {
     this.salesChart.update();
   }
 
+
+  getCurrentMonthTotalCases() {
+    this.caseService.getTotalCasesByUserMonth(this.idUser).subscribe(totalCases => {
+      this.totalCases = totalCases;
+    });
+  }
+
+  
+  getPercentageChangeInTotalCases() {
+    this.caseService.getPercentageChangeInTotalCasesByUser(this.idUser).subscribe(percentageChangeCases => {
+      this.percentageChangeCases = percentageChangeCases;
+    });
+  }
+
+
 }
+
+

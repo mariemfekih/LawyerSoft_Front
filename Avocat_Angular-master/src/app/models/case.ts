@@ -9,6 +9,7 @@ export class Case {
     title: string;
     description: string;
     type: CaseType;
+    reference:string;
     trials: Trial[];
     //folders: Folder[];
     contributors: Contributor[];

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Case } from 'src/app/models/case';
 import { CaseTypeTranslator } from 'src/app/models/type/TranslatorFr/caseTypeTranslator';
 import { CaseType } from 'src/app/models/type/caseType';
@@ -19,18 +19,27 @@ export class ListCaseComponent implements OnInit {
     itemsPerPage: number = 5;
     searchTerm: string;
     searchedCase: Case[];
+    idUser: number;
+
   
     constructor(private caseService: CaseService,
+                private route: ActivatedRoute,
                 private router: Router) { }
-  
-    ngOnInit(): void {
-      this.getCases();
-    }
+   ngOnInit(): void {
+  const userId = JSON.parse(localStorage.getItem('id')!);
+  if (userId) {
+    this.idUser = userId;
+    this.getCases(this.idUser);
+  }
+                }
+                
+
   
     //Afficher la liste des Case
-    public getCases() {
-      this.caseService.getCases().subscribe(
+    public getCases(userId: number) {
+      this.caseService.getUserCases(userId).subscribe(
         (data) => {
+          console.log(userId)
           console.log(data)
           this.case = data;
           this.searchedCase = data;
@@ -73,7 +82,7 @@ export class ListCaseComponent implements OnInit {
   
       this.caseService.deleteCase(caseId).subscribe(
           () => {
-              this.getCases();
+              this.getCases(this.idUser);
               console.log("supp"); 
           },
           (error) => {

@@ -5,13 +5,16 @@ import { Observable } from 'rxjs';
 import { Auxiliary } from 'src/app/models/auxiliary';
 import { Case } from 'src/app/models/case';
 import { Contributor } from 'src/app/models/contributor';
+import { Court } from 'src/app/models/court';
 import { NewContributor } from 'src/app/models/dto/newContributor';
+import { newTrial } from 'src/app/models/dto/newTrial';
 import { Trial } from 'src/app/models/trial';
 import { ContributorTypeTranslator } from 'src/app/models/type/TranslatorFr/contributorTypeTranslator';
 import { ContributorType } from 'src/app/models/type/contributorType';
 import { AuxiliaryService } from 'src/app/services/auxiliary.service';
 import { CaseService } from 'src/app/services/case.service';
 import { ContributorService } from 'src/app/services/contributor.service';
+import { CourtService } from 'src/app/services/court.service';
 import { TrialService } from 'src/app/services/trial.service';
 
 @Component({
@@ -21,7 +24,9 @@ import { TrialService } from 'src/app/services/trial.service';
 })
 export class InfoCaseComponent implements OnInit {
   case: Case;
+  court:Court;
   idCase: number;
+  idCourt:number;
   trials: Trial[] = [];
   trial1: Trial = {
     idTrial: null,
@@ -38,8 +43,8 @@ export class InfoCaseComponent implements OnInit {
   idTrial: number;
   updatedTrial: Trial = new Trial(); 
 
-  displayAddContributorStyle: string = 'none';  //for the update;
-  displayUpdateContributorStyle: string = 'none'; // initialisé à 'none' pour masquer la boîte de dialogue modale
+  displayAddContributorStyle: string = 'none';  
+  displayUpdateContributorStyle: string = 'none'; 
   displayDeleteContributorStyle: string = 'none'; 
   idContributor: number;
   updatedContributor: Contributor = new Contributor(); 
@@ -49,6 +54,9 @@ export class InfoCaseComponent implements OnInit {
   //*************testttttt**************** */
 contributors: Contributor[] = [];
 selectedAuxiliaryId: number;
+selectedCourtId: number;
+courts: Court[] = [];
+
 auxiliaries: Auxiliary[] = [];
 selectedContributorType:ContributorType;
 contributorTypes = Object.values(ContributorType);
@@ -61,10 +69,12 @@ translateContributorType(type: ContributorType): string {
     private caseService: CaseService,
     private trialService: TrialService ,
     private auxiliaryService:AuxiliaryService,
-  private contributorService:ContributorService ) { }
+  private contributorService:ContributorService,
+private courtService:CourtService ) { }
 
   ngOnInit(): void {
-    this.idCase = this.route.snapshot.params['idCase'];
+    this.idCase = this.route.snapshot.params['idCase'];    
+    this.idCourt = this.route.snapshot.params['idCourt'];
     this.idTrial = this.route.snapshot.params['idTrial'];
     this.idContributor = this.route.snapshot.params['idContributor'];
 
@@ -81,6 +91,15 @@ translateContributorType(type: ContributorType): string {
         console.error('Error fetching auxiliaries:', error);
       }
     );
+    this.courtService.getCourts().subscribe(
+      (data: Court[]) => {
+        console.log('Courts fetched:', data);
+        this.courts = data;
+      },
+      error => {
+        console.error('Error fetching courts:', error);
+      }
+    );
 
   }
 
@@ -88,7 +107,7 @@ translateContributorType(type: ContributorType): string {
     this.trialService.getTrialsByCaseId(this.idCase).subscribe(
       (data: Trial[]) => {
         this.trials = data;
-        console.log('Trials:', this.trials); // Add this line for debugging
+        console.log('Trials:', this.trials); 
       },
       error => {
         console.error('Error fetching trials:', error);
@@ -119,6 +138,17 @@ translateContributorType(type: ContributorType): string {
       }
     );
   }
+  loadCourtDetails(idCourt: number) {
+    this.courtService.getCourtById(idCourt).subscribe(
+      (data) => {
+        this.court = data;
+      },
+      (error) => {
+        console.error('Error fetching case details:', error);
+      }
+    );
+  }
+
 
 
 /**
@@ -154,10 +184,18 @@ translateContributorType(type: ContributorType): string {
     this.displayDeleteTrialStyle = 'none'; // pour masquer la boîte de dialogue modale
   }
 
-
   onAddTrial(): void {
-    this.trialService.addTrialToCase(this.idCase, this.trial1).subscribe(
+    // Check if the court ID is undefined
+    this.trial1.idCourt=this.selectedCourtId
+    if (this.trial1.idCourt === undefined) {
+      console.error('Court ID is undefined');
+      return;
+    }
+  
+    this.trialService.addTrialToCase(this.idCase, this.selectedCourtId, this.trial1).subscribe(
       (newTrial: Trial) => {
+        
+        console.log('Selected Court ID:', this.selectedCourtId);
         console.log('Trial added successfully');
         this.closeAddTrialPopup();
         this.fetchTrials(); 
@@ -167,6 +205,8 @@ translateContributorType(type: ContributorType): string {
       }
     );
   }
+  
+  
   
   fetchTrials(): void {
     this.trialService.getTrialsByCaseId(this.idCase)
@@ -195,7 +235,7 @@ translateContributorType(type: ContributorType): string {
 
 
   updateTrial(): void {
-    this.trialService.updateTrial(this.idCase, this.idTrial, this.updatedTrial)
+    this.trialService.updateTrial(this.idCase,this.idCourt, this.idTrial, this.updatedTrial)
       .subscribe(
         response => {
           console.log('Trial updated successfully:', response);

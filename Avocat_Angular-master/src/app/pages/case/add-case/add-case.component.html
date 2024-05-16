@@ -47,7 +47,7 @@
                               <div class="col-lg-6">
                                   <div class="form-group">
                                       <label for="closingDate" class="form-control-label">Date Cloture</label>
-                                      <input type="date" name="closingDate" id="closingDate" class="form-control form-control-alternative" placeholder="Date Cloture" [(ngModel)]="case.closingDate">
+                                      <input type="date" name="closingDate" id="closingDate" class="form-control form-control-alternative" placeholder="Date Cloture" [(ngModel)]="case.closingDate" [min]="case.creationDate">
                                   </div>
                               </div>
                           </div>

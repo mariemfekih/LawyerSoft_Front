@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, tap } from 'rxjs';
+import { Role } from 'src/app/models/type/role';
 import { User } from 'src/app/models/user';
+import { CaseService } from 'src/app/services/case.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -11,19 +14,21 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class UserProfileComponent implements OnInit {
   user: User;
-  userId: number;
+  idUser: number;
   userProfileForm: FormGroup;
-
+  users:User[]=[];
+  totalCases:number;
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private userService: UserService,
-    private router: Router
+    private router: Router,private caseService: CaseService
   ) {}
-
   ngOnInit(): void {
-    this.userId = +this.route.snapshot.params['id'];
+  
+    this.idUser = JSON.parse(localStorage.getItem('id')!);
 
+    ////////////////
     this.userProfileForm = this.formBuilder.group({
       username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -32,41 +37,86 @@ export class UserProfileComponent implements OnInit {
       city: ['', Validators.required],
       gender: ['', Validators.required],
       birthDate: ['', Validators.required],
-      role: ['', Validators.required],
+      role: [this.user?.role, Validators.required],
       cin: ['', Validators.required],
     });
+  
+    this.userService.getUserById(this.idUser).subscribe(data => {
+      this.user = data as User;
+  
+      this.userProfileForm.patchValue({
+        username: this.user.username,
+        email: this.user.email,
+        firstName: this.user.firstName,
+        lastName: this.user.lastName,
+        city: this.user.city ,
+        gender: this.user.gender,
+        birthDate: this.user.birthDate,
+        role: this.user?.role,
+        cin: this.user.cin
+      });
+    });
+    ////////////////
+    this.loadUserDetails(this.idUser);
+    this.getCurrentTotalCases().subscribe(totalCases => {
+      this.totalCases = totalCases;
+      console.log(this.totalCases);
+    });
 
-    this.userService.getUserById(this.userId).subscribe(
-      (user: User) => {
-        this.user = user;
-        this.userProfileForm.patchValue({
-          username: user.username,
-          email: user.email,
-          cin: user.cin,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          city: user.city,
-          gender: user.gender,
-          birthDate: user.birthDate,
-          role: user.role,
+  }
 
-        });
+
+
+
+  loadUserDetails(idUser: number) {
+    this.userService.getUserById(idUser).subscribe(
+      (data) => {
+        this.user = data;
+        console.log(this.user)
+        if (this.userProfileForm) { // Ensure userProfileForm is initialized
+          this.userProfileForm.patchValue({
+              username: this.user.username,
+              email: this.user.email,
+              firstName: this.user.firstName,
+              lastName: this.user.lastName,
+              city: this.user.city,
+              gender: this.user.gender, // Assuming gender is a boolean value
+              birthDate: this.user.birthDate,
+              role: this.user.role,
+              cin: this.user.cin,
+          });
+      }
       },
-      (error: any) => {
-        console.error('Error fetching user data:', error);
+      (error) => {
+        console.error('Error fetching user details:', error);
       }
     );
   }
+  age(birthDate: string): number {
+    const today = new Date();
+    const birthDateObj = new Date(birthDate);
+    let age = today.getFullYear() - birthDateObj.getFullYear();
+    const m = today.getMonth() - birthDateObj.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDateObj.getDate())) {
+      age--;
+    }
+    return age;
+  }
+  
+  getCurrentTotalCases(): Observable<number> {
+    return this.caseService.getTotalCasesByUser(this.idUser);
+  }
+  
 
   updateProfile() {
     if (this.userProfileForm.valid) {
       const formData = this.userProfileForm.value;
       // Call your service method to update user profile
-      this.userService.updateUser(this.userId, formData).subscribe(
+      this.userService.updateUser(this.idUser, formData).subscribe(
         (response) => {
           console.log('User profile updated successfully:', response);
           // Redirect to user profile page or any other page
-          this.router.navigate(['/user-profile', this.userId]);
+          this.router.navigate(['/user-profile', this.idUser]);
         },
         (error) => {
           console.error('Error updating user profile:', error);

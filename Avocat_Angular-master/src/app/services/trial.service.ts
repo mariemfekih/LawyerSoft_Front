@@ -12,22 +12,21 @@ export class TrialService {
 
   constructor(private http:HttpClient) {}
 
-  addTrialToCase(caseId: number, trial: Trial): Observable<any> {
-    return this.http.post(`${this.host}/Case/${caseId}/addTrial`, trial);
+  addTrialToCase(caseId: number, idCourt:number ,trial: Trial): Observable<any> {
+    return this.http.post(`${this.host}/Trial/${caseId}/addTrial/${idCourt}`, trial);
+  }
+
+  updateTrial(caseId: number,courtId: number, trialId: number, updatedTrial: Trial): Observable<any> {
+    return this.http.put(`${this.host}/Trial/${trialId}/updateTrial/${caseId}/${courtId}`, updatedTrial);
+  }
+  deleteTrial(caseId: number, trialId: number): Observable<void> {
+    const url = `${this.host}/Case/${caseId}/deleteTrial/${trialId}`;
+    return this.http.delete<void>(url);
   }
   getTrialsByCaseId(caseId: number): Observable<any[]> {
     const url = `${this.host}/Case/${caseId}/getTrials`; 
     return this.http.get<any[]>(url);
   }
-
-  deleteTrial(caseId: number, trialId: number): Observable<void> {
-    const url = `${this.host}/Case/${caseId}/deleteTrial/${trialId}`;
-    return this.http.delete<void>(url);
-  }
-  updateTrial(caseId: number, trialId: number, updatedTrial: Trial): Observable<any> {
-    return this.http.put(`${this.host}/Case/${caseId}/updateTrial/${trialId}`, updatedTrial);
-  }
-
   
 
 

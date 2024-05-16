@@ -54,6 +54,7 @@ export class AuthenticationService {
           this.token= response.body!.token;
           this.tokenSubject.next(this.token);
           localStorage.setItem('email', this.currentUser.email);
+          localStorage.setItem('id', JSON.stringify(this.currentUser.id));
           localStorage.setItem('jwt_token', this.token);
           localStorage.setItem('current_user', JSON.stringify(this.currentUser));
         }
