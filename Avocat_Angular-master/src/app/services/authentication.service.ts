@@ -2,8 +2,9 @@ import {Injectable} from '@angular/core';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {HttpClient, HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {environment} from '../../environments/environment';
-import {BehaviorSubject, Observable, tap} from 'rxjs';
+import {BehaviorSubject, Observable, catchError, map, tap, throwError} from 'rxjs';
 import {User} from '../models/user';
+import { RegisterResponse } from '../models/dto/RegisterResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -62,6 +63,28 @@ export class AuthenticationService {
     );
   }
 
+ /* public register(user: User): Observable<User | HttpErrorResponse> {
+    return this.http.post<{user: User, token: string}>(`${this.host}/user/register`, user).pipe(
+      map(response => {
+        // Extract user ID and token from the response
+        const id = response.user.id;
+        const email=response.user.email;
+        const token = response.token;
+        
+        // Save them in local storage
+        localStorage.setItem('id', id.toString());
+        localStorage.setItem('email', email);
+        localStorage.setItem('token', token);
+        
+        // Return the user part of the response
+        return response.user;
+      }),
+      catchError((error: HttpErrorResponse) => {
+        // Handle the error here if necessary
+        return throwError(error);
+      })
+    );
+  }*/
 
   public register(user:User): Observable<User | HttpErrorResponse> {
     return this.http.post<User| HttpErrorResponse>

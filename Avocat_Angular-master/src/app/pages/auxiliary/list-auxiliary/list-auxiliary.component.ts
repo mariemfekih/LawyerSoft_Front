@@ -22,12 +22,13 @@ export class ListAuxiliaryComponent implements OnInit {
 
   report:Report={name:''};
   reportName: StringResult = new StringResult();
-
+  userId:number;
   constructor(private route: ActivatedRoute,
     private auxiliaryService: AuxiliaryService,
               private router: Router) { }
 
   ngOnInit(): void {
+    this.userId = JSON.parse(localStorage.getItem('id')!);
     this.idAuxiliary = this.route.snapshot.params['idAuxiliary'];
     this.getAuxiliaries();
   }
@@ -49,7 +50,7 @@ export class ListAuxiliaryComponent implements OnInit {
   
 
   public getAuxiliaries() {
-    this.auxiliaryService.getAuxiliaries().subscribe(
+    this.auxiliaryService.getAuxiliariesByUserId(this.userId).subscribe(
       (data) => {
         console.log(data)
         this.auxiliary = data;

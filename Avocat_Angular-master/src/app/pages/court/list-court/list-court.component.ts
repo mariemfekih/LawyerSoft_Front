@@ -51,7 +51,6 @@ export class ListCourtComponent implements OnInit {
       this.searchedCourt = this.court.filter(court => {
         return (
           court.governorate.toLowerCase().includes(searchTermLowerCourt) ||
-          court.municipality.toLowerCase().includes(searchTermLowerCourt) ||
           court.adress.toLowerCase().includes(searchTermLowerCourt) ||
           court.type.toLowerCase().includes(searchTermLowerCourt) ||
           court.phone.toString().toLowerCase().includes(searchTermLowerCourt)     

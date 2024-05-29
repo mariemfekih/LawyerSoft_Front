@@ -1,6 +1,7 @@
 import { CaseType } from '../models/type/caseType';
 import { Contributor } from './contributor';
 import { Trial } from './trial';
+import { CaseState } from './type/caseState';
 
 export class Case {
     idCase: number;
@@ -10,6 +11,7 @@ export class Case {
     description: string;
     type: CaseType;
     reference:string;
+    state:CaseState;
     trials: Trial[];
     //folders: Folder[];
     contributors: Contributor[];

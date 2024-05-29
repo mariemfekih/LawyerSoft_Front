@@ -7,6 +7,7 @@ import { Governorate } from 'src/app/models/type/governorate';
 import { Role } from 'src/app/models/type/role';
 import { User } from 'src/app/models/user';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { EmailService } from 'src/app/services/email.service';
 import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
@@ -32,7 +33,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
  */
   constructor(private router: Router,
               private authenticationService: AuthenticationService,
-              private notificationService: NotificationService) {}
+              private notificationService: NotificationService,
+            private emailService:EmailService) {}
 
   ngOnInit(): void {
     if(this.authenticationService.isUserLoggedIn()) {
@@ -51,43 +53,46 @@ export class RegisterComponent implements OnInit, OnDestroy {
     }
   }
   public onRegister(user: User): void {
-    user.role= Role.LAWYER;
+    user.role = Role.LAWYER;
     const username = `${user.firstName}.${user.lastName}`.toLowerCase();
     user.username = username;
 
-     // Perform password strength validation
-  const passwordStrength = this.getPasswordStrength(); // Call the getPasswordStrength function
-  if (passwordStrength === 'faible') {
-    this.sendNotification(NotificationType.ERROR, 'Le mot de passe ne respecte pas les critères de validation.');
-    return;
-  }
-      // Perform email validation
-  if (!this.isEmailValid(user.email)) {
-    this.sendNotification(NotificationType.ERROR, "L'adresse e-mail n'est pas valide.");
-    return;
-  }
+    // Perform password strength validation
+    const passwordStrength = this.getPasswordStrength();
+    if (passwordStrength === 'faible') {
+      this.sendNotification(NotificationType.ERROR, 'Le mot de passe ne respecte pas les critères de validation.');
+      return;
+    }
 
-  // Perform CIN validation
-  if (!this.isCinValid(user.cin)) {
-    this.sendNotification(NotificationType.ERROR, "Le CIN n'est pas valide.");
-    return;
-  }
+    // Perform email validation
+    if (!this.isEmailValid(user.email)) {
+      this.sendNotification(NotificationType.ERROR, "L'adresse e-mail n'est pas valide.");
+      return;
+    }
+
+    // Perform CIN validation
+    if (!this.isCinValid(user.cin)) {
+      this.sendNotification(NotificationType.ERROR, "Le CIN n'est pas valide.");
+      return;
+    }
+
     this.showLoading = true;
     this.subscriptions.push(
       this.authenticationService.register(user).subscribe(
         (response: User) => {
-          this.showLoading= false ;
-         // this.sendNotification(NotificationType.SUCCESS, 'Un nouveau compte a été créé avec succès!');
-         this.sendNotification(NotificationType.SUCCESS, 'Votre demande d\'inscription a été reçue. Veuillez consulter votre boîte e-mail pour confirmer votre adresse et finaliser le processus d\'inscription. Un e-mail de confirmation vous sera envoyé sous peu.');
-         this.router.navigate(['/login']);
+          this.emailService.sendEmailTemplate(response.email, "subj", "C:\Users\marie\Documents\Github\LawyerSoft_Front\Avocat_Angular-master\src\assets\emailTemplates\afterSignup.html", response.id);
+          this.showLoading = false;
+          this.sendNotification(NotificationType.SUCCESS, 'Votre demande d\'inscription a été reçue. Veuillez consulter votre boîte e-mail pour confirmer votre adresse et finaliser le processus d\'inscription. Un e-mail de confirmation vous sera envoyé sous peu.');
+          this.router.navigate(['/login']);
         },
         (errorResponse: HttpErrorResponse) => {
           this.sendNotification(NotificationType.ERROR, errorResponse.error.message);
-          this.showLoading= false ;
+          this.showLoading = false;
         }
       )
-      );
+    );
   }
+
 
   private sendNotification(notificationType: NotificationType, message: string): void{
     if (message) {

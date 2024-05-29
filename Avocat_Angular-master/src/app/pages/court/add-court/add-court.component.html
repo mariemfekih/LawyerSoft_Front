@@ -20,19 +20,21 @@
                     <form (ngSubmit)="submitForm()">
                         <div class="pl-lg-4">
                             <div class="row">
+                               
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="type" class="form-control-label">Type de Tribunal</label>
+                                        <select name="type" class="form-control form-control-alternative" [(ngModel)]="selectedCourtType" required>
+                                            <option *ngFor="let type of courtTypes" [value]="type">{{ translateCourtType(type) }}</option>
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="type" class="form-control-label">Gouvernorat</label>
                                         <select name="type" class="form-control form-control-alternative" [(ngModel)]="selectedGovernorate" required>
                                             <option *ngFor="let governorate of governorates" [value]="governorate">{{ governorate }}</option>
                                         </select>
-                                    </div>
-                             
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label for="municipality" class="form-control-label">Municipalité</label>
-                                        <input type="text" name="municipality" id="municipality" class="form-control form-control-alternative" placeholder="Municipalité" [(ngModel)]="court.municipality" required>
                                     </div>
                                 </div>
                             </div>
@@ -46,23 +48,13 @@
 
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="phone" class="form-control-label">phone</label>
-                                        <input type="text" name="phone" id="phone" class="form-control form-control-alternative" placeholder="phone" [(ngModel)]="court.phone" required>
+                                        <label for="phone" class="form-control-label">Téléphone</label>
+                                        <input type="text" name="phone" id="phone" class="form-control form-control-alternative" placeholder="téléphone" [(ngModel)]="court.phone" required>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="row">
-                            
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label for="type" class="form-control-label">Type de Tribunal</label>
-                                        <select name="type" class="form-control form-control-alternative" [(ngModel)]="selectedCourtType" required>
-                                            <option *ngFor="let type of courtTypes" [value]="type">{{ translateCourtType(type) }}</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
+                        
                             <div class="row">
                                 <div class="col-12 text-right">
                                     <button type="submit" class="btn btn-primary">Ajouter</button>

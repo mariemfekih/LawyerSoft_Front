@@ -29,6 +29,7 @@ import { InfoContractComponent } from 'src/app/pages/contract/info-contract/info
 import { ListFolderComponent } from 'src/app/pages/folder/list-folder/list-folder.component';
 import { InfoFolderComponent } from 'src/app/pages/folder/info-folder/info-folder.component';
 import { ProfileComponent } from 'src/app/pages/profile/profile.component';
+import { BookingComponent } from 'src/app/pages/booking/booking.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
@@ -62,6 +63,7 @@ export const AdminLayoutRoutes: Routes = [
 
   /**Appointlment */
   { path: 'appointment',      component: AppointmentComponent },
+  { path: 'booking',      component: BookingComponent },
   /**Contract */
   { path: 'list-contract',      component: ListContractComponent},
   { path: 'info-contract',      component: InfoContractComponent},

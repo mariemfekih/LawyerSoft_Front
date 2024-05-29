@@ -18,6 +18,7 @@ import { EmailService } from 'src/app/services/email.service'; // Import the Ema
 export class ListUserComponent implements OnInit {
  idUser: number;
   public user!: User[];
+  u:User;
   currentPage: number = 1;
   itemsPerPage: number = 5;
   searchTerm: string;
@@ -36,16 +37,29 @@ export class ListUserComponent implements OnInit {
   ngOnInit(): void {
     this.getUsers();
     this.idUser = this.route.snapshot.params['id'];
-
+ 
   }
+  
 
-  //Afficher la liste des Users
+
   public getUsers() {
     this.userService.getUsers().subscribe(
       (data) => {
         console.log(data)
         this.user = data;
         this.searchedUser = data;
+      }
+    );
+  }
+  public getUserById() {
+    this.userService.getUserById(this.idUser).subscribe(
+      (user: User) => {
+        console.log('User object:', user); // Add this line to log the user object
+        const userEmail = user.email;
+        console.log(userEmail)
+      },
+      (error: any) => {
+        console.error(error);
       }
     );
   }
@@ -167,25 +181,7 @@ openSendMailPopup(userId: number, currentStatus: boolean) {
 closeSendMailPopup() {
   this.displayChange = 'none'; 
 }
-/*
-toggleUserActivation(userId: number, currentStatus: boolean): void {
-  this.currentActivationStatus = !currentStatus; // Toggle the current status
 
-  // Send email when confirming the status change
-  this.emailService.sendMail( 'mariembf6@gmail.com', null, 'Status Change Confirmation', 'Your status has been changed.').subscribe(
-    () => {
-      // Update the user list or any other necessary action
-      this.getUsers();
-      // Optionally, display a notification to indicate success
-      this.notificationService.notify(NotificationType.SUCCESS, `User activation status changed successfully`);
-    },
-    (error: HttpErrorResponse) => {
-      console.error(error);
-      // Optionally, display an error notification
-      this.notificationService.notify(NotificationType.ERROR, `Failed to change user activation status`);
-    }
-  );
-}*/
 // Méthode pour envoyer un email
 sendMail(to: string, cc: string[], subject: string, body: string): void {
   this.emailService.sendMail(to, cc, subject, body).subscribe(
@@ -210,22 +206,33 @@ toggleUserActivation(userId: number, currentStatus: boolean): void {
       // Récupérer l'utilisateur après la mise à jour
       this.userService.getUserById(this.idUser).subscribe(
         (user: User) => {
-          console.log('Objet utilisateur :', user); // Enregistrer l'objet utilisateur dans la console
-          const userEmail = user.email;
-          let emailSubject: string;
-          let emailBody: string;
+          if (user && user.email) { // Check if user object and email property are defined
+            console.log('Objet utilisateur :', user); // Enregistrer l'objet utilisateur dans la console
+            const userEmail = user.email;
+            let emailSubject: string;
+            let templatePath: string;
 
-          // Déterminer le sujet et le corps de l'email en fonction du statut d'activation
-          if (this.currentActivationStatus) {
-            emailSubject = 'Activation du compte sur LawyerSoft';
-            emailBody = 'Vous pouvez désormais vous connecter à votre compte sur notre site LawyerSoft.';
+            // Déterminer le sujet et le corps de l'email en fonction du statut d'activation
+            if (this.currentActivationStatus) {
+              emailSubject = 'Activation du compte sur LawyerSoft';
+              templatePath = "C:/Users/marie/Documents/Github/LawyerSoft_Front/Avocat_Angular-master/src/assets/emailTemplates/mail-activate-account.html";
+            } else {
+              emailSubject = 'Désactivation du compte sur LawyerSoft';
+              templatePath = "C:/Users/marie/Documents/Github/LawyerSoft_Front/Avocat_Angular-master/src/assets/emailTemplates/mail-deactivate-account.html"
+            }
+
+            this.emailService.sendEmailTemplate(userEmail, emailSubject, templatePath, this.idUser)
+              .subscribe(
+                (response) => {
+                  console.log('Email sent successfully:', response);
+                },
+                (error: HttpErrorResponse) => {
+                  console.error('Error sending email:', error);
+                }
+              );
           } else {
-            emailSubject = 'Désactivation du compte sur LawyerSoft';
-            emailBody = 'Votre compte sur notre site LawyerSoft a été désactivé. Vous n\'avez plus accès à votre compte.';
+            console.error('User object or email property is undefined');
           }
-
-          // Appeler la fonction sendMail avec les paramètres appropriés
-          this.sendMail(userEmail, null, emailSubject, emailBody);
         },
         (error: any) => {
           console.error(error);
@@ -242,6 +249,7 @@ toggleUserActivation(userId: number, currentStatus: boolean): void {
     }
   );
 }
+
 
 
 }

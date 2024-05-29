@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Court } from 'src/app/models/court';
 import { CourtTypeTranslator } from 'src/app/models/type/TranslatorFr/courtTypeTranslator';
+import { CourtGouv } from 'src/app/models/type/courtGov';
 import { CourtType } from 'src/app/models/type/courtType';
-import { Governorate } from 'src/app/models/type/governorate';
 import { CourtService } from 'src/app/services/court.service';
 
 @Component({
@@ -14,8 +14,8 @@ import { CourtService } from 'src/app/services/court.service';
 })
 export class UpdateCourtComponent implements OnInit {
 
-  governorates = Object.values(Governorate);
-  selectedGovernorate: Governorate = Governorate.Ariana;
+  governorates = Object.values(CourtGouv);
+  selectedGovernorate: CourtGouv = CourtGouv.Ariana;
 
   courtTypes = Object.values(CourtType);
   court: Court; 
@@ -34,7 +34,6 @@ export class UpdateCourtComponent implements OnInit {
   ngOnInit() {
     this.updateCourtForm = this.formBuilder.group({
       governorate: ['', Validators.required],
-      municipality: ['', Validators.required],
       adress: ['', Validators.required],
       type: ['', Validators.required],
       phone: ['', Validators.required]
@@ -47,7 +46,6 @@ export class UpdateCourtComponent implements OnInit {
   
       this.updateCourtForm.patchValue({
         governorate: this.court.governorate,
-        municipality: this.court.municipality,
         adress: this.court.adress,
         phone: this.court.phone,
         type: this.court.type 

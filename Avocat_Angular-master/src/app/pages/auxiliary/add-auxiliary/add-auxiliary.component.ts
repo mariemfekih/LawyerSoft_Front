@@ -13,17 +13,20 @@ export class AddAuxiliaryComponent implements OnInit {
 
   public auxiliary: Auxiliary = new Auxiliary();
   governorates = Object.values(Governorate);
-
+  userId:number;
 
   
   constructor(private auxiliaryService: AuxiliaryService,
               private router: Router) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.userId = JSON.parse(localStorage.getItem('id')!);
+
+   }
 
   submitForm() {
 
-    this.auxiliaryService.addAuxiliary(this.auxiliary).subscribe(
+    this.auxiliaryService.addAuxiliary(this.auxiliary,this.userId).subscribe(
       newauxiliary => {
         console.log('auxiliaire ajouté avec succès:', newauxiliary);
         this.router.navigate(['list-auxiliary']);

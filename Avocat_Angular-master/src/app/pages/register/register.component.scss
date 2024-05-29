@@ -1,0 +1,69 @@
+:host {
+    display: block;
+    height: 100vh;
+    background: url('C:/Users/marie/Documents/Github/LawyerSoft_Front/Avocat_Angular-master/src/assets/img/logo/law1.avif') no-repeat center center fixed;
+    background-size: cover;
+  }
+  
+  .header {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 7rem 0;
+  }
+  
+  .header-body {
+    text-align: center;
+    margin-bottom: 7rem;
+  }
+  
+  .text-white {
+    color: #ffffff !important;
+  }
+  
+  .text-light {
+    color: #f8f9fa !important;
+  }
+  
+  .container {
+    margin-top: 20px;
+  }
+  
+  .card {
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-header, .card-body {
+    border-radius: 10px;
+  }
+  
+  .btn-primary {
+    background-color: #0056b3;
+    border-color: #0056b3;
+  }
+  
+  .btn-primary:hover {
+    background-color: #004085;
+    border-color: #004085;
+  }
+  
+  .form-control {
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    padding: 0.75rem;
+  }
+  
+  .input-group-text {
+    background-color: #ffffff;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+  }
+  
+  .help-block {
+    color: red;
+  }
+  
+  .password-strength-indicator {
+    margin-top: 10px;
+  }
+  

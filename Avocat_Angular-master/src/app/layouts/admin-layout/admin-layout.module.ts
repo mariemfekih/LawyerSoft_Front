@@ -39,6 +39,7 @@ import { InfoContractComponent } from 'src/app/pages/contract/info-contract/info
 import { ListFolderComponent } from 'src/app/pages/folder/list-folder/list-folder.component';
 import { InfoFolderComponent } from 'src/app/pages/folder/info-folder/info-folder.component';
 import { ProfileComponent } from 'src/app/pages/profile/profile.component';
+import { BookingComponent } from 'src/app/pages/booking/booking.component';
 
 @NgModule({
   imports: [
@@ -80,7 +81,8 @@ import { ProfileComponent } from 'src/app/pages/profile/profile.component';
     InfoContractComponent,
     InfoFolderComponent,
     ListFolderComponent,
-    ProfileComponent
+    ProfileComponent,
+    BookingComponent
 
   ]
 })

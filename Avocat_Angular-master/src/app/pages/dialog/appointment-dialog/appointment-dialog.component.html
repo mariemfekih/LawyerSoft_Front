@@ -1,0 +1,45 @@
+<h1 mat-dialog-title>Ajouter un Rendez-vous</h1>
+<div mat-dialog-content style="width: 600px;">
+  <form [formGroup]="appointmentForm">
+    <mat-form-field>
+      <mat-label>Titre</mat-label>
+      <input matInput formControlName="title">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description"></textarea>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Heure de début</mat-label>
+      <input matInput formControlName="startTime" type="time">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Heure de fin</mat-label>
+      <input matInput formControlName="endTime" type="time">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Date</mat-label>
+      <input matInput formControlName="date" type="date">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Type</mat-label>
+      <input matInput formControlName="type">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Lien GoogleMeet</mat-label>
+      <input matInput formControlName="linkHangout">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Location</mat-label>
+      <mat-select formControlName="location">
+        <mat-option *ngFor="let location of locationTypes" [value]="location">
+          {{ location }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Annuler</button>
+  <button mat-button [disabled]="!appointmentForm.valid" (click)="onSubmit()">Ajouter</button>
+</div>

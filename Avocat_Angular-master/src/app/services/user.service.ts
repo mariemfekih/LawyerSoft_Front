@@ -43,10 +43,12 @@ export class UserService {
     return this.http.get<User>(url);
   }
 
+
   updateUser(idUser: number, updatedUser: User): Observable<User> {
-    const url = `${this.host}/user/${idUser}`; 
+    const url = `${this.host}/user/${idUser}`;
     return this.http.put<User>(url, updatedUser);
   }
+  
   updateUserActiveState(userId: number, newActiveState: boolean): Observable<User> {
     const url = `${this.host}/user/${userId}/active`;
     return this.http.put<User>(url, newActiveState); 

@@ -20,11 +20,11 @@ export class TrialService {
     return this.http.put(`${this.host}/Trial/${trialId}/updateTrial/${caseId}/${courtId}`, updatedTrial);
   }
   deleteTrial(caseId: number, trialId: number): Observable<void> {
-    const url = `${this.host}/Case/${caseId}/deleteTrial/${trialId}`;
+    const url = `${this.host}/Trial/${caseId}/deleteTrial/${trialId}`;
     return this.http.delete<void>(url);
   }
   getTrialsByCaseId(caseId: number): Observable<any[]> {
-    const url = `${this.host}/Case/${caseId}/getTrials`; 
+    const url = `${this.host}/Trial/${caseId}/getTrials`; 
     return this.http.get<any[]>(url);
   }
   

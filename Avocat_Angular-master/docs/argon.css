@@ -15,6 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
+
 :root
 {
     --blue: #5e72e4;
@@ -7937,6 +7938,19 @@ button.bg-primary:focus
 {
     background-color: #324cdd !important;
 }
+
+
+
+
+.bg-trans
+{
+    background-color: transparent !important;
+}
+
+a.bg-trans:hover,
+a.bg-trans:focus,
+
+
 
 .bg-secondary
 {
@@ -19003,7 +19017,9 @@ textarea[resize='horizontal']
 }
 .navbar-horizontal .navbar-brand img
 {
-    height: 30px;
+    height: auto;
+    max-width: 250px; /* Adjust the max-width as needed */
+    width: 100%; 
 }
 
 .navbar-horizontal .navbar-dark .navbar-brand

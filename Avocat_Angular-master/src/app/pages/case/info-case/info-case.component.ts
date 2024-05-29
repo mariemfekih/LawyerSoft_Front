@@ -25,6 +25,7 @@ import { TrialService } from 'src/app/services/trial.service';
 export class InfoCaseComponent implements OnInit {
   case: Case;
   court:Court;
+  idUser: number;
   idCase: number;
   idCourt:number;
   trials: Trial[] = [];
@@ -64,6 +65,7 @@ translateContributorType(type: ContributorType): string {
   return ContributorTypeTranslator.translateFrType(type);
 }
 
+
   constructor(
     private route: ActivatedRoute,
     private caseService: CaseService,
@@ -73,16 +75,17 @@ translateContributorType(type: ContributorType): string {
 private courtService:CourtService ) { }
 
   ngOnInit(): void {
+    this.idUser = JSON.parse(localStorage.getItem('id')!);
+
     this.idCase = this.route.snapshot.params['idCase'];    
     this.idCourt = this.route.snapshot.params['idCourt'];
     this.idTrial = this.route.snapshot.params['idTrial'];
     this.idContributor = this.route.snapshot.params['idContributor'];
-
     this.loadCaseDetails(this.idCase);
     this.getTrialsByCaseId();
     this.getContributorsByCaseId(this.idCase); 
 
-    this.auxiliaryService.getAuxiliaries().subscribe(
+    this.auxiliaryService.getAuxiliariesByUserId(this.idUser).subscribe(
       (data: Auxiliary[]) => {
         console.log('Auxiliaries fetched:', data);
         this.auxiliaries = data;
@@ -131,7 +134,8 @@ private courtService:CourtService ) { }
   loadCaseDetails(idCase: number) {
     this.caseService.getCaseById(idCase).subscribe(
       (data) => {
-        this.case = data;
+        this.case = data; 
+        console.log(data)
       },
       (error) => {
         console.error('Error fetching case details:', error);

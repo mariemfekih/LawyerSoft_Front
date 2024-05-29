@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { Governorate } from 'src/app/models/type/governorate';
 import { User } from 'src/app/models/user';
+import { AuxiliaryService } from 'src/app/services/auxiliary.service';
 import { CaseService } from 'src/app/services/case.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -12,15 +14,19 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  user: User ; // Initialize user object to avoid undefined errors
+  user: User = {} as User; // Initialize user object to avoid undefined errors
   idUser: number;
   users: User[] = [];
   totalCases: number;
+  totalAuxiliaries: number;
   updateProfileForm: FormGroup;
-
+  governorates = Object.values(Governorate);
+  selectedGovernorate: Governorate ;
   constructor(private formBuilder: FormBuilder,
-    private userService: UserService,
-    private router: Router, private caseService: CaseService) { }
+              private userService: UserService,
+              private router: Router,
+              private caseService: CaseService,
+              private auxiliaryService: AuxiliaryService) { }
 
   ngOnInit(): void {
     this.idUser = JSON.parse(localStorage.getItem('id')!);
@@ -64,6 +70,12 @@ export class ProfileComponent implements OnInit {
       this.totalCases = totalCases;
       console.log(this.totalCases);
     });
+
+    // Fetch total auxiliaries
+    this.getCurrentTotalAuxiliaries().subscribe(totalAuxiliaries => {
+      this.totalAuxiliaries = totalAuxiliaries;
+      console.log(this.totalAuxiliaries);
+    });
   }
 
   // Function to calculate age based on birth date
@@ -95,13 +107,27 @@ export class ProfileComponent implements OnInit {
     return this.caseService.getTotalCasesByUser(this.idUser);
   }
 
+  // Function to get current total auxiliaries
+  getCurrentTotalAuxiliaries(): Observable<number> {
+    return this.auxiliaryService.getTotalAuxiliariesByUser(this.idUser);
+  }
+
   // Function to update user profile
-  updateUser(): void {
+
+  updateUser() {
     const formData = this.updateProfileForm.value;
-    console.log(formData);
-    this.userService.updateUser(this.idUser, formData).subscribe(data => {
+    //this.user.username = formData.username;
+    this.user.email = formData.email;
+    this.user.firstName = formData.firstName;
+    this.user.lastName = formData.lastName;
+    this.user.city = formData.city;
+    this.user.cin = formData.cin;
+    this.user.birthDate = formData.birthDate;
+    this.user.gender = formData.gender;
+  
+    this.userService.updateUser(this.idUser, this.user).subscribe(data => {
       console.log(data);
-      this.router.navigate(['list-user']);
+      this.router.navigate(['profile']);
     });
   }
 }

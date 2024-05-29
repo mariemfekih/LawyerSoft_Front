@@ -1,11 +1,11 @@
 <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 600px; background-image: url(); background-size: cover; background-position: center top;">
-    <!-- Mask -->
-    <span class="mask bg-gradient-primary opacity-8"></span>
-    <!-- Header container -->
+    <!-- Masque -->
+    <span class="mask bg-gradient-default opacity-8"></span>
+    <!-- Conteneur de l'en-tête -->
     <div class="container-fluid d-flex align-items-center">
         <div class="row">
             <div class="col-lg-7 col-md-10">
-                <h1 class="display-2 text-white">Hello {{ user?.username }} </h1>
+                <h1 class="display-2 text-white">Bonjour {{ user?.username }} </h1>
                 <p class="text-white mt-0 mb-5">Ceci est votre page de profil. Vous pouvez voir les progrès que vous avez réalisés dans votre travail et gérer vos projets ou les tâches assignées</p>
                 <a href="#!" class="btn btn-info">Modifier le profil</a>
             </div>
@@ -28,8 +28,7 @@
 
                 <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
                     <div class="d-flex justify-content-between">
-                        <a href="javascript:void(0)" class="btn btn-sm btn-info mr-4">Connecter</a>
-                        <a href="javascript:void(0)" class="btn btn-sm btn-default float-right">Message</a>
+                        
                     </div>
                 </div>
                 <div class="card-body pt-0 pt-md-4">
@@ -41,7 +40,7 @@
                                     <span class="description">Affaires</span>
                                 </div>
                                 <div>
-                                    <span class="heading">10</span>
+                                    <span class="heading">{{ totalAuxiliaries }}</span>
                                     <span class="description">Auxiliaires</span>
                                 </div>
                                 <div>
@@ -62,7 +61,7 @@
                             <i class="ni business_briefcase-24 mr-2"></i>Avocat
                         </div>
                         <hr class="my-4" />
-                        <a href="javascript:void(0)">Show more</a>
+                        <a href="javascript:void(0)">Afficher plus</a>
                     </div>
                 </div>
             </div>
@@ -74,57 +73,87 @@
                         <div class="col-8">
                             <h3 class="mb-0">Mon compte</h3>
                         </div>
-                        <div class="col-4 text-right">
-                            <a href="#!" class="btn btn-sm btn-primary">Paramétres</a>
-                        </div>
+                        
                     </div>
                 </div>
                 <div class="card-body">
+                    <h5 class="card-title">Détails </h5>                   
                     <form>
-                        <h6 class="heading-small text-muted mb-4">User information</h6>
                         <div class="pl-lg-4">
                             <div class="row">
-                                <!-- Add form fields here -->
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                      <label class="form-control-label" for="input-username">Username</label>
-                                      <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" [(ngModel)]="user.username" >
+                                        <label class="form-control-label" for="input-username">Nom d'utilisateur</label>
+                                        <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Nom d'utilisateur" [(ngModel)]="user.username" name="username">
                                     </div>
-                                  </div>
-                                  <div class="col-lg-6">
+                                </div>
+                                <div class="col-lg-6">
                                     <div class="form-group">
-                                      <label class="form-control-label" for="input-email">Email </label>
-                                      <input type="email" id="input-email" class="form-control form-control-alternative"  [(ngModel)]="user.email">
+                                        <label class="form-control-label" for="input-email">E-mail</label>
+                                        <input type="email" id="input-email" class="form-control form-control-alternative" placeholder="E-mail" [(ngModel)]="user.email" name="email">
                                     </div>
-                                  </div>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-6">
-                                  <div class="form-group">
-                                    <label class="form-control-label" for="input-first-name">First name</label>
-                                    <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="First name"  [(ngModel)]="user.firstName">
-                                  </div>
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-firstName">Prénom</label>
+                                        <input type="text" id="input-firstName" class="form-control form-control-alternative" placeholder="Prénom" [(ngModel)]="user.firstName" name="firstName">
+                                    </div>
                                 </div>
                                 <div class="col-lg-6">
-                                  <div class="form-group">
-                                    <label class="form-control-label" for="input-last-name">Last name</label>
-                                    <input type="text" id="input-last-name" class="form-control form-control-alternative" placeholder="Last name" [(ngModel)]="user.lastName">
-                                  </div>
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-lastName">Nom de famille</label>
+                                        <input type="text" id="input-lastName" class="form-control form-control-alternative" placeholder="Nom de famille" [(ngModel)]="user.lastName" name="lastName">
+                                    </div>
                                 </div>
-                              </div>
                             </div>
-                        <hr class="my-4" />
-                        <!-- Description -->
-                        <h6 class="heading-small text-muted mb-4">About me</h6>
-                        <div class="pl-lg-4">
-                            <div class="form-group">
-                                <label>About Me</label>
-                                <textarea rows="4" class="form-control form-control-alternative" placeholder="A few words about you ...">A beautiful Dashboard for Bootstrap 4. It is Free and Open Source.</textarea>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-cin">CIN</label>
+                                        <input type="text" id="input-cin" class="form-control form-control-alternative" placeholder="CIN" [(ngModel)]="user.cin" name="cin">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-birthDate">Date de naissance</label>
+                                        <input type="date" id="input-birthDate" class="form-control form-control-alternative" placeholder="Date de naissance" [(ngModel)]="user.birthDate" name="birthDate">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-city">Ville</label>
+                                        <select id="input-city" class="form-control form-control-alternative" [(ngModel)]="user.city" name="city">
+                                            <option *ngFor="let city of governorates" [value]="city">{{ city }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-gender">Genre</label>
+                                        <select id="input-gender" class="form-control form-control-alternative" [(ngModel)]="user.gender" name="gender">
+                                            <option value="true">Homme</option>
+                                            <option value="false">Femme</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                        <div class="text-right">
+                            <button class="btn btn-lg btn-default" (click)="updateUser()">Mettre à jour</button>
+                        </div>
+                        <hr class="my-4" />
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
+
+
+

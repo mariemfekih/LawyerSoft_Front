@@ -30,26 +30,23 @@
             <table class="table align-items-center table-flush">
               <thead class="thead-light">
                 <tr>
-                  <th scope="col">governorate</th>
-                  <th scope="col">municipality</th>
-                  <th scope="col">adress</th>
-                  <th scope="col">phone</th>
                   <th scope="col">type</th>
-                  
+                  <th scope="col">governorate</th>
+                  <th scope="col">adress</th>
+                  <th scope="col">téléphone</th>
                   <th scope="col">Actions</th>
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let court of searchedCourt| slice:(currentPage-1)*itemsPerPage:currentPage*itemsPerPage">
+                  <td>{{ translateCourtType(court.type) }}</td>
                   <th scope="row">
                       <div class="media align-items-center">
                           <span class="mb-0 text-sm">{{ court.governorate }}</span>
                       </div>
                   </th>
-                  <td>{{ court.municipality }}</td>
                   <td>{{ court.adress }}</td>
                   <td>{{ court.phone }}</td>
-                  <td>{{ translateCourtType(court.type) }}</td>
                   <td>
                     <button type="button" class="btn btn-sm btn-primary mr-4" [routerLink]="['/update-court', court.idCourt]" [state]="{ court: court }"><i class="fa fa-edit"></i></button>
                     <button type="button" class="btn btn-sm btn-danger mr-4" (click)="deleteCourt(court.idCourt)"><i class="fa fa-trash"></i></button> 

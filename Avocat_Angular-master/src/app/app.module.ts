@@ -16,8 +16,13 @@ import { AuthenticationGuard } from './guard/authentication.guard';
 import { NotificationModule } from './notification.module';
 import { NotificationService } from './services/notification.service';
 import { FullCalendarModule } from '@fullcalendar/angular';
-
-
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppointmentDialogComponent } from './pages/dialog/appointment-dialog/appointment-dialog.component';
+import { MatSelectModule } from '@angular/material/select'; 
 
 
 @NgModule({
@@ -31,12 +36,21 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     AppRoutingModule,
     NotificationModule,
     ReactiveFormsModule,
-    FullCalendarModule
+    FullCalendarModule,  BrowserModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatButtonModule,
+    MatSelectModule
+  
   ],
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    AuthLayoutComponent  ],
+    AuthLayoutComponent,
+    AppointmentDialogComponent
+  ],
   providers: [NotificationService, AuthenticationGuard, AuthenticationService, UserService,
   { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]

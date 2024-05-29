@@ -1,28 +1,31 @@
-<div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
-    <div class="container-fluid">
-      <div class="header-body">
-        <div class="row">
-          <div class="col">
-            <h1 class="text-white">Calendrier des Rendez-vous</h1>
-            <p class="text-white">Gérez vos rendez-vous facilement.</p>
-          </div>
+<div class="header bg-gradient-default pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+      <div class="row">
+        <div class="col">
+          <h1 class="text-white">Calendrier des Rendez-vous</h1>
+          <p class="text-white">Gérez vos rendez-vous facilement.</p>
         </div>
       </div>
     </div>
   </div>
-  
-  <div class="container-fluid mt-n5">
-    <div class="row justify-content-center">
-      <div class="col-md-10">
-        <div class="card"> 
-          <div class="card-header bg-primary text-white">
-            <h5 class="card-title mb-0 text-white">Calendrier</h5>
-          </div>
-          <div class="card-body">
-            <full-calendar [options]="calendarOptions" (dateClick)="handleDateClick($event)"></full-calendar>
-          </div>
+</div>
+
+<div class="container-fluid mt-n5">
+  <div class="row justify-content-center">
+    <div class="col-md-10">
+      <div class="card"> 
+        <div class="card-header bg-default text-white">
+          <h5 class="card-title mb-0 text-white">Calendrier</h5>
+        </div>
+        <div class="card-body">
+          <button class="btn btn-default mb-3" (click)="openDialog()">Créer un évenement</button>
+          <full-calendar [options]="calendarOptions"></full-calendar>
         </div>
       </div>
     </div>
   </div>
+</div>
+
+
   

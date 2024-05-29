@@ -10,9 +10,9 @@ export class CourtTypeTranslator {
         case CourtType.DISTRICT:
           return 'District';
         case CourtType.APPELLATE:
-          return 'Appel';
+          return 'Cour d appel ';
         case CourtType.CASSATION:
-          return 'Cassation';
+          return 'Cour de Cassation';
         default:
           return 'Type inconnu';
       }

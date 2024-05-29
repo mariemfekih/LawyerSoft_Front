@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -27,23 +27,13 @@ export class EmailService {
     }*/
     return this.http.post<string>(`${this.host}/mail/send`, formData);
   }
- /* sendMail(files: File[], to: string, cc: string[], subject: string, body: string): Observable<string> {
-    const formData: FormData = new FormData();
-    formData.append('to', to);
-    formData.append('subject', subject);
-    formData.append('body', body);
-    if (cc) {
-      formData.append('cc', JSON.stringify(cc));
-    }
-    if (files) {
-      for (let i = 0; i < files.length; i++) {
-        formData.append('file', files[i], files[i].name);
-      }
-    }
+  sendEmailTemplate(to: string, subject: string,templatePath: string, idUser: number): Observable<any> {
+    const url = `${this.host}/mail/sendTemplate/${idUser}`;
+    const params = new HttpParams()
+      .set('to', to)
+      .set('subject', subject)
+      .set('templatePath', templatePath);
 
-    const headers = new HttpHeaders();
-    headers.append('Content-Type', 'multipart/form-data');
-
-    return this.http.post<string>(this.baseUrl, formData, { headers: headers });
-  }*/
+    return this.http.post(url, null, { params });
+  }
 }
