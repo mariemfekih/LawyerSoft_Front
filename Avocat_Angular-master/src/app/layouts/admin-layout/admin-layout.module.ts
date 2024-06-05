@@ -40,6 +40,7 @@ import { ListFolderComponent } from 'src/app/pages/folder/list-folder/list-folde
 import { InfoFolderComponent } from 'src/app/pages/folder/info-folder/info-folder.component';
 import { ProfileComponent } from 'src/app/pages/profile/profile.component';
 import { BookingComponent } from 'src/app/pages/booking/booking.component';
+import { AddAgentComponent } from 'src/app/pages/agent/add-agent/add-agent.component';
 
 @NgModule({
   imports: [
@@ -82,8 +83,8 @@ import { BookingComponent } from 'src/app/pages/booking/booking.component';
     InfoFolderComponent,
     ListFolderComponent,
     ProfileComponent,
-    BookingComponent
-
+    BookingComponent,
+    AddAgentComponent
   ]
 })
 

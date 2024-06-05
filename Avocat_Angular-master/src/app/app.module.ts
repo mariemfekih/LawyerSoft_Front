@@ -23,6 +23,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppointmentDialogComponent } from './pages/dialog/appointment-dialog/appointment-dialog.component';
 import { MatSelectModule } from '@angular/material/select'; 
+import { AddAgentComponent } from './pages/agent/add-agent/add-agent.component';
 
 
 @NgModule({
@@ -53,6 +54,6 @@ import { MatSelectModule } from '@angular/material/select';
   ],
   providers: [NotificationService, AuthenticationGuard, AuthenticationService, UserService,
   { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent,AddAgentComponent]
 })
 export class AppModule { }

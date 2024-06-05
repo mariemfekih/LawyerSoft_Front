@@ -1,1 +1,45 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+    .bg-gradient-blue
+{
+    background: linear-gradient(87deg, #243d69 0, #f1f3f6 100%) !important;
+}
+.bg-blue
+{
+    background-color: #1b3d77 !important;
+}
+
+
+.btn-blue
+{
+    color: #fff;
+    border-color: #243d69;
+    background-color: #243d69;
+    box-shadow: 0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08);
+}
+.btn-blue:hover
+{
+    color: #fff;
+    border-color: #243d69;
+    background-color: #243d69;
+}
+.btn-blue:focus,
+.btn-blue.focus
+{
+    box-shadow: 0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08), 0 0 0 0 rgba(23, 43, 77, .5);
+}
+.btn-blue.disabled,
+.btn-blue:disabled
+{
+    color: #fff;
+    border-color: #243d69;
+    background-color: #243d69;
+}
+.btn-blue:not(:disabled):not(.disabled):active,
+.btn-blue:not(:disabled):not(.disabled).active,
+.show > .btn-blue.dropdown-toggle
+{
+    color: #fff;
+    border-color: #243d69;
+    background-color: #0b1526;
+}

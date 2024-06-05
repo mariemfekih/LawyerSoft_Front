@@ -1,4 +1,4 @@
-<div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+<div class="header bg-gradient-blue pb-8 pt-5 pt-md-8">
   <div class="container-fluid">
     <div class="header-body">
     </div>
@@ -21,7 +21,7 @@
           <h2 class="mb-0">Liste Affaire</h2>
         </div>
         <div class="col-12 text-right">
-          <button type="submit" class="btn btn-primary" (click)="onAddCase()"><i class="fa fa-plus"></i> |  Ajouter Affaire </button>
+          <button type="submit" class="btn btn-blue" (click)="onAddCase()"><i class="fa fa-plus"></i> |  Ajouter Affaire </button>
           <!-- Add Export Button Here -->
           <button type="button" class="btn btn-success" (click)="exportToCSV()">
             <i class="fa fa-download"></i> | Export CSV
@@ -62,7 +62,7 @@
                 </td>
                 <td>
                   <button type="button" class="btn btn-sm btn-secondary mr-4" [routerLink]="['/info-case', aff.idCase]" [state]="{ affaire: aff }"><i class="fa fa-eye"></i></button>
-                  <button type="button" class="btn btn-sm btn-primary mr-4" [routerLink]="['/update-case', aff.idCase]" [state]="{ affaire: aff }"><i class="fa fa-edit"></i></button>
+                  <button type="button" class="btn btn-sm btn-blue mr-4" [routerLink]="['/update-case', aff.idCase]" [state]="{ affaire: aff }"><i class="fa fa-edit"></i></button>
                   <button type="button" class="btn btn-sm btn-danger mr-4" (click)="deleteCase(aff.idCase)"><i class="fa fa-trash"></i></button> 
                 </td>
               </tr>

@@ -1,41 +1,83 @@
-<div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+<div class="header bg-gradient-blue pb-8 pt-5 pt-md-8">
     <div class="container-fluid">
         <div class="header-body">
-            <!-- Votre contenu d'en-tête ici -->
+            <!-- Your header content here -->
         </div>
     </div>
 </div>
 
-<br> <br>
+<br><br>
 
 <!-- template.html -->
-<div class="container">
+<div class="container report-form">
     <div class="row">
         <!-- Form Section -->
         <div class="col-md-6">
             <div class="form-group">
-                <label for="firstPartyName">First Party Name:</label>
-                <input type="text" id="firstPartyName" class="form-control" [(ngModel)]="firstPartyName">
+                <label for="clientName">Client Name:</label>
+                <input type="text" id="clientName" [(ngModel)]="clientName" class="form-control">
             </div>
             <div class="form-group">
-                <label for="firstPartyID">First Party ID:</label>
-                <input type="text" id="firstPartyID" class="form-control" [(ngModel)]="firstPartyID">
+                <label for="clientAddress">Client Address:</label>
+                <input type="text" id="clientAddress" [(ngModel)]="clientAddress" class="form-control">
             </div>
             <div class="form-group">
-                <label for="secondPartyName">Second Party Name:</label>
-                <input type="text" id="secondPartyName" class="form-control" [(ngModel)]="secondPartyName">
+                <label for="clientCIN">Client CIN:</label>
+                <input type="text" id="clientCIN" [(ngModel)]="clientCIN" class="form-control">
             </div>
             <div class="form-group">
-                <label for="secondPartyID">Second Party ID:</label>
-                <input type="text" id="secondPartyID" class="form-control" [(ngModel)]="secondPartyID">
+                <label for="clientPhone">Client Phone:</label>
+                <input type="text" id="clientPhone" [(ngModel)]="clientPhone" class="form-control">
             </div>
-            <button class="btn btn-primary" (click)="generatePdf()">Générer PDF</button>
+            <div class="form-group">
+                <label for="cadreService">Cadre Service:</label>
+                <input type="text" id="cadreService" [(ngModel)]="cadreService" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="FeeHour">Fee per Hour:</label>
+                <input type="text" id="FeeHour" [(ngModel)]="FeeHour" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="forfait">Forfait:</label>
+                <input type="text" id="forfait" [(ngModel)]="forfait" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="accompte">Accompte:</label>
+                <input type="text" id="accompte" [(ngModel)]="accompte" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="lawyerName">Lawyer Name:</label>
+                <input type="text" id="lawyerName" [(ngModel)]="lawyerName" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="lawyerAddress">Lawyer Address:</label>
+                <input type="text" id="lawyerAddress" [(ngModel)]="lawyerAddress" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="lawyerPhone">Lawyer Phone:</label>
+                <input type="text" id="lawyerPhone" [(ngModel)]="lawyerPhone" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="lawyerCIN">Lawyer CIN:</label>
+                <input type="text" id="lawyerCIN" [(ngModel)]="lawyerCIN" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="nbDays">Number of Days:</label>
+                <input type="text" id="nbDays" [(ngModel)]="nbDays" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="localisation">Localisation:</label>
+                <input type="text" id="localisation" [(ngModel)]="localisation" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="date">Date:</label>
+                <input type="date" id="date" [(ngModel)]="date" class="form-control">
+            </div>
+            <button class="btn btn-blue" (click)="generateReport()">Générer PDF</button>
         </div>
-        
-        <!-- JRXML Template Preview Section -->
         <div class="col-md-6">
-            <textarea class="form-control" rows="10" [value]="jrxmlContent" readonly></textarea>
+            <img src="assets/img/logo/contratFrancais.png" alt="Contrat Français Logo"  class="image">
         </div>
+       
     </div>
 </div>
-

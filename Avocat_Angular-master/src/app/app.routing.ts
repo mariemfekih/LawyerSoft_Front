@@ -5,11 +5,17 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
+import { RegisterAgentComponent } from './pages/agent/register-agent/register-agent.component';
 const routes: Routes =[
   {
     path: '',
     redirectTo: 'login',
     pathMatch: 'full',
+  },{
+    path: 'register-agent',
+    redirectTo: 'register-agent',
+    component: RegisterAgentComponent,
+
   }, {
     path: '',
     component: AdminLayoutComponent,

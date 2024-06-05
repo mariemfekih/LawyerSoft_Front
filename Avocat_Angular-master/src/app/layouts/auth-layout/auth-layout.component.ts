@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-auth-layout',
@@ -9,23 +9,28 @@ import { Router } from '@angular/router';
 export class AuthLayoutComponent implements OnInit, OnDestroy {
   test: Date = new Date();
   public isCollapsed = true;
+  public showNavLinks = false;
 
   constructor(private router: Router) { }
 
   ngOnInit() {
-    var html = document.getElementsByTagName("html")[0];
+    const html = document.getElementsByTagName("html")[0];
     html.classList.add("auth-layout");
-    var body = document.getElementsByTagName("body")[0];
-    body.classList.add("bg-default");
-    this.router.events.subscribe((event) => {
-      this.isCollapsed = true;
-   });
+    const body = document.getElementsByTagName("body")[0];
+    //body.classList.add("bg-default");
 
-  }///////////////////////
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.showNavLinks = this.router.url === '/register' || this.router.url === '/login';
+      }
+      this.isCollapsed = true;
+    });
+  }
+
   ngOnDestroy() {
-    var html = document.getElementsByTagName("html")[0];
+    const html = document.getElementsByTagName("html")[0];
     html.classList.remove("auth-layout");
-    var body = document.getElementsByTagName("body")[0];
+    const body = document.getElementsByTagName("body")[0];
     body.classList.remove("bg-default");
   }
 }

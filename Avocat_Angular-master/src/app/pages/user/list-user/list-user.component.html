@@ -1,5 +1,5 @@
 
-<div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+<div class="header bg-gradient-blue pb-8 pt-5 pt-md-8">
   <div class="container-fluid">
     <div class="header-body">
     </div>
@@ -22,7 +22,7 @@
           <h2 class="mb-0">Liste des Utilisateurs</h2>
         </div>
         <div class="col-12 text-right">
-        <button type="submit"  class="btn btn-primary" (click)="onAddUser()"><i class="fa fa-plus"></i> |  Ajouter Nouveau Utilisateur </button>
+        <button type="submit"  class="btn btn-blue" (click)="onAddUser()"><i class="fa fa-plus"></i> |  Ajouter Nouveau Utilisateur </button>
         <br>
         <br>
       </div>
@@ -70,7 +70,7 @@
                 
                 <td>
                   <button type="button" class="btn btn-sm btn-secondary mr-4" [routerLink]="['/info-user', u.id]"><i class="fa fa-eye"></i></button>
-                  <button type="button" class="btn btn-sm btn-primary mr-4" [routerLink]="['/update-user', u.id]"><i class="fa fa-edit"></i></button>
+                  <button type="button" class="btn btn-sm btn-blue mr-4" [routerLink]="['/update-user', u.id]"><i class="fa fa-edit"></i></button>
                   <button type="button" class="btn btn-sm btn-danger mr-4" (click)="onDeleteUser(u?.id)"><i class="fa fa-trash"></i></button>
                 </td>
               </tr>

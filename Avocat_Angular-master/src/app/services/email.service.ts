@@ -36,4 +36,18 @@ export class EmailService {
 
     return this.http.post(url, null, { params });
   }
+  sendEmailTemplateWithoutId(to: string, subject: string, templatePath: string, firstName: string, lastName: string,idUser: number): Observable<any> {
+    const url = `${this.host}/mail/sendTemplate/id/${idUser}`;
+    const params = new HttpParams()
+      .set('to', to)
+      .set('subject', subject)
+      .set('templatePath', templatePath)
+      .set('firstName', firstName)
+      .set('lastName', lastName);
+  
+    console.log(`Sending email with params: to=${to}, subject=${subject}, templatePath=${templatePath}, firstName=${firstName}, lastName=${lastName}`);
+    return this.http.post(url, null, { params });
+  }
+  
+  
 }

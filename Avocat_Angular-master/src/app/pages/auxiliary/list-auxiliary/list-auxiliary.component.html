@@ -1,4 +1,4 @@
-<div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+<div class="header bg-gradient-blue pb-8 pt-5 pt-md-8">
     <div class="container-fluid">
       <div class="header-body">
       </div>
@@ -21,7 +21,7 @@
             <h2 class="mb-0">Liste Auxiliaires</h2>
           </div>
           <div class="col-12 text-right">
-          <button type="submit"  class="btn btn-primary" (click)="onAddAuxiliary()"><i class="fa fa-plus"></i> |  Ajouter Auxiliaire </button>
+          <button type="submit"  class="btn btn-blue" (click)="onAddAuxiliary()"><i class="fa fa-plus"></i> |  Ajouter Auxiliaire </button>
           <button type="button" class="btn btn-success" (click)="printAuxiliary()">
             <i class="fa fa-download"></i> | Exporter PDF
           </button>
@@ -59,7 +59,7 @@
                       <td>{{ auxiliary.birthDate }}</td>
                       <td>{{ auxiliary.job}}</td>
                       <td>
-                    <button type="button" class="btn btn-sm btn-primary mr-4" [routerLink]="['/update-auxiliary', auxiliary.idAuxiliary]" [state]="{ auxiliary: auxiliary }"><i class="fa fa-edit"></i></button>
+                    <button type="button" class="btn btn-sm btn-blue mr-4" [routerLink]="['/update-auxiliary', auxiliary.idAuxiliary]" [state]="{ auxiliary: auxiliary }"><i class="fa fa-edit"></i></button>
                     <button type="button" class="btn btn-sm btn-danger mr-4" (click)="openDeletePopup(auxiliary.idAuxiliary)"><i class="fa fa-trash"></i></button> 
                    
                  
@@ -79,7 +79,7 @@
               <p>Êtes-vous sûr de vouloir supprimer cet auxiliaire ?</p>
             </div>
          
-            <button type="submit" class="btn btn-primary">Supprimer Auxiliaire</button>
+            <button type="submit" class="btn btn-blue">Supprimer Auxiliaire</button>
             <button type="button" class="btn btn-danger" (click)="closeDeletePopup()">Fermer</button>
           </form>
         </div>
