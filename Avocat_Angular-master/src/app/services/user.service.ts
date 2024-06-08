@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { User } from '../models/user';
 import { CustomHttpRespone } from '../models/custom-http-response';
+import { AuthenticationService } from './authentication.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class UserService {
 
   private host: string = environment.apiUrl;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private authenticationService:AuthenticationService) {}
 
   /*//Afficher liste des users
   public getUsers():Observable<User[]>{
@@ -40,9 +41,15 @@ export class UserService {
 
   getUserById(idUser: number): Observable<User> {
     const url = `${this.host}/user/${idUser}`;
-    return this.http.get<User>(url);
+    const token = localStorage.getItem('jwt_token');
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      })
+    };
+    return this.http.get<User>(url, httpOptions);
   }
-
 
   updateUser(idUser: number, updatedUser: User): Observable<User> {
     const url = `${this.host}/user/${idUser}`;

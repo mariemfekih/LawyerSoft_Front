@@ -38,7 +38,7 @@ export const DASHBOARD_ROUTES: RouteInfo[] = [
     roles: [Role.LAWYER]
   },
   {
-    path: '/add-agent/:id',
+    path: '/list-agent/:id',
     title: 'Agent',
     icon: 'ni-single-02 text-default',
     class: '',

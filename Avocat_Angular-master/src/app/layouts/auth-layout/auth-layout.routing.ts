@@ -7,6 +7,6 @@ import { RegisterAgentComponent } from 'src/app/pages/agent/register-agent/regis
 export const AuthLayoutRoutes: Routes = [
     { path: 'login',          component: LoginComponent },
     { path: 'register',       component: RegisterComponent },
-    { path: 'register-agent',       component: RegisterAgentComponent }
-
+   // { path: 'register-agent',       component: RegisterAgentComponent }
+   { path: 'register-agent/:id', component: RegisterAgentComponent }
 ];

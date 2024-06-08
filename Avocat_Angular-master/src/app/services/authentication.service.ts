@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {JwtHelperService} from '@auth0/angular-jwt';
-import {HttpClient, HttpErrorResponse, HttpResponse} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {BehaviorSubject, Observable, catchError, map, tap, throwError} from 'rxjs';
 import {User} from '../models/user';
@@ -47,7 +47,7 @@ export class AuthenticationService {
 
 
   public login(user: User): Observable<HttpResponse<any>> {
-    return this.http.post<any>(`${this.host}/user/login`, user, { observe: 'response' }).pipe(
+    return this.http.post<any>(`${this.host}/auth/login`, user, { observe: 'response' }).pipe(
       tap((response: HttpResponse<any>) => {
         if (response.body) {
           this.currentUser = response.body!.user;
@@ -62,34 +62,26 @@ export class AuthenticationService {
       })
     );
   }
+  public getUserToken(): string | null {
+    return localStorage.getItem('jwt_token');
+  }
 
- /* public register(user: User): Observable<User | HttpErrorResponse> {
-    return this.http.post<{user: User, token: string}>(`${this.host}/user/register`, user).pipe(
-      map(response => {
-        // Extract user ID and token from the response
-        const id = response.user.id;
-        const email=response.user.email;
-        const token = response.token;
-        
-        // Save them in local storage
-        localStorage.setItem('id', id.toString());
-        localStorage.setItem('email', email);
-        localStorage.setItem('token', token);
-        
-        // Return the user part of the response
-        return response.user;
-      }),
-      catchError((error: HttpErrorResponse) => {
-        // Handle the error here if necessary
-        return throwError(error);
-      })
-    );
-  }*/
+  public getAuthorizedHeaders(): HttpHeaders {
+    const token = this.getUserToken();
+    return new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  }
+
 
   public register(user:User): Observable<User | HttpErrorResponse> {
     return this.http.post<User| HttpErrorResponse>
-    (`${this.host}/user/register`, user);
+    (`${this.host}/auth/register`, user);
   }
+  public registerManager(user:User): Observable<User | HttpErrorResponse> {
+    return this.http.post<User| HttpErrorResponse>
+    (`${this.host}/auth/registerManager`, user);
+  }
+
+
 
   public logout(): void {
     this.token = null;
@@ -121,25 +113,6 @@ export class AuthenticationService {
     return this.token;
   }
 
-  /*public isUserLoggedIn(): boolean {
-    this.loadToken();
-    if (this.token != null && this.token !== '') {
-      const decodedToken = this.jwtHelper.decodeToken(this.token);
-      if (decodedToken.sub != null || '') {
-        if (!this.jwtHelper.isTokenExpired(this.token)) {
-          this.loggedInUsername = decodedToken.sub;
-
-          // Vérifiez si l'utilisateur a le rôle 'admin'
-          if (decodedToken.roles && decodedToken.roles.includes('admin')) {
-            return true;
-          }
-        }
-      }
-    }
-
-    this.logout();
-    return false;
-  }*/
 
   public isUserLoggedIn(): boolean {
     this.loadToken();

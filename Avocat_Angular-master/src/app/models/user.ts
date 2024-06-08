@@ -14,6 +14,7 @@ export class User {
   city: string;
   gender: boolean;
 
+  lawyerId?:string;
   active?: boolean;
   notLocked?: boolean;
 

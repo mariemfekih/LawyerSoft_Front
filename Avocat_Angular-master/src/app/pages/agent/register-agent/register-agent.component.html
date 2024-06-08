@@ -24,6 +24,8 @@
           <div class="card-body px-lg-5 py-lg-5">
             <div class="text-center text-muted mb-4">
               <h4>Créer un compte Agent LawyerSoft</h4>
+              <p class="text-lead text-white">Avocat: {{ lawyerFirstName }} {{ lawyerLastName }}</p>
+
             </div>
             <form role="form" #registerForm="ngForm" (ngSubmit)="onRegister(registerForm.value)">
               <!--Last name-->

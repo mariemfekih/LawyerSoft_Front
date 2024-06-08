@@ -31,7 +31,7 @@ import { InfoFolderComponent } from 'src/app/pages/folder/info-folder/info-folde
 import { ProfileComponent } from 'src/app/pages/profile/profile.component';
 import { BookingComponent } from 'src/app/pages/booking/booking.component';
 import { AddAgentComponent } from 'src/app/pages/agent/add-agent/add-agent.component';
-import { RegisterAgentComponent } from 'src/app/pages/agent/register-agent/register-agent.component';
+import { ListAgentComponent } from 'src/app/pages/agent/list-agent/list-agent.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
@@ -79,4 +79,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'list-honoraire',           component: ListHonoraireComponent },
     { path: 'add-honoraire',           component: AddHonoraireComponent },
 
-    { path: 'add-agent/:id', component: AddAgentComponent }];
+    { path: 'add-agent/:id', component: AddAgentComponent },
+    { path: 'list-agent/:id', component: ListAgentComponent }];

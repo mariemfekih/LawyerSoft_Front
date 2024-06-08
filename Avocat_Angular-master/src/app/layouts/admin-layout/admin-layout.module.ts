@@ -41,6 +41,7 @@ import { InfoFolderComponent } from 'src/app/pages/folder/info-folder/info-folde
 import { ProfileComponent } from 'src/app/pages/profile/profile.component';
 import { BookingComponent } from 'src/app/pages/booking/booking.component';
 import { AddAgentComponent } from 'src/app/pages/agent/add-agent/add-agent.component';
+import { ListAgentComponent } from 'src/app/pages/agent/list-agent/list-agent.component';
 
 @NgModule({
   imports: [
@@ -84,7 +85,8 @@ import { AddAgentComponent } from 'src/app/pages/agent/add-agent/add-agent.compo
     ListFolderComponent,
     ProfileComponent,
     BookingComponent,
-    AddAgentComponent
+    AddAgentComponent,
+    ListAgentComponent
   ]
 })
 

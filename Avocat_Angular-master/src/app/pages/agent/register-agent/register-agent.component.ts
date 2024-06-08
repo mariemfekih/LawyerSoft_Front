@@ -9,6 +9,7 @@ import { User } from 'src/app/models/user';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { EmailService } from 'src/app/services/email.service';
 import { NotificationService } from 'src/app/services/notification.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-register-agent',
@@ -24,7 +25,9 @@ export class RegisterAgentComponent implements OnInit {
 
   selectedCity: Governorate; 
   cityOptions = Object.values(Governorate); 
-
+  lawyerId:number;
+  lawyerFirstName: string;
+  lawyerLastName: string;
 /**
  * 
  * @param router 
@@ -34,13 +37,27 @@ export class RegisterAgentComponent implements OnInit {
   constructor(private router: Router,
               private authenticationService: AuthenticationService,
               private notificationService: NotificationService,
-            private emailService:EmailService) {}
+            private emailService:EmailService,private userService:UserService) {}
 
   ngOnInit(): void {
+    this.lawyerId = JSON.parse(localStorage.getItem('id')!);
+    console.log('Lawyer ID:', this.lawyerId);
+    this.loadUserDetails(this.lawyerId);
     if(this.authenticationService.isUserLoggedIn()) {
       this.router.navigateByUrl('dashboard')
     }
   }
+
+  loadUserDetails(idUser: number) {
+    this.userService.getUserById(idUser).subscribe(
+      (data) => {
+        this.user = data;
+        console.log(this.user)
+      } ,(error) => {
+          console.error('Error fetching user details:', error);
+        }
+      );
+}
   getUserStatus(user: User): string {
     if (user.active && user.notLocked) {
       return 'Active';
