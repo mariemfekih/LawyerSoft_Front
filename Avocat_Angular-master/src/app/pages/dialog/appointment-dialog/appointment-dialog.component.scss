@@ -1,9 +1,38 @@
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
-.time-slot {
-    margin: 10px 0;
+/* appointment-dialog.component.scss */
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.grid-container {
+  width: 100%;
+}
+
+.full-width {
+  width: 100%;
+}
+
+mat-dialog-content {
+  overflow-y: auto;
+}
+
+mat-dialog-title {
+  text-align: center;
+  font-weight: bold;
+}
+
+mat-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+@media (min-width: 600px) {
+  .grid-container {
+    mat-grid-tile:nth-child(3),
+    mat-grid-tile:nth-child(4) {
+      width: 48%;
+    }
   }
-  
-  .time-slot button {
-    margin-right: 10px;
-  }
-  
+}

@@ -29,9 +29,16 @@ import { InfoContractComponent } from 'src/app/pages/contract/info-contract/info
 import { ListFolderComponent } from 'src/app/pages/folder/list-folder/list-folder.component';
 import { InfoFolderComponent } from 'src/app/pages/folder/info-folder/info-folder.component';
 import { ProfileComponent } from 'src/app/pages/profile/profile.component';
-import { BookingComponent } from 'src/app/pages/booking/booking.component';
 import { AddAgentComponent } from 'src/app/pages/agent/add-agent/add-agent.component';
 import { ListAgentComponent } from 'src/app/pages/agent/list-agent/list-agent.component';
+import { ListCustomerComponent } from 'src/app/pages/customer/list-customer/list-customer.component';
+import { AddCustomerComponent } from 'src/app/pages/customer/add-customer/add-customer.component';
+import { UpdateCustomerComponent } from 'src/app/pages/customer/update-customer/update-customer.component';
+import { ListFeeComponent } from 'src/app/pages/fee/list-fee/list-fee.component';
+import { AddFeeComponent } from 'src/app/pages/fee/add-fee/add-fee.component';
+import { ListActionComponent } from 'src/app/pages/action/list-action/list-action.component';
+import { AddActionComponent } from 'src/app/pages/action/add-action/add-action.component';
+import { UpdateActionComponent } from 'src/app/pages/action/update-action/update-action.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
@@ -65,14 +72,13 @@ export const AdminLayoutRoutes: Routes = [
 
   /**Appointlment */
   { path: 'appointment',      component: AppointmentComponent },
-  { path: 'booking',      component: BookingComponent },
   /**Contract */
   { path: 'list-contract',      component: ListContractComponent},
   { path: 'info-contract',      component: InfoContractComponent},
 
     /**folder */
     { path: 'list-folder',      component: ListFolderComponent},
-    { path: 'info-folder',      component: InfoFolderComponent},
+    { path: 'info-folder/:idFolder',      component: InfoFolderComponent},
 
 
     { path: 'update-honoraire/:idHonoraire',           component: UpdateHonoraireComponent },
@@ -80,4 +86,17 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'add-honoraire',           component: AddHonoraireComponent },
 
     { path: 'add-agent/:id', component: AddAgentComponent },
-    { path: 'list-agent/:id', component: ListAgentComponent }];
+    { path: 'list-agent/:id', component: ListAgentComponent },
+    //customer
+    { path: 'list-customer', component: ListCustomerComponent },
+    { path: 'add-customer', component: AddCustomerComponent },
+    { path: 'update-customer/:idCustomer', component: UpdateCustomerComponent },
+
+ 
+  { path: 'list-fee', component: ListFeeComponent },
+  { path: 'add-fee', component: AddFeeComponent },
+  { path: 'list-action', component: ListActionComponent },
+  { path: 'add-action', component: AddActionComponent },
+  { path: 'update-action/:idAction', component: UpdateActionComponent },
+
+  ];

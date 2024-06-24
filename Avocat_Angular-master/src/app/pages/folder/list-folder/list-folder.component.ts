@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Folder } from 'src/app/models/folder';
 import { FolderService } from 'src/app/services/folder.service';
-import { CaseService } from 'src/app/services/case.service';
+import { CustomerService } from 'src/app/services/customer.service';
+import { Folder } from 'src/app/models/folder';
 
 @Component({
   selector: 'app-list-folder',
@@ -14,44 +14,41 @@ export class ListFolderComponent implements OnInit {
   searchTerm: string;
   searchedFolder: Folder[] = [];
   existingFolders: string[] = [];
-  idCase: number;
-  selectedCaseId: number = null; 
-  casesWithoutFolders: any[] = [];
-  folderName: string = ''; 
+  idCustomer: number;
+  selectedCustomerId: number = null;
+  customersWithoutFolders: any[] = [];
+  folderName: string = '';
+  id: number;
 
   constructor(private folderService: FolderService,
-              private caseService: CaseService,
-              private router: Router,
-              private route: ActivatedRoute) { }
+              private customerService: CustomerService,
+              private route: ActivatedRoute,
+              private router: Router) { }
 
   ngOnInit(): void {
-    this.idCase = this.route.snapshot.params['idCase'];
+    this.id = JSON.parse(localStorage.getItem('id')!);
+    this.idCustomer = this.route.snapshot.params['idCustomer'];
     this.getFolders();
-    this.getCasesWithoutFolders();
+    this.getCustomersWithoutFolders();
   }
 
-  getCasesWithoutFolders() {
-    this.caseService.getCasesWithoutFolders().subscribe(
+  getCustomersWithoutFolders() {
+    this.customerService.getCustomersWithoutFolders(this.id).subscribe(
       (data) => {
-        this.casesWithoutFolders = data;
+        this.customersWithoutFolders = data;
       },
       (error) => {
-        console.error("Error fetching cases without folders:", error);
+        console.error("Error fetching customers without folders:", error);
       }
     );
   }
 
-  onCaseChange() {
-    if (this.selectedCaseId) {
-      this.router.navigate(['/list-folder', this.selectedCaseId]);
-    }
-  }
-
   public getFolders() {
-    this.folderService.getFolders().subscribe(
+    this.folderService.getFolders(this.id).subscribe(
       (data) => {
         this.folder = data;
         this.searchedFolder = data;
+        console.log("test", data);
       },
       (error) => {
         console.error("Error fetching folders:", error);
@@ -60,38 +57,52 @@ export class ListFolderComponent implements OnInit {
   }
 
   onSubmit() {
-    if (!this.selectedCaseId || !this.folderName) {
-      console.error("Case or folder name is undefined");
+    if (!this.selectedCustomerId || !this.folderName) {
+      console.error("Customer or folder name is undefined");
       return;
     }
-  
+
     const folder: Folder = { name: this.folderName };
-    this.folderService.addFolder(folder, this.selectedCaseId)
+    this.folderService.addFolder(this.selectedCustomerId)
       .subscribe(
         (addedFolder) => {
           console.log("Folder added successfully:", addedFolder);
           this.getFolders();
           this.folderName = '';
-          this.selectedCaseId = null;
-          this.router.navigate(['/list-folder'])
+          this.selectedCustomerId = null;
+          this.router.navigate(['/list-folder']);
         },
         (error) => {
-          
           console.error("Error adding folder:", error);
         }
       );
   }
-  public onSearch(): void {
-    const searchTermLowerCase = this.searchTerm.toLowerCase();
 
-    if (searchTermLowerCase) {
+  public onSearch(): void {
+    const searchTermLowerCustomer = this.searchTerm.toLowerCase();
+
+    if (searchTermLowerCustomer) {
       this.searchedFolder = this.folder.filter(f => {
         return (
-          f.name.toLowerCase().includes(searchTermLowerCase)
+          f.name.toLowerCase().includes(searchTermLowerCustomer)
         );
       });
     } else {
       this.searchedFolder = this.folder.slice();
+    }
+  }
+
+  openFolder(idFolder: number) {
+    console.log('idFolder:', idFolder);
+    this.router.navigate(['/info-folder', idFolder]);
+  }
+
+  onCustomerChange() {
+    const selectedCustomer = this.customersWithoutFolders.find(customer => customer.idCustomer === this.selectedCustomerId);
+    if (selectedCustomer) {
+      this.folderName = `${selectedCustomer.firstName} ${selectedCustomer.lastName}`;
+    } else {
+      this.folderName = '';
     }
   }
 }

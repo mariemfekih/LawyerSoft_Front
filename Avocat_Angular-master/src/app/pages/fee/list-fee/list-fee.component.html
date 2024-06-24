@@ -1,0 +1,89 @@
+<div class="header bg-gradient-blue pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+      <h1 class="text-white">Honoraires</h1>
+        <p class="text-white">Gérez et facturez vos honoraires en toute simplicité.</p>
+    </div>
+  </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <div class="input-group input-group-alternative">
+    <div class="input-group-prepend">
+      <span class="input-group-text"><i class="fas fa-search"></i></span>
+    </div>
+    <input class="form-control" placeholder="Rechercher ..." type="text" [(ngModel)]="searchTerm" (keyup)="onSearch()">
+  </div>
+  <br>
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <h2 class="mb-0">Liste Fee</h2>
+        </div>
+        <div class="col-12 text-right">
+          <button type="submit" class="btn btn-primary" (click)="onAddFee()"><i class="fa fa-plus"></i> | Ajouter Fee </button>
+          <br>
+          <br>
+        </div>
+        <div class="table-responsive">
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">Reference</th>
+                <th scope="col">Date</th>
+                <th scope="col">Montant</th>
+                <th scope="col">Reste</th>
+                <th scope="col">Client</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let fee of searchedFee | slice:(currentPage-1)*itemsPerPage:currentPage*itemsPerPage">
+                <td>
+                  <div class="media align-items-center">
+                    <span class="mb-0 text-sm">{{ fee.reference }}</span>
+                  </div>
+                </td>
+                <td>{{ fee.date }}</td>
+                <td>{{ fee.amount }}</td>
+                <td>{{ fee.remain }}</td>
+                <td>{{ fee.amount }}</td>
+                
+                <td>
+                  <button type="button" class="btn btn-sm btn-secondary mr-4" (click)="showFeeDetails(fee)"><i class="fa fa-eye"></i></button>
+
+                  <button type="button" class="btn btn-sm btn-blue mr-4" (click)="editFee(fee.idFee)" [state]="{ fee: fee }"><i class="fa fa-edit"></i></button>
+                  <button type="button" class="btn btn-sm btn-danger mr-4" (click)="deleteFee(fee.idFee)"><i class="fa fa-trash"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- Pagination -->
+        <div class="card-footer py-4">
+          <nav aria-label="...">
+            <ul class="pagination justify-content-end mb-0">
+              <li class="page-item" [class.disabled]="currentPage == 1">
+                <a class="page-link" (click)="currentPage = 1">&laquo;</a>
+              </li>
+              <li class="page-item" [class.disabled]="currentPage == 1">
+                <a class="page-link" (click)="currentPage = currentPage - 1">&lt;</a>
+              </li>
+              <li class="page-item" *ngFor="let page of getPages()" [class.active]="currentPage == page">
+                <a class="page-link" (click)="currentPage = page">{{ page }}</a>
+              </li>
+              <li class="page-item" [class.disabled]="currentPage == getTotalPages()">
+                <a class="page-link" (click)="currentPage = currentPage + 1">&gt;</a>
+              </li>
+              <li class="page-item" [class.disabled]="currentPage == getTotalPages()">
+                <a class="page-link" (click)="currentPage = getTotalPages()">&raquo;</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

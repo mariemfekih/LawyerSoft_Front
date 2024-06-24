@@ -1,1 +1,70 @@
-<p>info-folder works!</p>
+<div class="header bg-gradient-blue pb-8 pt-5 pt-md-8">
+    <div class="container-fluid">
+      <div class="header-body">
+      </div>
+    </div>
+  </div>
+  
+  <!-- Page content -->
+  <div class="container-fluid mt--7">
+    <div class="row">
+      <div class="col">
+        <div class="card shadow">
+          <div class="card-header bg-transparent">
+            <a href="javascript:history.back()"><i class="fa fa-arrow-left"></i> Revenir vers la Liste des Dossiers</a>
+          </div>
+          <div class="card-body">
+            <h3 class="mb-0">Dossier : {{ folder.name }}</h3>
+            <p class="mb-0">Date de création : {{ folder.creationDate }}</p>
+            <br>
+            <div *ngIf="enEdition">
+              <form (submit)="enregistrerModifications()">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="name" class="form-control-label">Nom Dossier</label>
+                      <input type="text" name="name" id="name" class="form-control form-control-alternative" [(ngModel)]="newFolderName" required>
+                    </div>
+                  </div>
+                  <div class="col-12 text-right">
+                    <button type="submit" class="btn btn-blue"><i class="fa fa-check"></i> | Enregistrer</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div *ngIf="!enEdition">
+              <div class="col-12 text-right">
+                <button class="btn btn-blue" (click)="activerEdition()"><i class="fa fa-edit"></i> | Modifier</button>
+                <button class="btn btn-danger" (click)="deleteFolder(folder.path)"><i class="fa fa-trash"></i> | Supprimer</button>
+              </div>
+            </div>
+            <hr>
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <h4>Subfolders</h4>
+              <button class="btn btn-light" (click)="addSubfolder()">
+                <i class="fa fa-plus"></i> | Ajouter un sous-dossier
+              </button>
+            </div>
+            <div class="card-body">
+                <div class="folder-container">
+                  <div *ngFor="let subfolder of subfolders" class="folder-icon">
+                    <i class="fas fa-folder" (click)="showSubfolderFiles(subfolder.idFolder)"></i>
+                    <span>{{ subfolder.name }}</span>
+                    
+                    <div *ngIf="subfolder.subfolders" class="folder-container">
+                      <div *ngFor="let child of subfolder.subfolders" class="folder-icon">
+                        <i class="fas fa-folder" (click)="showSubfolderFiles(child.idFolder)"></i>
+                        <span>{{ child.name }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

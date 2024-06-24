@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import jsPDF from 'jspdf';
 import { Court } from 'src/app/models/court';
 import { CourtTypeTranslator } from 'src/app/models/type/TranslatorFr/courtTypeTranslator';
 import { CourtType } from 'src/app/models/type/courtType';
 import { Governorate } from 'src/app/models/type/governorate';
 import { CourtService } from 'src/app/services/court.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-list-court',
@@ -66,25 +68,60 @@ export class ListCourtComponent implements OnInit {
   }
 
   public deleteCourt(idCourt: number) {
-    const courtId: number = Number(idCourt); // Convert idCourt to number
-    if (isNaN(courtId)) {
-        console.error('Invalid idCourt:', idCourt);
-        return; // Stop execution if idCourt is not a valid number
-    }
-
-    this.courtService.deleteCourt(courtId).subscribe(
-        () => {
-            this.getCourts();
-            console.log("supp"); 
-        },
-        (error) => {
-            console.error("erreur", error);
+    Swal.fire({
+      title: 'Êtes-vous sûr?',
+      text: 'Vous ne pourrez pas récupérer ces données une fois supprimées!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Oui, supprimer!',
+      cancelButtonText: 'Annuler'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const courtId: number = Number(idCourt); // Convert idCourt to number
+        if (isNaN(courtId)) {
+          console.error('Invalid idCourt:', idCourt);
+          return; // Stop execution if idCourt is not a valid number
         }
-    );
-}
 
+        this.courtService.deleteCourt(courtId).subscribe(
+          () => {
+            this.getCourts(); // Refresh the list after deletion
+            Swal.fire('Supprimé!', 'Le tribunal a été supprimé avec succès.', 'success');
+          },
+          (error) => {
+            console.error('Erreur lors de la suppression du tribunal:', error);
+            Swal.fire('Erreur!', 'Une erreur est survenue lors de la suppression du tribunal.', 'error');
+          }
+        );
+      }
+    });
+  }
 
+  exportToPDF() {
+    const doc = new jsPDF();
+    const data = this.court.map(court => {
+      return {
+        Type: this.translateCourtType(court.type)+' '+ court.governorate,
+        Adress: court.adress,
+        Phone:court.phone
+      };
+    });
 
+    const header = [['Tribunal', 'Adresse', 'Téléphone']];
+    const rows = data.map(obj => Object.keys(obj).map(key => obj[key]));
+
+    (doc as any).autoTable({
+      head: header,
+      body: rows,
+      theme: 'plain',
+      didDrawCell: (data: { column: { index: any; }; }) => { 
+        //console.log(data.column.index)
+           console.log('pdf done')
+       }
+    })
+    doc.output('dataurlnewwindow');
+    doc.save('tribunaux.pdf');
+  }
 
 
 
@@ -129,5 +166,18 @@ export class ListCourtComponent implements OnInit {
 
         return pages;
       }
-
+      showCourtDetails(court: Court) {
+        Swal.fire({
+          title: `<strong>Details du Tribunal</strong>`,
+          html: `
+            <p><strong>Type:</strong> ${this.translateCourtType(court.type)}</p>
+            <p><strong>Governorate:</strong> ${court.governorate}</p>
+            <p><strong>Adresse:</strong> ${court.adress}</p>
+            <p><strong>Téléphone:</strong> ${court.phone}</p>
+          `,
+          icon: 'info',
+          confirmButtonText: 'Fermer'
+        });
+      }
+      
 }

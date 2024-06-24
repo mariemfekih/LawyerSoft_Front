@@ -1,83 +1,105 @@
 <div class="header bg-gradient-blue pb-8 pt-5 pt-md-8">
     <div class="container-fluid">
         <div class="header-body">
-            <!-- Your header content here -->
+            <div class="row">
+                <div class="col">
+                    <br><br>
+                  <h1 class="text-white">Formulaire de Contrat</h1>
+                  <p class="text-white">Remplissez les informations ci-dessous pour générer votre Contrat PDF.</p>
+                </div>
+              </div>
         </div>
     </div>
 </div>
 
 <br><br>
 
-<!-- template.html -->
 <div class="container report-form">
     <div class="row">
         <!-- Form Section -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="clientName">Client Name:</label>
-                <input type="text" id="clientName" [(ngModel)]="clientName" class="form-control">
+        <div class="col-12 col-md-6">
+            <div class="form-row">
+                <div class="form-group col-12 col-md-6">
+                    <label for="clientName" class="form-control-label">Nom du client :</label>
+                    <input type="text" id="clientName" class="form-control form-control-alternative" [(ngModel)]="clientName" class="form-control">
+                </div>
+                <div class="form-group col-12 col-md-6">
+                    <label for="clientAddress" class="form-control-label">Adresse du client :</label>
+                    <input type="text" id="clientAddress" class="form-control form-control-alternative" [(ngModel)]="clientAddress" class="form-control">
+                </div>
             </div>
-            <div class="form-group">
-                <label for="clientAddress">Client Address:</label>
-                <input type="text" id="clientAddress" [(ngModel)]="clientAddress" class="form-control">
+            <div class="form-row">
+                <div class="form-group col-12 col-md-6">
+                    <label for="clientCIN" class="form-control-label">CIN du client :</label>
+                    <input type="text" id="clientCIN" class="form-control form-control-alternative" [(ngModel)]="clientCIN" class="form-control">
+                </div>
+                <div class="form-group col-12 col-md-6">
+                    <label for="clientPhone" class="form-control-label">Téléphone du client :</label>
+                    <input type="text" id="clientPhone" class="form-control form-control-alternative" [(ngModel)]="clientPhone" class="form-control">
+                </div>
             </div>
-            <div class="form-group">
-                <label for="clientCIN">Client CIN:</label>
-                <input type="text" id="clientCIN" [(ngModel)]="clientCIN" class="form-control">
+            <div class="form-row">
+                <div class="form-group col-12 col-md-6">
+                    <label for="cadreService" class="form-control-label">Service :</label>
+                    <input type="text" id="cadreService" class="form-control form-control-alternative" [(ngModel)]="cadreService" class="form-control">
+                </div>
+                <div class="form-group col-12 col-md-6">
+                    <label for="FeeHour"  class="form-control-label">Tarif par heure :</label>
+                    <input type="text" id="FeeHour" class="form-control form-control-alternative" [(ngModel)]="FeeHour" class="form-control">
+                </div>
             </div>
-            <div class="form-group">
-                <label for="clientPhone">Client Phone:</label>
-                <input type="text" id="clientPhone" [(ngModel)]="clientPhone" class="form-control">
+            <div class="form-row">
+                <div class="form-group col-12 col-md-6">
+                    <label for="forfait" class="form-control-label">Forfait :</label>
+                    <input type="text" id="forfait" class="form-control form-control-alternative" [(ngModel)]="forfait" class="form-control">
+                </div>
+                <div class="form-group col-12 col-md-6">
+                    <label for="accompte" class="form-control-label">Acompte :</label>
+                    <input type="text" id="accompte" class="form-control form-control-alternative" [(ngModel)]="accompte" class="form-control">
+                </div>
             </div>
-            <div class="form-group">
-                <label for="cadreService">Cadre Service:</label>
-                <input type="text" id="cadreService" [(ngModel)]="cadreService" class="form-control">
+            <div class="form-row">
+                <div class="form-group col-12 col-md-6">
+                    <label for="lawyerName" class="form-control-label">Nom de l'avocat :</label>
+                    <input type="text" id="lawyerName" class="form-control form-control-alternative" [(ngModel)]="lawyerName" class="form-control">
+                </div>
+                <div class="form-group col-12 col-md-6">
+                    <label for="lawyerAddress" class="form-control-label" >Adresse de l'avocat :</label>
+                    <input type="text" id="lawyerAddress" class="form-control form-control-alternative" [(ngModel)]="lawyerAddress" class="form-control">
+                </div>
             </div>
-            <div class="form-group">
-                <label for="FeeHour">Fee per Hour:</label>
-                <input type="text" id="FeeHour" [(ngModel)]="FeeHour" class="form-control">
+            <div class="form-row">
+                <div class="form-group col-12 col-md-6">
+                    <label for="lawyerPhone" class="form-control-label" >Téléphone de l'avocat :</label>
+                    <input type="text" id="lawyerPhone" class="form-control form-control-alternative" [(ngModel)]="lawyerPhone" class="form-control">
+                </div>
+                <div class="form-group col-12 col-md-6">
+                    <label for="lawyerCIN" class="form-control-label">CIN de l'avocat :</label>
+                    <input type="text" id="lawyerCIN" class="form-control form-control-alternative" [(ngModel)]="lawyerCIN" class="form-control">
+                </div>
             </div>
-            <div class="form-group">
-                <label for="forfait">Forfait:</label>
-                <input type="text" id="forfait" [(ngModel)]="forfait" class="form-control">
+            <div class="form-row">
+                <div class="form-group col-12 col-md-6">
+                    <label for="nbDays" class="form-control-label">Nombre de jours :</label>
+                    <input type="text" id="nbDays" class="form-control form-control-alternative" [(ngModel)]="nbDays" class="form-control">
+                </div>
+                <div class="form-group col-12 col-md-6">
+                    <label for="localisation" class="form-control-label">Localisation :</label>
+                    <input type="text" id="localisation" class="form-control form-control-alternative" [(ngModel)]="localisation" class="form-control">
+                </div>
             </div>
-            <div class="form-group">
-                <label for="accompte">Accompte:</label>
-                <input type="text" id="accompte" [(ngModel)]="accompte" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="lawyerName">Lawyer Name:</label>
-                <input type="text" id="lawyerName" [(ngModel)]="lawyerName" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="lawyerAddress">Lawyer Address:</label>
-                <input type="text" id="lawyerAddress" [(ngModel)]="lawyerAddress" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="lawyerPhone">Lawyer Phone:</label>
-                <input type="text" id="lawyerPhone" [(ngModel)]="lawyerPhone" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="lawyerCIN">Lawyer CIN:</label>
-                <input type="text" id="lawyerCIN" [(ngModel)]="lawyerCIN" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="nbDays">Number of Days:</label>
-                <input type="text" id="nbDays" [(ngModel)]="nbDays" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="localisation">Localisation:</label>
-                <input type="text" id="localisation" [(ngModel)]="localisation" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="date">Date:</label>
-                <input type="date" id="date" [(ngModel)]="date" class="form-control">
+            <div class="form-row">
+                <div class="form-group col-12 col-md-6">
+                    <label for="date" class="form-control-label">Date :</label>
+                    <input type="date" id="date" class="form-control form-control-alternative" [(ngModel)]="date" class="form-control">
+                </div>
             </div>
             <button class="btn btn-blue" (click)="generateReport()">Générer PDF</button>
         </div>
-        <div class="col-md-6">
-            <img src="assets/img/logo/contratFrancais.png" alt="Contrat Français Logo"  class="image">
+         <!-- PDF Viewer Section -->
+         <div class="col-12 col-md-6 d-flex align-items-start justify-content-center mt-4 mt-md-0">
+            <iframe src="assets/img/logo/contratServices_watermark.pdf" width="100%" height="600px" class="pdf-viewer"></iframe>
         </div>
-       
+        
     </div>
 </div>

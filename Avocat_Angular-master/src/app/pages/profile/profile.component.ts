@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { roleTranslator } from 'src/app/models/type/TranslatorFr/roleTranslator';
 import { Governorate } from 'src/app/models/type/governorate';
+import { Role } from 'src/app/models/type/role';
 import { User } from 'src/app/models/user';
 import { AuxiliaryService } from 'src/app/services/auxiliary.service';
 import { CaseService } from 'src/app/services/case.service';
@@ -16,17 +18,21 @@ import { UserService } from 'src/app/services/user.service';
 export class ProfileComponent implements OnInit {
   user: User = {} as User; // Initialize user object to avoid undefined errors
   idUser: number;
-  users: User[] = [];
   totalCases: number;
   totalAuxiliaries: number;
   updateProfileForm: FormGroup;
   governorates = Object.values(Governorate);
-  selectedGovernorate: Governorate ;
-  constructor(private formBuilder: FormBuilder,
-              private userService: UserService,
-              private router: Router,
-              private caseService: CaseService,
-              private auxiliaryService: AuxiliaryService) { }
+  selectedGovernorate: Governorate;
+  translateUserRole(role: Role): string {
+    return roleTranslator.translateFrRole(role);
+  }
+  constructor(
+    private formBuilder: FormBuilder,
+    private userService: UserService,
+    private router: Router,
+    private caseService: CaseService,
+    private auxiliaryService: AuxiliaryService
+  ) {}
 
   ngOnInit(): void {
     this.idUser = JSON.parse(localStorage.getItem('id')!);
@@ -40,13 +46,13 @@ export class ProfileComponent implements OnInit {
       city: ['', Validators.required],
       gender: ['', Validators.required],
       birthDate: ['', Validators.required],
-      role: ['', Validators.required], // Initialize role control
-      cin: ['', Validators.required],
+      role: ['', Validators.required],
+      cin: ['', Validators.required]
     });
 
     // Fetch user data and populate the form
-    this.userService.getUserById(this.idUser).subscribe(data => {
-      this.user = data as User;
+    this.userService.getUserById(this.idUser).subscribe((data: User) => {
+      this.user = data;
 
       // Patch form values with user data
       this.updateProfileForm.patchValue({
@@ -60,6 +66,8 @@ export class ProfileComponent implements OnInit {
         role: this.user.role,
         cin: this.user.cin
       });
+
+      // this.fetchProfileImage(this.user.profileImage);
     });
 
     // Load additional user details
@@ -95,8 +103,9 @@ export class ProfileComponent implements OnInit {
     this.userService.getUserById(idUser).subscribe(
       (data) => {
         this.user = data;
-        console.log(this.user)
-      }, (error) => {
+        console.log(this.user);
+      },
+      (error) => {
         console.error('Error fetching user details:', error);
       }
     );
@@ -112,11 +121,13 @@ export class ProfileComponent implements OnInit {
     return this.auxiliaryService.getTotalAuxiliariesByUser(this.idUser);
   }
 
-  // Function to update user profile
-
-  updateUser() {
+  // Function to update user profile including profile image
+  updateUser(): void {
+    if (this.updateProfileForm.invalid) {
+      return;
+    }
     const formData = this.updateProfileForm.value;
-    //this.user.username = formData.username;
+    this.user.username = formData.username;
     this.user.email = formData.email;
     this.user.firstName = formData.firstName;
     this.user.lastName = formData.lastName;
@@ -124,9 +135,11 @@ export class ProfileComponent implements OnInit {
     this.user.cin = formData.cin;
     this.user.birthDate = formData.birthDate;
     this.user.gender = formData.gender;
-  
+
+    // Call the UserService to update user details and profile image
     this.userService.updateUser(this.idUser, this.user).subscribe(data => {
       console.log(data);
+      // Optionally navigate to another route after successful update
       this.router.navigate(['profile']);
     });
   }

@@ -43,3 +43,26 @@
     border-color: #243d69;
     background-color: #0b1526;
 }
+.form-group input, .form-group textarea, .form-group select {
+    max-width: 400px; /* Adjust the maximum width as needed */
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0 auto; /* Center the inputs */
+  }
+  
+  .form-group {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .row .col-lg-6 {
+    max-width: 400px; /* Adjust the maximum width as needed */
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0 auto; /* Center the columns */
+  }
+  
+
+  

@@ -24,6 +24,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppointmentDialogComponent } from './pages/dialog/appointment-dialog/appointment-dialog.component';
 import { MatSelectModule } from '@angular/material/select'; 
 import { AddAgentComponent } from './pages/agent/add-agent/add-agent.component';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { AddAgentComponent } from './pages/agent/add-agent/add-agent.component';
     MatDialogModule,
     MatButtonModule,
     MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
+    MatGridListModule
   
   ],
   declarations: [

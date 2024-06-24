@@ -32,7 +32,7 @@ export class AppointmentService {
     return this.http.get<Appointment>(url);
   }
 
-  getAppointments(): Observable<Appointment[]> {
-    return this.http.get<Appointment[]>(`${this.host}/CalendarApp`);
+  getAppointments(id:number): Observable<Appointment[]> {
+    return this.http.get<Appointment[]>(`${this.host}/CalendarApp/user/${id}`);
   }
 }

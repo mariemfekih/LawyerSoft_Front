@@ -1,5 +1,6 @@
 import { CaseType } from '../models/type/caseType';
 import { Contributor } from './contributor';
+import { Customer } from './customer';
 import { Trial } from './trial';
 import { CaseState } from './type/caseState';
 
@@ -12,6 +13,9 @@ export class Case {
     type: CaseType;
     reference:string;
     state:CaseState;
+    customerId:number;
+    customer?:Customer;
+   // customerId: number; 
     trials: Trial[];
     //folders: Folder[];
     contributors: Contributor[];

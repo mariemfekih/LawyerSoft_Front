@@ -1,45 +1,76 @@
 <h1 mat-dialog-title>Ajouter un Rendez-vous</h1>
-<div mat-dialog-content style="width: 600px;">
-  <form [formGroup]="appointmentForm">
-    <mat-form-field>
+<div mat-dialog-content>
+  <form [formGroup]="appointmentForm" class="form-container">
+    <mat-form-field appearance="fill" class="full-width">
       <mat-label>Titre</mat-label>
-      <input matInput formControlName="title">
+      <input matInput formControlName="title" placeholder="Entrez le titre">
+      <mat-error *ngIf="appointmentForm.get('title').hasError('required')">
+        Le titre est requis
+      </mat-error>
     </mat-form-field>
-    <mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
       <mat-label>Description</mat-label>
-      <textarea matInput formControlName="description"></textarea>
+      <textarea matInput formControlName="description" placeholder="Entrez la description"></textarea>
     </mat-form-field>
-    <mat-form-field>
-      <mat-label>Heure de début</mat-label>
-      <input matInput formControlName="startTime" type="time">
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Heure de fin</mat-label>
-      <input matInput formControlName="endTime" type="time">
-    </mat-form-field>
-    <mat-form-field>
+
+    <div class="time-fields">
+      <mat-form-field appearance="fill" class="time-field">
+        <mat-label>Heure de début</mat-label>
+        <input matInput formControlName="startTime" type="time" placeholder="HH:mm">
+        <mat-error *ngIf="appointmentForm.get('startTime').hasError('required')">
+          L'heure de début est requise
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="time-field">
+        <mat-label>Heure de fin</mat-label>
+        <input matInput formControlName="endTime" type="time" placeholder="HH:mm">
+        <mat-error *ngIf="appointmentForm.get('endTime').hasError('required')">
+          L'heure de fin est requise
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="fill" class="full-width">
       <mat-label>Date</mat-label>
-      <input matInput formControlName="date" type="date">
+      <input matInput formControlName="date" type="date" placeholder="yyyy-MM-dd">
+      <mat-error *ngIf="appointmentForm.get('date').hasError('required')">
+        La date est requise
+      </mat-error>
     </mat-form-field>
-    <mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
       <mat-label>Type</mat-label>
-      <input matInput formControlName="type">
+      <mat-select formControlName="type" placeholder="Sélectionnez le type">
+        <mat-option *ngFor="let type of appointmentTypes" [value]="type">
+          {{ type }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="appointmentForm.get('type').hasError('required')">
+        Le type est requis
+      </mat-error>
     </mat-form-field>
-    <mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
       <mat-label>Lien GoogleMeet</mat-label>
-      <input matInput formControlName="linkHangout">
+      <input matInput formControlName="linkHangout" placeholder="Entrez le lien GoogleMeet">
     </mat-form-field>
-    <mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
       <mat-label>Location</mat-label>
-      <mat-select formControlName="location">
+      <mat-select formControlName="location" placeholder="Sélectionnez la location">
         <mat-option *ngFor="let location of locationTypes" [value]="location">
           {{ location }}
         </mat-option>
       </mat-select>
+      <mat-error *ngIf="appointmentForm.get('location').hasError('required')">
+        La location est requise
+      </mat-error>
     </mat-form-field>
   </form>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">Annuler</button>
-  <button mat-button [disabled]="!appointmentForm.valid" (click)="onSubmit()">Ajouter</button>
+  <button mat-raised-button color="warn" (click)="onNoClick()">Annuler</button>
+  <button mat-raised-button color="primary" [disabled]="!appointmentForm.valid" (click)="onSubmit()">Ajouter</button>
 </div>

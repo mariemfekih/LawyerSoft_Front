@@ -54,6 +54,7 @@
     "lodash": "^4.17.21",
     "ng2-flatpickr": "^9.0.0",
     "ng2-pdf-viewer": "^10.0.0",
+    "ngx-bootstrap": "^12.0.0",
     "ngx-clipboard": "15.0.1",
     "ngx-quill": "^26.0.0",
     "ngx-toastr": "14.2.2",
@@ -78,6 +79,8 @@
     "@types/offscreencanvas": "^2019.7.1",
     "@types/pdfjs-dist": "^2.10.378",
     "codelyzer": "6.0.2",
+    "cssnano": "^7.0.3",
+    "html-minifier": "^4.0.0",
     "jasmine-core": "~4.4.0",
     "jasmine-spec-reporter": "~7.0.0",
     "karma": "~6.4.0",
@@ -87,6 +90,7 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.0.0",
     "protractor": "7.0.0",
-    "ts-node": "~10.9.1"
+    "ts-node": "~10.9.1",
+    "uglify-js": "^3.18.0"
   }
 }

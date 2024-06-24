@@ -27,14 +27,18 @@ export class EmailService {
     }*/
     return this.http.post<string>(`${this.host}/mail/send`, formData);
   }
-  sendEmailTemplate(to: string, subject: string,templatePath: string, idUser: number): Observable<any> {
+  sendEmailTemplate(to: string, subject: string, templatePath: string, idUser: number): Observable<any> {
     const url = `${this.host}/mail/sendTemplate/${idUser}`;
+    
+    // Construct the query parameters
     const params = new HttpParams()
       .set('to', to)
       .set('subject', subject)
       .set('templatePath', templatePath);
 
-    return this.http.post(url, null, { params });
+    // Make the POST request with the parameters
+    return this.http.post(url, null, { params, responseType: 'text' });
+    // Use responseType 'text' because the response is plain text
   }
   sendEmailTemplateWithoutId(to: string, subject: string, templatePath: string, firstName: string, lastName: string,idUser: number): Observable<any> {
     const url = `${this.host}/mail/sendTemplate/id/${idUser}`;

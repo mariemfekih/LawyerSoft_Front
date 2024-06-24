@@ -14,6 +14,13 @@ import { CaseStateTranslator } from 'src/app/models/type/TranslatorFr/caseStateT
 export const DASHBOARD_ROUTES: RouteInfo[] = [
    { path: '/list-user', title: 'Utilisateurs',  icon:'ni-single-02 text-default', class: '',roles: [Role.ADMIN] },
    {
+    path: '/list-customer',
+    title: 'Client',
+    icon: 'ni-single-02 text-default',
+    class: '',
+    dashboardType: 'other',
+    roles: [Role.LAWYER]
+  },{
     path: '/list-case',
     title: 'Affaires',
     icon: 'ni-briefcase-24 text-default',
@@ -28,17 +35,17 @@ export const DASHBOARD_ROUTES: RouteInfo[] = [
     class: '',
     dashboardType: 'other',
     roles: [Role.ADMIN]
-  },
+  },  
   {
     path: '/list-auxiliary',
-    title: 'Auxiliaires',
+    title: 'Auxiliaire',
     icon: 'ni-single-02 text-default',
     class: '',
     dashboardType: 'other',
     roles: [Role.LAWYER]
   },
   {
-    path: '/list-agent/:id',
+    path: '/add-agent/:id',
     title: 'Agent',
     icon: 'ni-single-02 text-default',
     class: '',
@@ -55,31 +62,40 @@ export const DASHBOARD_ROUTES: RouteInfo[] = [
     dashboardType: 'other',
     roles: [Role.LAWYER]
   },
-  {
-    path: '/list-honoraire',
-    title: 'Honoraire',
-    icon: 'ni-diamond text-default',
-    class: '',
-    dashboardType: 'other',
-    roles: [Role.LAWYER]
-  },
 
   {
     path: '/list-folder',
-    title: 'Dossiers',
+    title: 'Dossier',
     icon: 'ni-folder-17 text-default',
     class: '',
     dashboardType: 'other',
     roles: [Role.LAWYER]
   },
   {
-    path: '/list-contract',
+    path: '/info-contract',
     title: 'Contrat',
     icon: 'ni-collection text-default',
     class: '',
     dashboardType: 'other',
     roles: [Role.LAWYER]
   },
+ {
+    path: '/list-action',
+    title: 'Action',
+    icon: 'ni-building text-default',
+    class: '',
+    dashboardType: 'other',
+    roles: [Role.LAWYER]
+  },
+  {
+    path: '/list-fee',
+    title: 'Honoraire',
+    icon: 'ni-diamond text-default',
+    class: '',
+    dashboardType: 'other',
+    roles: [Role.LAWYER]
+  }
+  /*,
   {
     path: '/icons',
     title: 'Icons',
@@ -87,16 +103,7 @@ export const DASHBOARD_ROUTES: RouteInfo[] = [
     class: '',
     dashboardType: 'other',
     roles: [Role.LAWYER]
-  },
-  {
-    path: '/booking',
-    title: 'Booking',
-    icon: 'ni-building text-default',
-    class: '',
-    dashboardType: 'other',
-    roles: [Role.LAWYER]
-  }
-
+  }*/
   /* { path: '/maps', title: 'Maps',  icon:'ni-pin-3 text-orange', class: '' },
    { path: '/user-profile', title: 'User profile',  icon:'ni-circle-08 text-red', class: '' },
    { path: '/tables', title: 'Tables',  icon:'ni-bullet-list-67 text-red', class: '' },

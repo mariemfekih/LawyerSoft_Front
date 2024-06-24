@@ -1,6 +1,8 @@
 <div class="header bg-gradient-blue pb-8 pt-5 pt-md-8">
     <div class="container-fluid">
       <div class="header-body">
+        <h1 class="text-white">Tribunaux</h1>
+        <p class="text-white">Suivez et gérez facilement les informations des tribunaux.</p>
       </div>
     </div>
   </div>
@@ -22,7 +24,9 @@
           </div>
           <div class="col-12 text-right">
           <button type="submit"  class="btn btn-blue" (click)="onAddCourt()"><i class="fa fa-plus"></i> |  Ajouter Tribunal </button>
-    
+          <button type="button" class="btn btn-info" (click)="exportToPDF()">
+            <i class="fa fa-file-pdf"></i> | Exporter PDF
+          </button>
           <br>
           <br>
         </div>
@@ -48,6 +52,7 @@
                   <td>{{ court.adress }}</td>
                   <td>{{ court.phone }}</td>
                   <td>
+                    <button type="button" class="btn btn-sm btn-secondary mr-4" (click)="showCourtDetails(court)"><i class="fa fa-eye"></i></button>
                     <button type="button" class="btn btn-sm btn-blue mr-4" [routerLink]="['/update-court', court.idCourt]" [state]="{ court: court }"><i class="fa fa-edit"></i></button>
                     <button type="button" class="btn btn-sm btn-danger mr-4" (click)="deleteCourt(court.idCourt)"><i class="fa fa-trash"></i></button> 
                   </td>

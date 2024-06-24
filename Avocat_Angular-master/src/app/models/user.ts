@@ -1,11 +1,11 @@
 import { Role } from '../models/type/role';
 
 export class User {
-  id: number;
+  id?: number;
   cin: string;
   firstName: string;
   lastName: string;
-  username: string;
+  username?: string;
   password?: string;
   email: string;
   role: Role;

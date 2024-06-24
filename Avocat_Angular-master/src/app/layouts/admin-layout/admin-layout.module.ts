@@ -39,9 +39,16 @@ import { InfoContractComponent } from 'src/app/pages/contract/info-contract/info
 import { ListFolderComponent } from 'src/app/pages/folder/list-folder/list-folder.component';
 import { InfoFolderComponent } from 'src/app/pages/folder/info-folder/info-folder.component';
 import { ProfileComponent } from 'src/app/pages/profile/profile.component';
-import { BookingComponent } from 'src/app/pages/booking/booking.component';
 import { AddAgentComponent } from 'src/app/pages/agent/add-agent/add-agent.component';
 import { ListAgentComponent } from 'src/app/pages/agent/list-agent/list-agent.component';
+import { ListCustomerComponent } from 'src/app/pages/customer/list-customer/list-customer.component';
+import { AddCustomerComponent } from 'src/app/pages/customer/add-customer/add-customer.component';
+import { UpdateCustomerComponent } from 'src/app/pages/customer/update-customer/update-customer.component';
+import { ListFeeComponent } from 'src/app/pages/fee/list-fee/list-fee.component';
+import { AddFeeComponent } from 'src/app/pages/fee/add-fee/add-fee.component';
+import { ListActionComponent } from 'src/app/pages/action/list-action/list-action.component';
+import { AddActionComponent } from 'src/app/pages/action/add-action/add-action.component';
+import { UpdateActionComponent } from 'src/app/pages/action/update-action/update-action.component';
 
 @NgModule({
   imports: [
@@ -84,9 +91,17 @@ import { ListAgentComponent } from 'src/app/pages/agent/list-agent/list-agent.co
     InfoFolderComponent,
     ListFolderComponent,
     ProfileComponent,
-    BookingComponent,
     AddAgentComponent,
-    ListAgentComponent
+    ListAgentComponent,
+    ListCustomerComponent,
+    AddCustomerComponent,
+    UpdateCustomerComponent,
+    ListFeeComponent,
+    AddFeeComponent,
+    ListActionComponent,
+    AddActionComponent,
+    UpdateActionComponent
+
   ]
 })
 

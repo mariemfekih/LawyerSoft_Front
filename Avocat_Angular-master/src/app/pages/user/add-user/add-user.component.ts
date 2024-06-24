@@ -1,11 +1,10 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { NotificationType } from 'src/app/enum/notification-type.enum';
-import { User } from 'src/app/models/user';
-import { NotificationService } from 'src/app/services/notification.service';
+import { roleTranslator } from 'src/app/models/type/TranslatorFr/roleTranslator'; // Make sure this path is correct
+import { Governorate } from 'src/app/models/type/governorate';
+import { Role } from 'src/app/models/type/role'; // Make sure this path is correct
+import { User } from 'src/app/models/user'; // Make sure this path is correct
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -14,42 +13,40 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./add-user.component.scss']
 })
 export class AddUserComponent implements OnInit {
+  public user: User = new User();
+  selectedUserId: number;
 
-  private subscriptions: Subscription[] = [];
-  public fileName: string;
-  public profileImage: File;
-user:User;
-  constructor(private userService: UserService,
-              private notificationService: NotificationService,
-              private router: Router) { }
+  selectedRole: Role = Role.LAWYER;
+  roles = Object.values(Role);
+  translateRole(role: Role): string {
+    return roleTranslator.translateFrRole(role);
+  }
+
+
 
   ngOnInit(): void {
+    this.selectedGovernorate = Governorate.Ariana; 
   }
+  governorates = Object.values(Governorate);
+  selectedGovernorate: Governorate; 
 
-  public onAddNewUser(userForm: NgForm): void {
-    this.userService.addUser(this.user).subscribe(
-      newuser => {
-        console.log('utilisateur ajoutée avec succès:', newuser);
-        this.router.navigate(['list-user']);
-      },
-      erreur => {
-        console.error('Erreur lors de l\'ajout de l\'affaire:', erreur);
-      }
-    );
-  }
-
-  private sendNotification(notificationType: NotificationType, message: string): void {
-    if(message) {
-      this.notificationService.notify(notificationType, message);
-    } else {
-      this.notificationService.notify(notificationType, 'Une erreur s"est produite, veuillez réessayer');
-    }
-  }
-
-  public onProfileImageChange(fileName: string, profileImage: File): void {
-    this.fileName =  fileName;
-    this.profileImage = profileImage;
-  }
-
-
+  constructor(private userService: UserService,
+              private router: Router) {}
+              submitForm() {
+                this.user.city = this.selectedGovernorate;
+                this.user.role = this.selectedRole;
+                console.log('Submitting user:', this.user);  // Log the user object before submitting
+              
+                this.userService.addUser(this.user).subscribe(
+                  newUser => {
+                    console.log('Utilisateur ajouté avec succès:', newUser);
+                    this.router.navigate(['list-user']);
+                  },
+                  erreur => {
+                    console.error('Erreur lors de l\'ajout d\'utilisateur:', erreur);
+                  }
+                );
+              }
+              
 }
+

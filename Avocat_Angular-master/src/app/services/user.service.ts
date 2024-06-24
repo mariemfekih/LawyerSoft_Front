@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse, HttpErrorResponse, HttpEvent, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpErrorResponse, HttpEvent, HttpHeaders, HttpEventType } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { User } from '../models/user';
 import { CustomHttpRespone } from '../models/custom-http-response';
 import { AuthenticationService } from './authentication.service';
@@ -28,6 +28,7 @@ export class UserService {
     const url = `${this.host}/user`;
     return this.http.post<User>(url, newUser);
   }
+
   
 
   deleteUserByEmail(email: string): Observable<void> {
@@ -64,12 +65,6 @@ export class UserService {
     return this.http.get(`${this.host}/user/resetPassword/${email}`);
   }
 
-  public updateProfileImage(formData: FormData): Observable<HttpEvent<User>> {
-    return this.http.post<User>(`${this.host}/user/updateProfileImage`, formData,
-    {reportProgress: true,
-      observe: 'events'
-    });
-  }
 
   public addUsersToLocalCache(users: User[]): void {
     localStorage.setItem('users', JSON.stringify(users));
@@ -101,5 +96,11 @@ export class UserService {
     return formData;
 
   }
-
+  /*getProfileImageUrl(fileId: string): string {
+    return `${this.host}/user/profileImage/${fileId}`;
+  }*/
+    getProfileImage(fileId: string): Observable<any> {
+      const url = `${this.host}/user/profileImage/${fileId}`;
+      return this.http.get(url, { responseType: 'blob' });
+    }
 }

@@ -1,6 +1,8 @@
 <div class="header bg-gradient-blue pb-8 pt-5 pt-md-8">
   <div class="container-fluid">
     <div class="header-body">
+      <h1 class="text-white">Affaires</h1>
+        <p class="text-white">Organisez et suivez efficacement toutes vos affaires juridiques.</p>
     </div>
   </div>
 </div>
@@ -12,7 +14,7 @@
     </div>
     <input class="form-control" placeholder="Rechercher ..." type="text" [(ngModel)]="searchTerm" (keyup)="onSearch()">
   </div>
-  <br>
+  <br> 
   <!-- Table -->
   <div class="row">
     <div class="col">
@@ -24,10 +26,10 @@
           <button type="submit" class="btn btn-blue" (click)="onAddCase()"><i class="fa fa-plus"></i> |  Ajouter Affaire </button>
           <!-- Add Export Button Here -->
           <button type="button" class="btn btn-success" (click)="exportToCSV()">
-            <i class="fa fa-download"></i> | Export CSV
+            <i class="fa fa-download"></i> | Exporter CSV
           </button>
           <button type="button" class="btn btn-info" (click)="exportToPDF()">
-            <i class="fa fa-file-pdf"></i> | Export PDF
+            <i class="fa fa-file-pdf"></i> | Exporter PDF
           </button>
           <br>
           <br>

@@ -1,100 +1,113 @@
 <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center">
-  <!-- Mask -->
-  <span class="mask bg-gradient-blue opacity-10"></span>
-  <!-- Header container -->
+    <!-- Mask -->
+    <span class="mask bg-gradient-blue opacity-10"></span>
+    <!-- Header container -->
 </div>
 <div class="container-fluid mt--7">
-  <div class="row">
-    <div class="col-xl-12 order-xl-1">
-      <div class="card bg-secondary shadow">
-        <div class="card-header bg-white border-0">
-          <div class="row align-items-center">
-            <div class="col-12">
-              <a href="javascript:history.back()"><i class="fa fa-arrow-left"></i> Revenir vers la Liste des Utilisateurs</a>
-              <hr>
-              <h3 class="mb-0">Ajouter Nouveau Utilisateur</h3>
-            </div>
-          </div>
-        </div>
-        <div class="card-body">
-          <form #newUserForm="ngForm" (ngSubmit)="onAddNewUser(newUserForm)">
-            <div class="pl-lg-4">
-              <div class="row">
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label for="firstName" class="form-control-label" >Nom</label>
-                    <input type="text" name="firstName" id="firstName" class="form-control form-control-alternative" placeholder="Nom" ngModel >
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label for="lastName" class="form-control-label" >Prénom</label>
-                    <input type="text" name="lastName" id="lastName" class="form-control form-control-alternative" placeholder="Prénom" ngModel>
-                  </div>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label for="email" class="form-control-label" >Email</label>
-                    <input type="text" name="email" id="email" class="form-control form-control-alternative" placeholder="Email" ngModel>
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label for="authority" class="form-control-label" >Role</label>
-                    <select name="role" class="form-control form-control-alternative" ngModel="ROLE_MANAGER">
-                      <option value="ROLE_MANAGER">MANAGER</option>
-                      <option value="ROLE_ADMIN">ADMIN</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label for="username" class="form-control-label" >Pseudo</label>
-                    <input type="text" name="username" id="username" class="form-control form-control-alternative" placeholder="Pseudo" ngModel>
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label for="password" class="form-control-label" >Mot de passe</label>
-                    <input type="password" name="password" id="password" class="form-control form-control-alternative" placeholder="Mot de passe" ngModel>
-                  </div>
-                </div>
-              </div>
-
-          <div class="row">
-            <div class="col-lg-12">
-                <fieldset class="form-group">
-                  <div class="form-check">
-                    <label class="form-check-label" >
-                    <input type="checkbox" name="active" ngModel class="form-check-input" > Active </label>
-                  </div>
-
-                  <div class="form-check">
-                    <label class="form-check-label" >
-                    <input type="checkbox" name="notLocked" ngModel class="form-check-input" > Déverrouillé </label>
+    <div class="row">
+        <div class="col-xl-12 order-xl-1">
+            <div class="card bg-secondary shadow">
+                <div class="card-header bg-white border-0">
+                    <div class="row align-items-center">
+                        <div class="col-12">
+                            <a href="javascript:history.back()"><i class="fa fa-arrow-left"></i> Revenir vers la Liste des utilisateurs</a>
+                            <hr>
+                            <h3 class="mb-0">Ajouter Utilisateur</h3>
+                        </div>
                     </div>
-              </fieldset>
+                </div>
+                <div class="card-body">
+                    <form (ngSubmit)="submitForm()">
+                        <div class="pl-lg-4">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="cin" class="form-control-label">CIN</label>
+                                        <input type="text" id="cin" name="cin" class="form-control" placeholder="CIN" [(ngModel)]="user.cin" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="firstName" class="form-control-label">Prénom</label>
+                                        <input type="text" id="firstName" name="firstName" class="form-control" placeholder="Prénom" [(ngModel)]="user.firstName" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="lastName" class="form-control-label">Nom</label>
+                                        <input type="text" id="lastName" name="lastName" class="form-control" placeholder="Nom" [(ngModel)]="user.lastName" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="email" class="form-control-label">Email</label>
+                                        <input type="email" id="email" name="email" class="form-control" placeholder="Email" [(ngModel)]="user.email" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="password" class="form-control-label">Mot de passe</label>
+                                        <input type="password" id="password" name="password" class="form-control" placeholder="Mot de passe" [(ngModel)]="user.password" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="birthDate" class="form-control-label">Date de naissance</label>
+                                        <input type="date" id="birthDate" name="birthDate" class="form-control" [(ngModel)]="user.birthDate" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="gender" class="form-control-label">Genre</label>
+                                        <select id="gender" name="gender" class="form-control" [(ngModel)]="user.gender" required>
+                                            <option value="true">Homme</option>
+                                            <option value="false">Femme</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="role" class="form-control-label">Rôle</label>
+                                        <select id="role" name="role" class="form-control" [(ngModel)]="selectedRole" required>
+                                            <option *ngFor="let role of roles" [value]="role">{{ translateRole(role) }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="city" class="form-control-label">Ville</label>
+                                        <select id="city" name="city" class="form-control" [(ngModel)]="selectedGovernorate" required>
+                                            <option *ngFor="let governorate of governorates" [value]="governorate">{{ governorate }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="active" class="form-control-label">Actif</label>
+                                        <select id="active" name="active" class="form-control" [(ngModel)]="user.active" required>
+                                            <option value="true">Oui</option>
+                                            <option value="false">Non</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 text-right">
+                                    <button type="submit" class="btn btn-primary">Ajouter Utilisateur</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
-          </div>
-          <div class="col-12 text-right">
-            <button type="submit" class="btn btn-blue">Ajouter</button>
-          </div>
-
-
-
-
-          </div>
-
-          </form>
         </div>
-      </div>
     </div>
-  </div>
 </div>
-

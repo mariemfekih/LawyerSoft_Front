@@ -25,7 +25,12 @@
             <p class="card-text"><strong>Date Cloture:</strong> {{ case?.closingDate }}</p>
             <p class="card-text"><strong>Type:</strong> {{ case?.type }}</p>
             <p class="card-text"><strong>Reference:</strong> {{ case?.reference }}</p>
-          </div>
+            
+            <!--<p class="card-text"><strong>Client:</strong> {{ case?.customer?.firstName }} {{ case?.customer?.lastName }}</p>-->
+            <a href="javascript:void(0)" (click)="showCustomerDetails(case)">Client: {{ (case?.customerId) }} </a>
+
+
+                  </div>
   
           <!-- TRIAL -->
           <div class="card-footer col-12">
@@ -41,6 +46,7 @@
                     <th scope="col">Titre</th>
                     <th scope="col">Description</th>
                     <th scope="col">Jugement</th>
+                    <th scope="col">Tribunal</th>
                     <th scope="col">Actions</th>
                   </tr>
                 </thead>
@@ -49,11 +55,14 @@
                     <td>{{ trial.title }}</td>
                     <td>{{ trial.description }}</td>
                     <td>{{ trial.judgement }}</td>
+                    <td>{{ translateCourtType(trial.courtInstance.type) }} {{ trial.courtInstance.governorate }}</td>
+                    
                     <td>
+                      <button type="button" class="btn btn-sm btn-secondary mr-4" (click)="showTrialDetails(trial)"><i class="fa fa-eye"></i></button>
                       <button type="button" class="btn btn-sm btn-blue mr-4" (click)="openUpdateTrialPopup(trial.idTrial)">
                         <i class="fa fa-edit"></i>
                       </button>
-                      <button type="button" class="btn btn-sm btn-danger mr-4" (click)="openDeleteTrialPopup(trial.idTrial)">
+                      <button type="button" class="btn btn-sm btn-danger mr-4" (click)="deleteTrial(trial.idTrial)">
                         <i class="fa fa-trash"></i>
                       </button>
                     </td>
@@ -97,20 +106,21 @@
                   <div class="card-body">
                     <form (ngSubmit)="onAddTrial()">
                       <div class="form-group">
-                        <label for="title">Titre</label>
+                        <label for="title" class="form-control-label">Titre</label>
                         <input type="text" class="form-control" id="title" name="title" placeholder="titre" [(ngModel)]="trial1.title" required>
                       </div>
                       <div class="form-group">
-                        <label for="description">Description</label>
+                        <label for="description" class="form-control-label">Description</label>
                         <textarea class="form-control" id="description" name="description" placeholder="description" [(ngModel)]="trial1.description" required></textarea>
                       </div>
                       <div class="form-group">
-                        <label for="judgement">Jugement</label>
+                        <label for="judgement" class="form-control-label">Jugement</label>
                         <input type="text" class="form-control" id="judgement" name="judgement" placeholder="jugement" [(ngModel)]="trial1.judgement" required>
                       </div>
                       <div class="form-group">
+                        <label for="judgement" class="form-control-label">Tribunal</label>
                         <select class="form-control" id="court" name="court" [(ngModel)]="selectedCourtId" required>
-                          <option *ngFor="let court of courts" [ngValue]="court.idCourt">{{ court.type }} {{ court.governorate }}</option>
+                          <option *ngFor="let court of courts" [ngValue]="court.idCourt">{{ translateCourtType(court.type) }} {{ court.governorate }}</option>
                         </select>
                       </div>
                       <button type="submit" class="btn btn-blue">Ajouter Trial</button>
@@ -146,8 +156,8 @@
                       <th scope="col">Email</th>
                       <th scope="col">Ville</th>
                       <th scope="col">Télephone</th>
-                      <th scope="col">Date de naissaince</th>
-                      <th scope="col">Métier</th>
+                      <!--<th scope="col">Date de naissaince</th>-->
+                      <!--<th scope="col">Métier</th>-->
                       <th scope="col">Type</th>
                       <th scope="col">Actions</th>
                     </tr>
@@ -166,14 +176,16 @@
                       <td>{{ contributor?.auxiliary?.email }}</td>
                       <td>{{ contributor?.auxiliary?.city }}</td>
                       <td>{{ contributor?.auxiliary?.phone }}</td>
-                      <td>{{ contributor?.auxiliary?.birthDate }}</td>
-                      <td>{{ contributor?.auxiliary?.job}}</td>
-                      <td>{{ contributor?.type}}</td>
+                      <!--<td>{{ contributor?.auxiliary?.birthDate }}</td>
+                      <td>{{ contributor?.auxiliary?.job}}</td>-->
+                      <td>{{ translateContributorType(contributor?.type) }}</td>
                       <td>
+                        <button type="button" class="btn btn-sm btn-secondary mr-4"(click)="showContributorDetails(contributor)" ><i class="fa fa-eye"></i></button>
+
                         <button type="button" class="btn btn-sm btn-blue mr-4" (click)="openUpdateContributorPopup(contributor.idContributor)">
                           <i class="fa fa-edit"></i>
                         </button>
-                        <button type="button" class="btn btn-sm btn-danger mr-4" (click)="openDeleteContributorPopup( contributor.idContributor)">
+                        <button type="button" class="btn btn-sm btn-danger mr-4" (click)="deleteContributor( contributor.idContributor)">
                           <i class="fa fa-trash"></i>
                         </button>
                       </td>
@@ -241,6 +253,12 @@
                 <label for="judgement">Jugement</label>
                 <input type="text" class="form-control" id="judgement" name="judgement" [(ngModel)]="updatedTrial.judgement" required>
               </div>
+              <div class="form-group">
+                <label for="judgement" class="form-control-label">Tribunal</label>
+                <select class="form-control" id="court" name="court" [(ngModel)]="selectedCourtId" required>
+                  <option *ngFor="let court of courts" [ngValue]="court.idCourt">{{ translateCourtType(court.type) }} {{ court.governorate }}</option>
+                </select>
+              </div>
               <!-- Ajoutez d'autres champs pour la mise à jour de l'essai si nécessaire -->
               <button type="submit" class="btn btn-blue">Modifier l'Audience</button>
               <button type="button" class="btn btn-danger" (click)="closeUpdateTrialPopup()">Fermer</button>
@@ -252,28 +270,7 @@
   </div>
   
   
-  <!-- Supprimer Trial Modal Popup -->
-  <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display': displayDeleteTrialStyle}">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-       
-        <div class="modal-body">
-          <div class="card-body">
-            <form (ngSubmit)="onDeleteTrial()">
-              <div class="form-group">
-                <p>Are you sure you want to delete this trial?</p>
-
-              </div>
-           
-              <!-- Ajoutez d'autres champs pour la mise à jour de l'essai si nécessaire -->
-              <button type="submit" class="btn btn-blue">Supprimer Trial</button>
-              <button type="button" class="btn btn-danger" (click)="closeDeleteTrialPopup()">Fermer</button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  
 
   <!-- ******************************************************************************************************************************** -->
 
@@ -287,14 +284,15 @@
         <div class="card-body">
           <form (ngSubmit)="onAddContributor()">
             <div class="form-group">
+              <label class="form-control-label" >Nom d'auxiliaire</label>
               <select class="form-control" id="auxiliary" name="auxiliary" [(ngModel)]="selectedAuxiliaryId" required> 
                 <option *ngFor="let auxiliary of auxiliaries" [ngValue]="auxiliary.idAuxiliary">{{ auxiliary.lastName }} {{ auxiliary.firstName }}</option>
             </select>
             </div>
             <div class="form-group">
-              <label for="contributorType">Type d'intervenant</label>
+              <label class="form-control-label" for="contributorType">Type d'intervenant</label>
               <select name="type" class="form-control form-control-alternative" [(ngModel)]="selectedContributorType">
-                <option *ngFor="let type of contributorTypes" [value]="type">{{ type }}</option>
+                <option *ngFor="let type of contributorTypes" [value]="type">{{ translateContributorType(type) }}</option>
               </select>
               
             </div>
@@ -307,25 +305,26 @@
     </div>
   </div>
 </div>
- <!-- Supprimer Contributor Modal Popup -->
- <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display': displayDeleteContributorStyle}">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-     
-      <div class="modal-body">
-        <div class="card-body">
-          <form (ngSubmit)="onDeleteContributor()">
-            <div class="form-group">
-              <p>Are you sure you want to delete this Contributor?</p>
-
-            </div>
-         
-            <!-- Ajoutez d'autres champs pour la mise à jour de l'essai si nécessaire -->
-            <button type="submit" class="btn btn-blue">Supprimer Contributor</button>
-            <button type="button" class="btn btn-danger" (click)="closeDeleteContributorPopup()">Fermer</button>
-          </form>
-        </div>
-      </div>
+ <!--Modifier intervennatn-->
+ <div class="update-contributor-popup" [style.display]="displayUpdateContributorStyle">
+  <h2>Update Contributor</h2>
+  <form (ngSubmit)="onUpdateContributor()">
+    <div class="form-group">
+      <label class="form-control-label">Auxiliary Name</label>
+      <select class="form-control" [(ngModel)]="updatedContributor.idAuxiliary" name="auxiliary" required>
+        <option *ngFor="let auxiliary of auxiliaries" [ngValue]="auxiliary.idAuxiliary">{{ auxiliary.lastName }} {{ auxiliary.firstName }}</option>
+      </select>
     </div>
-  </div>
+
+    <div class="form-group">
+      <label class="form-control-label" for="contributorType">Contributor Type</label>
+      <select class="form-control" [(ngModel)]="updatedContributor.type" name="type">
+        <option *ngFor="let type of contributorTypes" [value]="type">{{ translateContributorType(type) }}</option>
+      </select>
+    </div>
+
+    <!-- Other form inputs for updating contributor details -->
+
+    <button type="submit">Update Contributor</button>
+  </form>
 </div>

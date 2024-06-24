@@ -65,9 +65,10 @@ export class ListCaseComponent implements OnInit {
           aff.type.toLowerCase().includes(searchTermLowerCase) ||
           aff.description.toLowerCase().includes(searchTermLowerCase)
         );
-      });
+      }); 
     } else {
-      this.searchedCase = this.case.slice();
+      this.searchedCase = [...this.case];
+
     }
   }
 
@@ -152,7 +153,7 @@ export class ListCaseComponent implements OnInit {
     const header = Object.keys(data[0]).join(',');
     const rows = data.map(item => Object.values(item).join(','));
     return `${header}\n${rows.join('\n')}`;
-  }
+  } 
 
   exportToPDF() {
     const doc = new jsPDF();

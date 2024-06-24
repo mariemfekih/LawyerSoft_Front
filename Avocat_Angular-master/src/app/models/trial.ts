@@ -6,7 +6,7 @@ export class Trial {
     description:string;
     judgement:string;
     idCourt?:number;
-    court?:Court;
+    courtInstance?:Court;
     
 
 }

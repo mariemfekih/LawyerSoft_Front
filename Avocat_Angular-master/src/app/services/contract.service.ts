@@ -15,6 +15,8 @@ export class ContractService {
   generatePdf(contractData: any): Observable<string> {
     return this.http.post(`${this.host}/Case/pdf`, contractData, { responseType: 'text' });
   }
-
+  uploadPdf(formData: FormData) {
+    return this.http.post<any>(`${this.host}/File/addContract`, formData);
+  }
  
 }

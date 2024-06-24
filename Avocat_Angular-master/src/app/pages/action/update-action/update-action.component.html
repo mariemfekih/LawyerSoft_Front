@@ -1,0 +1,57 @@
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center">
+    <!-- Mask -->
+    <span class="mask bg-gradient-blue opacity-10"></span>
+    <!-- Header container -->
+  </div>
+  <div class="container-fluid mt--7">
+    <div class="row">
+        <div class="col-xl-12 order-xl-1">
+            <div class="card bg-secondary shadow">
+                <div class="card-header bg-white border-0">
+                    <div class="row align-items-center">
+                        <div class="col-12">
+                            <a href="javascript:history.back()"><i class="fa fa-arrow-left"></i> Revenir vers la Liste des Actions</a>
+                            <hr>
+                            <h3 class="mb-0">Modifier Action</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="updateActionForm" (ngSubmit)="updateAction()">
+                        <div class="pl-lg-4">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="reference" class="form-control-label">Reference</label>
+                                        <input type="text" name="reference" id="reference" class="form-control form-control-alternative" placeholder="reference" [(ngModel)]="action.reference" required>
+                                    </div>     
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="amount" class="form-control-label">Montant</label>
+                                        <input type="number" name="amount" id="amount" class="form-control form-control-alternative" placeholder="montant" [(ngModel)]="action.amount" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="description" class="form-control-label">Description</label>
+                                        <textarea name="description" id="description" class="form-control form-control-alternative" placeholder="description" [(ngModel)]="action.description" required></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 text-right">
+                                    <button type="submit" class="btn btn-primary">Modifier</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  

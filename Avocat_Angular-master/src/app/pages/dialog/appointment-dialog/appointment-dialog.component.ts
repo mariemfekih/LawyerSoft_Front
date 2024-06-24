@@ -18,10 +18,11 @@ export class AppointmentDialogComponent implements OnInit {
   selectedLocationType: LocationType = LocationType.ONLINE;
   locationTypes = Object.values(LocationType);
 
-  idUser:number;
+  idUser: number;
   auxiliaries: Auxiliary[] = [];
 
-  constructor( private auxiliaryService: AuxiliaryService,
+  constructor(
+    private auxiliaryService: AuxiliaryService,
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<AppointmentDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -37,6 +38,7 @@ export class AppointmentDialogComponent implements OnInit {
       location: ['', Validators.required]
     });
   }
+
   ngOnInit(): void {
     this.idUser = JSON.parse(localStorage.getItem('id')!);
 
@@ -48,7 +50,8 @@ export class AppointmentDialogComponent implements OnInit {
       error => {
         console.error('Error fetching auxiliaries:', error);
       }
-    );  }
+    );
+  }
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -59,5 +62,4 @@ export class AppointmentDialogComponent implements OnInit {
       this.dialogRef.close(this.appointmentForm.value);
     }
   }
-
 }

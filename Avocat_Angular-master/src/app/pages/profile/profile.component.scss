@@ -42,3 +42,9 @@
     border-color: #243d69;
     background-color: #0b1526;
 }
+.profile-image {
+    width: 150px;  // Adjust size as needed
+    height: 150px; // Ensure it's the same as width
+    object-fit: cover; // Ensures the image covers the area without stretching
+  }
+  

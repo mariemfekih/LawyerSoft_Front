@@ -75,8 +75,8 @@ export class ListAuxiliaryComponent implements OnInit {
           auxiliary.city.toLowerCase().includes(searchTermLowerAuxiliary) ||
           auxiliary.phone.toString().toLowerCase().includes(searchTermLowerAuxiliary)||
           auxiliary.birthDate.toString().toLowerCase().includes(searchTermLowerAuxiliary) ||
-          auxiliary.job.toLowerCase().includes(searchTermLowerAuxiliary) 
-        );
+          auxiliary.job.toLowerCase().includes(searchTermLowerAuxiliary) ||
+          auxiliary.gender.toString().toLowerCase().includes(searchTermLowerAuxiliary)         );
       });
     } else {
       this.searchedAuxiliary = this.auxiliary.slice();
@@ -163,5 +163,11 @@ Delete PopUp
         return pages;
       }
 
-
+      generateRandomColor(initial: string): string {
+        const colors = ['#FF5733', '#33FF57', '#5733FF', '#FFFF33', '#33FFFF', '#FF33FF', '#A9A9A9', '#FF5733', '#33FF57', '#5733FF', '#FFFF33', '#33FFFF', '#FF33FF', '#A9A9A9', '#FF5733', '#33FF57', '#5733FF', '#FFFF33', '#33FFFF', '#FF33FF', '#A9A9A9', '#FF5733', '#33FF57', '#5733FF', '#FFFF33', '#33FFFF', '#FF33FF', '#A9A9A9'];
+    
+        const charCode = initial.toLowerCase().charCodeAt(0) - 97;
+        return colors[charCode % colors.length];
+    }
+    
 }

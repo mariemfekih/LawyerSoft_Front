@@ -32,7 +32,9 @@ export class UpdateAuxiliaryComponent implements OnInit {
       city: ['', Validators.required],
       birthDate: ['', Validators.required],
       email: ['', Validators.required],
-      phone: ['', Validators.required]
+      phone: ['', Validators.required],
+      gender: ['', Validators.required]
+
     });
   
     const idAuxiliary = this.route.snapshot.params['idAuxiliary'];
@@ -47,7 +49,9 @@ export class UpdateAuxiliaryComponent implements OnInit {
         phone: this.auxiliary.phone,
         city: this.auxiliary.city,
         birthDate: this.auxiliary.birthDate,
-        job: this.auxiliary.job 
+        job: this.auxiliary.job ,
+        gender: this.auxiliary.gender
+
       });
     });
   }

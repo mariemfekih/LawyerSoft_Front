@@ -8,6 +8,10 @@ import { NotificationService } from 'src/app/services/notification.service';
 import { UserService } from 'src/app/services/user.service';
 import { CustomHttpRespone } from 'src/app/models/custom-http-response';
 import { EmailService } from 'src/app/services/email.service'; // Import the EmailService
+import Swal from 'sweetalert2';
+import { roleTranslator } from 'src/app/models/type/TranslatorFr/roleTranslator';
+import { Role } from 'src/app/models/type/role';
+import jsPDF from 'jspdf';
 
 
 @Component({
@@ -26,7 +30,9 @@ export class ListUserComponent implements OnInit {
   dialog: any;
   displayChange: string = 'none'; 
   currentActivationStatus: boolean;
-
+  translateUserRole(role: Role): string {
+    return roleTranslator.translateFrRole(role);
+  }
 
   constructor(private userService: UserService,
               private emailService: EmailService, 
@@ -41,7 +47,7 @@ export class ListUserComponent implements OnInit {
   }
   
 
-
+ 
   public getUsers() {
     this.userService.getUsers().subscribe(
       (data) => {
@@ -95,36 +101,110 @@ export class ListUserComponent implements OnInit {
   }
 
   public onDeleteUser(id: any) {
-    const userId: number = Number(id); // Convert id to number
+    const userId: number = Number(id);
     if (isNaN(userId)) {
-        console.error('Invalid id:', id);
-        return; // Stop execution if id is not a valid number
+      console.error('Invalid id:', id);
+      return;
     }
 
-    this.userService.deleteUser(userId).subscribe(
-        () => {
+    Swal.fire({
+      title: 'Êtes-vous sûr ?',
+      text: "Cette action ne peut pas être annulée !",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Oui, supprimer !',
+      cancelButtonText: 'Annuler'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.userService.deleteUser(userId).subscribe(
+          () => {
             this.getUsers();
-            console.log("supp"); 
-        },
-        (error) => {
-            console.error("erreur", error);
-        }
+            Swal.fire(
+              'Supprimé !',
+              'L\'utilisateur a été supprimé.',
+              'success'
+            );
+          },
+          (error) => {
+            console.error("Erreur", error);
+            Swal.fire(
+              'Erreur !',
+              'Une erreur s\'est produite lors de la suppression de l\'utilisateur.',
+              'error'
+            );
+          }
+        );
+      }
+    });
+  }
+
+  
+  showUserDetails(userId: number): void {
+    this.userService.getUserById(userId).subscribe(
+      (user: User) => {
+        const translatedRole = roleTranslator.translateFrRole(user.role as Role); // Cast user.role to Role enum and translate
+        const genderLabel = user.gender ? 'Homme' : 'Femme';
+        Swal.fire({
+          title: `<strong>Détails de l'utilisateur</strong>`,
+          html: `
+            <p><strong>Nom:</strong> ${user.firstName} ${user.lastName}</p>
+            <p><strong>Email:</strong> ${user.email}</p>
+            <p><strong>Nom d'utilisateur:</strong> ${user.username}</p>
+            <p><strong>Rôle:</strong> ${translatedRole}</p>
+            <p><strong>Actif:</strong> ${user.active ? 'Oui' : 'Non'}</p>
+            <p><strong>Ville:</strong> ${user.city}</p>
+            <p><strong>CIN:</strong> ${user.cin}</p>
+            <p><strong>Date de naissance:</strong> ${this.formatDate(user.birthDate)}</p>
+            <p><strong>Genre:</strong> ${genderLabel}</p>
+          `,
+          icon: 'info',
+          confirmButtonText: 'Fermer'
+        });
+      },
+      (error: any) => {
+        console.error('Error fetching user details:', error);
+      }
     );
-}
-/*public confirmStatusChange(userId: number, currentStatus: string): void {
-  let message = '';
-  if (currentStatus === 'Active') {
-    message = 'Are you sure you want to make this user inactive?';
-  } else if (currentStatus === 'Inactive') {
-    message = 'Are you sure you want to make this user active?';
+  }
+  private formatDate(date: Date): string {
+    if (!date) return ''; // Handle empty date gracefully if necessary
+    const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: '2-digit', day: '2-digit' };
+    return new Date(date).toLocaleDateString('fr-FR', options); // Format the date as 'DD/MM/YYYY'
   }
 
-}
-  changeUserStatus(userId: number, currentStatus: string) {
-    throw new Error('Method not implemented.');
-  }
-*/
 
+  exportToPDF() {
+    const doc = new jsPDF();
+    const data = this.user.map(user => {
+      return {
+        Nom: user.firstName+user.lastName,
+        Email: user.email,
+        Username: user.username,
+        Role: this.translateUserRole(user.role),
+        Cin: user.cin,
+        City:user.city,
+        'Date de naissance':user.birthDate,
+        Active:user.active
+      };
+    });
+
+    const header = [['Nom et Prenom', 'Email', 'Pseudo', 'Role','Cin','City','Date de naissance','Actif']];
+    const rows = data.map(obj => Object.keys(obj).map(key => obj[key]));
+
+    (doc as any).autoTable({
+      head: header,
+      body: rows,
+      theme: 'plain',
+      didDrawCell: (data: { column: { index: any; }; }) => { 
+        //console.log(data.column.index)
+           console.log('pdf done')
+       }
+    })
+    doc.output('dataurlnewwindow');
+    doc.save('utilisateurs.pdf');
+  }
 
 
   /*Pagination*/

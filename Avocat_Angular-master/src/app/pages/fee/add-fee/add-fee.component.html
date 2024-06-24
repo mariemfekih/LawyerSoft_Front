@@ -1,0 +1,90 @@
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center">
+    <!-- Mask -->
+    <span class="mask bg-gradient-blue opacity-10"></span>
+    <!-- Header container -->
+</div>
+<div class="container-fluid mt--7">
+    <div class="row">
+        <div class="col-xl-12 order-xl-1">
+            <div class="card bg-secondary shadow">
+                <div class="card-header bg-white border-0">
+                    <div class="row align-items-center">
+                        <div class="col-12">
+                            <a href="javascript:history.back()"><i class="fa fa-arrow-left"></i> Revenir vers la Liste des Honoraires</a>
+                            <hr>
+                            <h3 class="mb-0">Ajouter Honoraire</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form (ngSubmit)="submitForm()">
+                        <div class="pl-lg-4">
+                            <div class="row">
+                                <!--<div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="type" class="form-control-label">Type</label>
+                                        <select name="type" class="form-control form-control-alternative" [(ngModel)]="fee.type" required>
+                                            <option value="HOURLY">Hourly</option>
+                                            <option value="FLAT">Flat</option>
+                                            <option value="SUBSCRIPTION">Subscription</option>
+                                            <option value="CONSULTATION">Consulattion</option>
+                                            <option value="CONTINGENCY">Contingency</option>
+                                        </select>
+                                    </div>
+                                </div>-->
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                      <label for="client" class="form-control-label">Client</label>
+                                      <select class="form-control form-control-alternative" id="customer" name="customer" [(ngModel)]="selectedCustomerId" required> 
+                                        <option *ngFor="let customer of customers" [ngValue]="customer.idCustomer">{{ customer.lastName }} {{ customer.firstName }}</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="date" class="form-control-label">Date</label>
+                                        <input type="date" name="date" id="date" class="form-control form-control-alternative" placeholder="date" [(ngModel)]="fee.date" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        
+                                        <label for="remain" class="form-control-label">Reste</label>
+                                        <input type="text" name="remain" id="remain" class="form-control form-control-alternative" placeholder="reste" [(ngModel)]="fee.remain" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="reference" class="form-control-label">Reference</label>
+                                        <input type="text" name="reference" id="reference" class="form-control form-control-alternative" placeholder="reference" [(ngModel)]="fee.reference" required>
+                                    </div>
+                                </div>
+                               
+                            </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="selectedActionIds" class="form-control-label">Select Actions</label>
+                                            <select id="selectedActionIds" name="selectedActionIds" class="form-control form-control-alternative" [(ngModel)]="selectedActionIds" multiple required>
+                                                <option *ngFor="let action of actions" [value]="action.idAction">{{ action.reference }}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div> 
+                           
+
+                        
+                            <div class="row">
+                                <div class="col-12 text-right">
+                                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,6 +1,8 @@
 <div class="header bg-gradient-blue pb-8 pt-5 pt-md-8">
     <div class="container-fluid">
       <div class="header-body">
+        <h1 class="text-white">Auxiliaires</h1>
+        <p class="text-white">Suivez et gérez facilement les informations et les interactions de vos auxiliaires.</p>
       </div>
     </div>
   </div>
@@ -22,7 +24,7 @@
           </div>
           <div class="col-12 text-right">
           <button type="submit"  class="btn btn-blue" (click)="onAddAuxiliary()"><i class="fa fa-plus"></i> |  Ajouter Auxiliaire </button>
-          <button type="button" class="btn btn-success" (click)="printAuxiliary()">
+          <button type="button" class="btn btn-info" (click)="printAuxiliary()">
             <i class="fa fa-download"></i> | Exporter PDF
           </button>
           <br>
@@ -32,7 +34,7 @@
             <table class="table align-items-center table-flush">
               <thead class="thead-light">
                 <tr>
-                  <th scope="col">Nom Prénom</th>
+                  <th scope="col">    Nom Prénom</th>
                   <th scope="col">Cin</th>
                   <th scope="col">Email</th>
                   <th scope="col">Ville</th>
@@ -47,6 +49,7 @@
                 <tr *ngFor="let auxiliary of searchedAuxiliary| slice:(currentPage-1)*itemsPerPage:currentPage*itemsPerPage">
                     <th scope="row">
                         <div class="media align-items-center">
+                      
                           <div class="media-body">
                             <span class="mb-0 text-sm">{{auxiliary.lastName}} {{auxiliary.firstName}}</span>
                           </div>
